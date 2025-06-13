@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:keja_hunt/core/utils/theme/colors.dart';
+
+import '../../../../../core/presentation/components/avatar.dart';
 
 class UserDashboardPage extends StatefulWidget {
   final Widget child;
@@ -16,16 +19,48 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        leading: SvgPicture.asset(
-          'assets/icons/menu.svg',
-          width: 24,
-          height: 24,
-          colorFilter: ColorFilter.mode(
-            Theme.of(context).textTheme.bodyMedium!.color!,
-            BlendMode.srcIn,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        leading: GestureDetector(
+          onTap: () {
+
+          },
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            padding: const EdgeInsets.all(8),
+            child: SvgPicture.asset(
+              'assets/images/icons/menu.svg',
+              width: 26,
+              height: 26,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).textTheme.bodyMedium!.color!,
+                BlendMode.srcIn,
+              ),
+            ),
           ),
         ),
-        title: Row(),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 16,
+          children: [
+            SvgPicture.asset(
+              'assets/images/icons/notification.svg',
+              width: 26,
+              height: 26,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).textTheme.bodyMedium!.color!,
+                BlendMode.srcIn,
+              ),
+            ),
+
+            Avatar(
+              imageUrl:
+                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            ),
+          ],
+        ),
       ),
       body: widget.child,
     );

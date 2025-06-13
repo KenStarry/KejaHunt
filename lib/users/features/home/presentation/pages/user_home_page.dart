@@ -13,14 +13,12 @@ class _UserHomePageState extends State<UserHomePage> {
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
-      child: Center(
-        child: Text(
-          "User Home Page",
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-      ),
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter()
+        ]
+      )
     );
   }
 }
