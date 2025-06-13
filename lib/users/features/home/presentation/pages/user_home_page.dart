@@ -10,15 +10,26 @@ class UserHomePage extends StatefulWidget {
 class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
       height: double.infinity,
+      margin: const EdgeInsets.only(top: 24),
+      padding: const EdgeInsets.only(left: 16),
       child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
+          SliverToBoxAdapter(
+            child: Text(
+              "Discover\nyour new home!",
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 26
+              ),
+            ),
+          ),
+
           SliverToBoxAdapter()
-        ]
-      )
+        ],
+      ),
     );
   }
 }
