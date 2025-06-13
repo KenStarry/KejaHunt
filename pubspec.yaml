@@ -34,6 +34,54 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  go_router: ^15.2.0
+  flutter_bloc: ^9.1.1
+  hydrated_bloc: ^10.0.0
+  equatable: ^2.0.7
+  page_transition: ^2.2.1
+  shared_preferences: ^2.5.3
+  dio: ^5.8.0+1
+  flutter_animated_dialog: ^2.0.1
+  flutter_staggered_animations: ^1.1.1
+  get_it: ^8.0.3
+  flutter_svg: ^2.1.0
+  cached_network_image: ^3.4.1
+  flutter_spinkit: ^5.2.1
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
+  flutter_animate: ^4.5.2
+  story_view: ^0.16.5
+  lottie: ^3.3.1
+  url_launcher: ^6.3.1
+  file_picker: ^10.2.0
+  easy_stepper: ^0.8.5+1
+  flutter_inappwebview: ^6.1.5
+  pdf: ^3.11.3
+  printing: ^5.14.2
+  permission_handler: ^12.0.0+1
+  path_provider: ^2.1.5
+  google_maps_flutter: ^2.12.2
+  local_session_timeout: ^3.2.0
+  animated_text_kit: ^4.2.3
+  rename: ^3.1.0
+  flutter_secure_storage: ^9.2.4
+  collection: ^1.19.1
+  crypto: ^3.0.6
+  envied: ^1.1.1
+  upgrader: ^11.4.0
+  dots_indicator: ^4.0.1
+  carousel_slider: ^5.1.1
+  showcaseview: ^4.0.1
+  in_app_review: ^2.0.10
+  uuid: ^4.5.1
+  flutter_zoom_drawer: ^3.2.0
+  money_formatter: ^0.0.6
+  drag_and_drop_lists: ^0.4.2
+  screenshot: ^3.0.0
+
+  # Local Storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -44,12 +92,31 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.6
+  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.15
+  freezed: ^2.5.2
+  json_serializable: ^6.7.1
+  envied_generator: ^1.1.1
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+#  dart run flutter_native_splash:create
+flutter_native_splash:
+  image: assets/images/logo.png
+  color: "#FFFFFF"
+  #  image_dark: assets/images/screen_logo.png
+  #  color_dark: "#007DC3"
+  #  background_image: assets/images/splash.png
+  android_12:
+    #    image: assets/images/init.png
+    color: "#FFFFFF"
+#    image_dark: assets/images/screen_logo.png
+#    color_dark: "#007DC3"
+#    background_image: assets/images/splash.png
 
-# The following section is specific to Flutter packages.
 flutter:
 
   # The following line ensures that the Material Icons font is
