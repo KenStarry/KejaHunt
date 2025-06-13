@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key});
+class AgentDashboardPage extends StatefulWidget {
+  final Widget child;
+  const AgentDashboardPage({super.key, required this.child});
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  State<AgentDashboardPage> createState() => _AgentDashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _AgentDashboardPageState extends State<AgentDashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
