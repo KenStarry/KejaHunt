@@ -82,6 +82,9 @@ dependencies:
   # Local Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  curved_navigation_bar: ^1.0.6
+  animated_bottom_navigation_bar: ^1.4.0
+  flashy_tab_bar2: ^0.0.10
 
 dev_dependencies:
   flutter_test:
@@ -135,15 +138,23 @@ flutter:
     - assets/lottie/
 
   fonts:
-    - family: Satoshi
+    - family: Urbanist
       fonts:
-        - asset: assets/fonts/Satoshi-Black.otf
-        - asset: assets/fonts/Satoshi-BlackItalic.otf
-        - asset: assets/fonts/Satoshi-Bold.otf
-        - asset: assets/fonts/Satoshi-BoldItalic.otf
-        - asset: assets/fonts/Satoshi-Italic.otf
-        - asset: assets/fonts/Satoshi-Light.otf
-        - asset: assets/fonts/Satoshi-LightItalic.otf
-        - asset: assets/fonts/Satoshi-Medium.otf
-        - asset: assets/fonts/Satoshi-MediumItalic.otf
-        - asset: assets/fonts/Satoshi-Regular.otf
+        - asset: assets/fonts/Urbanist-Black.ttf
+        - asset: assets/fonts/Urbanist-BlackItalic.ttf
+        - asset: assets/fonts/Urbanist-Bold.ttf
+        - asset: assets/fonts/Urbanist-BoldItalic.ttf
+        - asset: assets/fonts/Urbanist-ExtraBold.ttf
+        - asset: assets/fonts/Urbanist-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Urbanist-ExtraLight.ttf
+        - asset: assets/fonts/Urbanist-ExtraLightItalic.ttf
+        - asset: assets/fonts/Urbanist-Italic.ttf
+        - asset: assets/fonts/Urbanist-Light.ttf
+        - asset: assets/fonts/Urbanist-LightItalic.ttf
+        - asset: assets/fonts/Urbanist-Medium.ttf
+        - asset: assets/fonts/Urbanist-MediumItalic.ttf
+        - asset: assets/fonts/Urbanist-Regular.ttf
+        - asset: assets/fonts/Urbanist-SemiBold.ttf
+        - asset: assets/fonts/Urbanist-SemiBoldItalic.ttf
+        - asset: assets/fonts/Urbanist-Thin.ttf
+        - asset: assets/fonts/Urbanist-ThinItalic.ttf

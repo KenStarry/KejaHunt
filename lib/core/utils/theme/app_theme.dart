@@ -69,7 +69,7 @@ class AppTheme {
             color: whiteColor, surfaceTintColor: whiteColor),
         canvasColor: whiteColor,
         dividerColor: Colors.transparent,
-        fontFamily: "Satoshi",
+        fontFamily: "Urbanist",
         textTheme: AppTextTheme.lightTextTheme());
   }
 

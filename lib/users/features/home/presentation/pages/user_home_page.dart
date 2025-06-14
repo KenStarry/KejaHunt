@@ -103,6 +103,9 @@ class _UserHomePageState extends State<UserHomePage> {
               ),
             ),
           ),
+
+          /// Featured Categories section
+          
         ],
       ),
     );
