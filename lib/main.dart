@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:keja_hunt/core/utils/theme/app_theme.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/utils/routing/app_router.dart';
+import 'env/env.dart';
 
-void main() {
+Future<void> main() async {
+  /// Initialize Supabase
+  await Supabase.initialize(url: Env.supabaseUrl, anonKey: Env.supabaseAnonKey);
+
   runApp(const MyApp());
 }
 
