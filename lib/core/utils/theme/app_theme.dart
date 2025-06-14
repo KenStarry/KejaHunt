@@ -167,15 +167,15 @@ class AppTextTheme {
   static TextTheme lightTextTheme() {
     return const TextTheme(
       bodyLarge: TextStyle(
-          color: textBlack700, fontSize: 18, fontWeight: FontWeight.w600),
+          color: textBlack700, fontSize: 16, fontWeight: FontWeight.w600),
       bodyMedium: TextStyle(
           color: textBlack700, fontSize: 14, fontWeight: FontWeight.w500),
       bodySmall: TextStyle(
           color: textBlack700, fontSize: 12, fontWeight: FontWeight.w400),
       titleLarge: TextStyle(
-          color: primaryColor, fontSize: 24, fontWeight: FontWeight.w700),
+          color: textBlack900, fontSize: 28, fontWeight: FontWeight.w700),
       titleMedium: TextStyle(
-          color: primaryColor, fontSize: 22, fontWeight: FontWeight.w700),
+          color: textBlack900, fontSize: 24, fontWeight: FontWeight.w700),
       titleSmall: TextStyle(
           color: textBlack800, fontSize: 20, fontWeight: FontWeight.w700),
     );

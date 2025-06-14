@@ -18,16 +18,14 @@ class _AuthPageState extends State<AuthPage> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: Theme.of(context).textTheme.bodyMedium!.color!,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: widget.child,
-      ),
+      body: widget.child,
     );
   }
 }

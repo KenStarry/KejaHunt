@@ -105,7 +105,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                 ),
                 //  action button
-                CustomFilledButton(text: "Next", onTap: () {})
+                CustomFilledButton(text: "Get Started", onTap: () {
+
+                })
               ]),
             ),
             SizedBox(height: 48),

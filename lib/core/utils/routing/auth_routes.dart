@@ -1,10 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:keja_hunt/core/features/auth/auth_page.dart';
 import 'package:keja_hunt/core/features/auth/general_auth/presentation/pages/general_auth_page.dart';
 import 'package:keja_hunt/core/features/auth/login/presentation/pages/login_page.dart';
 import 'package:keja_hunt/core/features/auth/signup/presentation/pages/signup_page.dart';
-import 'package:keja_hunt/users/features/dashboard/presentation/pages/user_dashboard_page.dart';
-import 'package:keja_hunt/users/features/home/presentation/pages/user_home_page.dart';
+
+import '../../features/auth/presentation/auth_page.dart';
 
 final authRoutes = StatefulShellRoute.indexedStack(
   builder: (context, state, navigationShell) =>
