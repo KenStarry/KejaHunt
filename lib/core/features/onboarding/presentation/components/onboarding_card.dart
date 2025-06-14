@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/model/onboarding_card_model.dart';
-import 'package:keja_hunt/core/presentation/components/house_network_image.dart';
+import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 import 'package:flutter/material.dart';
@@ -130,7 +130,7 @@ class _OnboardingCardState extends State<OnboardingCard> {
                               bottomLeft: Radius.circular(70),
                             ),
                             child:
-                                HouseNetworkImage(
+                                CustomNetworkImage(
                                       url: widget.onboardingCardModel.imageUrl,
                                     )
                                     .animate(autoPlay: true)

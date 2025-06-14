@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
 
           SliverToBoxAdapter(
             child: Text(
-              "Let’s Log You In",
+              "Ready to Hunt\nAgain?",
               textAlign: TextAlign.center,
               style: Theme.of(
                 context,
@@ -219,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
+          SliverToBoxAdapter(child: SizedBox(height: 100)),
         ],
       ),
     );
