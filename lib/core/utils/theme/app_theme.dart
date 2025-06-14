@@ -29,9 +29,10 @@ class AppTheme {
           style: FilledButton.styleFrom(
             backgroundColor: accent ?? primaryColor,
             foregroundColor: whiteColor,
-            minimumSize: const Size(double.infinity, 50),
+            shadowColor: accent ?? primaryColor,
+            minimumSize: const Size(double.infinity, 58),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(100),
             ),
           ),
         ),

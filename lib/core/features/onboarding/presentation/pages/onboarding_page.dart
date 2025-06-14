@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart' as slider;
 import 'package:keja_hunt/core/features/onboarding/presentation/components/onboarding_card.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/model/onboarding_card_model.dart';
+import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -68,13 +69,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
             ),
+            SizedBox(height: 24),
             Container(
               width: double.infinity,
-              height: 70,
-              color: Colors.blue,
-              child: Column(children: []),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(children: [
+                //  dots indicator
+                //  action button
+                CustomFilledButton(text: "Next", onTap: () {})
+              ]),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 48),
           ],
         ),
       ),
