@@ -14,7 +14,7 @@ final GoRoute onboardingRoute = GoRoute(
 );
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/general-auth',
+  initialLocation: '/login',
   routes: [
 
     // Onboarding Route

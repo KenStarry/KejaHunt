@@ -21,7 +21,6 @@ class _GeneralAuthPageState extends State<GeneralAuthPage> {
   void initState() {
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
