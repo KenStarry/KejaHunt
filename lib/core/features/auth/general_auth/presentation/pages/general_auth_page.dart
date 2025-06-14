@@ -65,16 +65,15 @@ class _GeneralAuthPageState extends State<GeneralAuthPage> {
           SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverToBoxAdapter(
             child: Row(
+              spacing: 16,
               children: [
                 Expanded(flex: 2, child: Divider(thickness: 1, color: grey200)),
-                Expanded(
-                  child: Text(
-                    "Or",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: grey700,
-                      fontWeight: FontWeight.w700,
-                    ),
+                Text(
+                  "Or",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: grey700,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 Expanded(flex: 2, child: Divider(thickness: 1, color: grey200)),
