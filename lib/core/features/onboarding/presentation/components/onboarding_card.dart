@@ -59,6 +59,39 @@ class OnboardingCard extends StatefulWidget {
 }
 
 class _OnboardingCardState extends State<OnboardingCard> {
+  Widget generateRandomDot({
+    required Size size,
+    double? left,
+    double? right,
+    double? top,
+    double? bottom,
+  }) {
+    return Positioned(
+      left: left,
+      top: top,
+      bottom: bottom,
+      right: right,
+      child:
+          Container(
+                width: size.width,
+                height: size.height,
+                decoration: BoxDecoration(
+                  color: primaryColor200,
+                  shape: BoxShape.circle,
+                ),
+              )
+              .animate(
+                autoPlay: true,
+                onPlay: (controller) => controller.repeat(reverse: true),
+              )
+              .scale(
+                duration: Duration(milliseconds: 1000),
+                begin: Offset(1, 1),
+                end: Offset(1.5, 1.5),
+              ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,35 +108,68 @@ class _OnboardingCardState extends State<OnboardingCard> {
         children: [
           Expanded(
             flex: 10,
-            child: ClipPath(
-              clipper: VerticalCapsuleClipper(),
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(70),
-                    bottomLeft: Radius.circular(70),
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(70),
-                    bottomLeft: Radius.circular(70),
-                  ),
-                  child:
-                      HouseNetworkImage(
-                            url: widget.onboardingCardModel.imageUrl,
-                          )
-                          .animate(autoPlay: true)
-                          .scale(
-                            begin: Offset(1, 1),
-                            end: Offset(1.4, 1.4),
-                            duration: Duration(milliseconds: 10000),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints cardConstraints) =>
+                  Stack(
+                    children: [
+                      ClipPath(
+                        clipper: VerticalCapsuleClipper(),
+                        child: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(70),
+                              bottomLeft: Radius.circular(70),
+                            ),
                           ),
-                ),
-              ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(70),
+                              bottomLeft: Radius.circular(70),
+                            ),
+                            child:
+                                HouseNetworkImage(
+                                      url: widget.onboardingCardModel.imageUrl,
+                                    )
+                                    .animate(autoPlay: true)
+                                    .scale(
+                                      begin: Offset(1, 1),
+                                      end: Offset(1.4, 1.4),
+                                      duration: Duration(milliseconds: 10000),
+                                    ),
+                          ),
+                        ),
+                      ),
+
+                      /// The random dots
+                      generateRandomDot(size: Size(30, 30), top: 30, left: 0),
+                      generateRandomDot(
+                        size: Size(15, 15),
+                        top: 5,
+                        left: 0,
+                        right: 0,
+                      ),
+                      generateRandomDot(size: Size(8, 8), top: 0, left: 100),
+                      generateRandomDot(size: Size(12, 12), top: 0, right: 80),
+                      generateRandomDot(size: Size(25, 25), top: 0, right: 15),
+                      generateRandomDot(size: Size(16, 16), top: 150, right: 0),
+                      generateRandomDot(size: Size(5, 5), bottom: 0, right: 0),
+                      generateRandomDot(
+                        size: Size(10, 10),
+                        bottom: 0,
+                        top: 0,
+                        left: 0,
+                      ),
+                      generateRandomDot(
+                        size: Size(20, 20),
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                      ),
+                    ],
+                  ),
             ),
           ),
           Expanded(

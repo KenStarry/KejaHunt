@@ -2,6 +2,11 @@ import 'dart:ui';
 
 /// ACCENT COLORS
 const primaryColor = Color(0xFF0096C7);
+const primaryColor100 = Color(0xFFE6F8FB);
+const primaryColor200 = Color(0xFFBEEBF6);
+const primaryColor300 = Color(0xFF33B8D6);
+const primaryColor400 = Color(0xFF0096C7);
+
 const secondaryColor = Color(0xFFFF6F61);
 
 const scaffoldBackgroundColor = Color(0xFFFFFFFF);
