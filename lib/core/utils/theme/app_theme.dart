@@ -25,6 +25,16 @@ class AppTheme {
         hintColor: textBlack600,
         scaffoldBackgroundColor: scaffoldBackgroundColor,
         useMaterial3: true,
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            backgroundColor: accent ?? primaryColor,
+            foregroundColor: whiteColor,
+            minimumSize: const Size(double.infinity, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
         appBarTheme: const AppBarTheme(
           centerTitle: false,
           backgroundColor: scaffoldBackgroundSecondaryColor,

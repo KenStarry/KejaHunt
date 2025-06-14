@@ -4,8 +4,8 @@ import 'dart:ui';
 const primaryColor = Color(0xFF0096C7);
 const secondaryColor = Color(0xFFFF6F61);
 
-const scaffoldBackgroundColor = Color(0xFFF5F5F7);
-const scaffoldBackgroundSecondaryColor = Color(0xFFFFFFFF);
+const scaffoldBackgroundColor = Color(0xFFFFFFFF);
+const scaffoldBackgroundSecondaryColor = Color(0xFFFAFAFA);
 
 /// TEXT COLORS
 const textBlack900 = Color(0xFF000000);
