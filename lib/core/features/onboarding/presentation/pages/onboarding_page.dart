@@ -4,6 +4,7 @@ import 'package:keja_hunt/core/features/onboarding/presentation/components/onboa
 import 'package:keja_hunt/core/features/onboarding/presentation/model/onboarding_card_model.dart';
 import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -14,29 +15,39 @@ class OnboardingPage extends StatefulWidget {
 
 class _OnboardingPageState extends State<OnboardingPage> {
   late final List<OnboardingCardModel> _items;
+  late final slider.CarouselSliderController _carouselController;
+  int activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
+    _carouselController = slider.CarouselSliderController();
+
     _items = [
       OnboardingCardModel(
-        title: "Thousands of the best real estate at affordable prices",
-        description: "",
+        title: "Let’s Find Your Dream\nKeja",
+        description: "Discover hidden gems, local tips, and trusted listings — all powered by the KejaHunt community.",
         imageUrl:
-            "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=1910&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1722421492323-eaf9c401befe?q=80&w=2002&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ),
       OnboardingCardModel(
-        title: "Book a real estate quickly and easily with one click",
-        description: "",
+        title: "Smarter Search,\nReal Insights",
+        description: "Filter by location, price, amenities, and more — plus see what locals say about neighborhoods before you decide.",
         imageUrl:
-            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ),
       OnboardingCardModel(
-        title: "Let's find the real estate that suits you right now!",
-        description: "",
+        title: "Community First,\nAlways",
+        description: "Vote on top areas, share listings, and help others find the perfect place — because better housing starts with us.",
         imageUrl:
-            "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://images.unsplash.com/photo-1726471809185-24208f3cb6e6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      ),
+      OnboardingCardModel(
+        title: "Real-Time Home\nVibes",
+        description: "Get real-time alerts when new homes match your vibe. Be the first to book a visit, every time.",
+        imageUrl:
+        "https://images.unsplash.com/photo-1649083048337-4aeb6dda80bb?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ),
     ];
   }
@@ -55,6 +66,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             /// Carousel Slider for Onboarding Screens
             Expanded(
               child: slider.CarouselSlider(
+                carouselController: _carouselController,
                 items: _items
                     .map((item) => OnboardingCard(onboardingCardModel: item))
                     .toList(),
@@ -62,10 +74,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   height: double.infinity,
                   viewportFraction: 1.0,
                   autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
+                  autoPlayInterval: const Duration(seconds: 6),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 1200),
+                  autoPlayCurve: Curves.easeInOut,
                   enlargeCenterPage: true,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      activeIndex = index;
+                    });
+                  },
                 ),
               ),
             ),
@@ -73,8 +90,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(children: [
+              child: Column(
+                spacing: 16,
+                  children: [
                 //  dots indicator
+                AnimatedSmoothIndicator(
+                  activeIndex: activeIndex,
+                  count: _items.length,
+                  effect: ExpandingDotsEffect(
+                    dotWidth: 10,
+                    dotHeight: 10,
+                    activeDotColor: Theme.of(context).colorScheme.primary,
+                    dotColor: grey300,
+                  ),
+                ),
                 //  action button
                 CustomFilledButton(text: "Next", onTap: () {})
               ]),
