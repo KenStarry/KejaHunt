@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:keja_hunt/core/presentation/components/custom_text_field.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 class UserHomePage extends StatefulWidget {
@@ -10,18 +11,59 @@ class UserHomePage extends StatefulWidget {
 }
 
 class _UserHomePageState extends State<UserHomePage> {
+  late TextEditingController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: double.infinity,
       margin: const EdgeInsets.only(top: 24),
-      padding: const EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.only(left: 20),
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
         ),
         slivers: [
+          /// Search
+          SliverPadding(
+            padding: const EdgeInsets.only(right: 20),
+            sliver: SliverToBoxAdapter(
+              child: CustomTextField(
+                controller: controller,
+                hintText: "Search",
+                prefix: SvgPicture.asset(
+                  "assets/images/icons/search_outlined.svg",
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(
+                    grey400,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                    "assets/images/icons/filter.svg",
+                    width: 24,
+                    height: 24,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,9 +78,9 @@ class _UserHomePageState extends State<UserHomePage> {
                 ),
                 Text(
                   "Start hunting for that dream home today",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w700
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                   textAlign: TextAlign.start,
                 ),
               ],
@@ -105,7 +147,6 @@ class _UserHomePageState extends State<UserHomePage> {
           ),
 
           /// Featured Categories section
-          
         ],
       ),
     );

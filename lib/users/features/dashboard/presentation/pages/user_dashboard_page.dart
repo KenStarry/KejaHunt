@@ -46,45 +46,72 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actionsPadding: EdgeInsets.only(right: 20, left: 20),
-        leading: GestureDetector(
-          onTap: () {
-
-          },
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            padding: const EdgeInsets.all(8),
-            child: SvgPicture.asset(
-              'assets/images/icons/menu.svg',
-              width: 26,
-              height: 26,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).textTheme.bodyMedium!.color!,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-        ),
+        // leading: GestureDetector(
+        //   onTap: () {
+        //
+        //   },
+        //   child: Container(
+        //     width: double.infinity,
+        //     height: double.infinity,
+        //     padding: const EdgeInsets.all(8),
+        //     child: SvgPicture.asset(
+        //       'assets/images/icons/menu.svg',
+        //       width: 26,
+        //       height: 26,
+        //       colorFilter: ColorFilter.mode(
+        //         Theme.of(context).textTheme.bodyMedium!.color!,
+        //         BlendMode.srcIn,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        automaticallyImplyLeading: false,
+        leadingWidth: 0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 16,
           children: [
-            SvgPicture.asset(
-              'assets/images/icons/notification.svg',
-              width: 26,
-              height: 26,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).textTheme.bodyMedium!.color!,
-                BlendMode.srcIn,
-              ),
-            ),
-
             Avatar(
               imageUrl:
-                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              size: Size(40, 40),
+              'https://plus.unsplash.com/premium_photo-1688740375397-34605b6abe48?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              size: Size(48, 48),
             ),
+            Expanded(child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Good Morning 👋", style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).textTheme.bodyMedium?.color!.withValues(alpha: 0.6)
+                )),
+                Text(
+                  "Ashley Keen",
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            )),
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                shape: BoxShape.circle,
+                border: Border.all(color: grey200, width: 1.5),
+              ),
+              child: UnconstrainedBox(
+                child: SvgPicture.asset(
+                  'assets/images/icons/notification_outlined.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).textTheme.bodyMedium!.color!,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

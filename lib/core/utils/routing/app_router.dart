@@ -21,7 +21,7 @@ final GoRoute onboardingRoute = GoRoute(
 );
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/welcome',
+  initialLocation: '/user-home',
   routes: [
     // Welcome Route
     welcomeRoute,
