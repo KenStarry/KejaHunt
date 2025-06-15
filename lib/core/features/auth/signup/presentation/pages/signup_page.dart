@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:keja_hunt/core/features/auth/signup/presentation/bloc/signup_bloc.dart';
 
 import '../../../../../presentation/components/custom_checkbox.dart';
 import '../../../../../presentation/components/custom_filled_button.dart';
@@ -9,6 +11,7 @@ import '../../../../../presentation/components/custom_text_field.dart';
 import '../../../../../utils/constants.dart';
 import '../../../../../utils/theme/colors.dart';
 import '../../../presentation/components/auth_type_card_mini.dart';
+import 'package:flutter_extend/flutter_extend.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -21,6 +24,8 @@ class _SignupPageState extends State<SignupPage> {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
   late final TextEditingController confirmPasswordController;
+
+  late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
@@ -67,71 +72,106 @@ class _SignupPageState extends State<SignupPage> {
           SliverToBoxAdapter(child: SizedBox(height: 24)),
 
           SliverToBoxAdapter(
-            child: Column(
-              spacing: 20,
-              children: [
-                CustomTextField(
-                  controller: emailController,
-                  hintText: 'Email',
-                  borderColor: Colors.transparent,
-                  prefixIcon: SvgPicture.asset(
-                    "assets/images/icons/email.svg",
-                    width: 16,
-                    height: 16,
-                    colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                  ),
-                ),
-                CustomTextField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  borderColor: Colors.transparent,
-                  obscureText: !isPasswordVisible,
-                  prefixIcon: SvgPicture.asset(
-                    "assets/images/icons/lock.svg",
-                    width: 16,
-                    height: 16,
-                    colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isPasswordVisible = !isPasswordVisible;
-                      });
-                    },
-                    icon: SvgPicture.asset(
-                      "assets/images/icons/visibility_${isPasswordVisible ? 'on' : 'off'}.svg",
+            child: Form(
+              key: formKey,
+              // autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                spacing: 20,
+                children: [
+                  CustomTextField(
+                    controller: emailController,
+                    hintText: 'Email',
+                    borderColor: Colors.transparent,
+                    prefixIcon: SvgPicture.asset(
+                      "assets/images/icons/email.svg",
                       width: 16,
                       height: 16,
                       colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
                     ),
-                  ),
-                ),
-                CustomTextField(
-                  controller: confirmPasswordController,
-                  hintText: 'Confirm Password',
-                  borderColor: Colors.transparent,
-                  obscureText: !isConfirmPasswordVisible,
-                  prefixIcon: SvgPicture.asset(
-                    "assets/images/icons/lock.svg",
-                    width: 16,
-                    height: 16,
-                    colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isConfirmPasswordVisible = !isConfirmPasswordVisible;
-                      });
+                    validator: (email) {
+                      if (email == null || email.isEmpty) {
+                        return 'Email is required';
+                      }
+
+                      if (!email.isEmailValid()) {
+                        return 'Invalid email format';
+                      }
+                      return null;
                     },
-                    icon: SvgPicture.asset(
-                      "assets/images/icons/visibility_${isConfirmPasswordVisible ? 'on' : 'off'}.svg",
+                  ),
+                  CustomTextField(
+                    controller: passwordController,
+                    hintText: 'Password',
+                    borderColor: Colors.transparent,
+                    obscureText: !isPasswordVisible,
+                    prefixIcon: SvgPicture.asset(
+                      "assets/images/icons/lock.svg",
                       width: 16,
                       height: 16,
                       colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
                     ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isPasswordVisible = !isPasswordVisible;
+                        });
+                      },
+                      icon: SvgPicture.asset(
+                        "assets/images/icons/visibility_${isPasswordVisible ? 'on' : 'off'}.svg",
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
+                      ),
+                    ),
+                    validator: (pass) {
+                      if (pass == null || pass.isEmpty) {
+                        return 'Password is required';
+                      }
+
+                      if (!pass.isPasswordValid(minLength: 8)) {
+                        return 'Invalid password';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-              ],
+                  CustomTextField(
+                    controller: confirmPasswordController,
+                    hintText: 'Confirm Password',
+                    borderColor: Colors.transparent,
+                    obscureText: !isConfirmPasswordVisible,
+                    prefixIcon: SvgPicture.asset(
+                      "assets/images/icons/lock.svg",
+                      width: 16,
+                      height: 16,
+                      colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                        });
+                      },
+                      icon: SvgPicture.asset(
+                        "assets/images/icons/visibility_${isConfirmPasswordVisible ? 'on' : 'off'}.svg",
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
+                      ),
+                    ),
+                    validator: (pass) {
+                      if (pass == null || pass.isEmpty) {
+                        return 'Password is required';
+                      }
+
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
 
@@ -154,7 +194,22 @@ class _SignupPageState extends State<SignupPage> {
                   },
                 ),
 
-                CustomFilledButton(text: "Sign up", onTap: () {}),
+                BlocBuilder<SignupBloc, SignupState>(
+                  builder: (context, signupState) {
+                    return CustomFilledButton(
+                      text: "Sign up",
+                      isLoading: signupState is SignupLoading,
+                      onTap: () {
+                        BlocProvider.of<SignupBloc>(context).add(
+                          SignupSubmittedEvent(
+                            email: emailController.text.trim(),
+                            password: passwordController.text,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ],
             ),
           ),

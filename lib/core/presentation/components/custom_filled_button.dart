@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CustomFilledButton extends StatelessWidget {
   final String text;
   final Widget? icon;
+  final bool isLoading;
   final VoidCallback onTap;
 
   const CustomFilledButton({
     super.key,
     required this.text,
+    this.isLoading = false,
     this.icon,
     required this.onTap,
   });
@@ -27,20 +30,24 @@ class CustomFilledButton extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.4),
               blurRadius: 12,
               offset: const Offset(0, 4), // changes position of shadow
             ),
-          ]
+          ],
         ),
         child: Center(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: whiteColor,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: isLoading
+              ? SpinKitCircle(color: whiteColor, size: 32)
+              : Text(
+                  text,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: whiteColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
         ),
       ),
     );
