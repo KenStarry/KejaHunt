@@ -19,5 +19,9 @@ mixin SignUpMixin {
     /// User == null means the user has not been created yet.
     final Session? session = authResponse.session;
     final User? user = authResponse.user;
+
+    if (user == null) {
+      throw Exception("User creation failed. Please try again.");
+    }
   }
 }
