@@ -182,7 +182,12 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: supportedAuthTypes
-                      .map((type) => AuthTypeCardMini(authTypeCardModel: type))
+                      .map(
+                        (type) => AuthTypeCardMini(
+                          authTypeCardModel: type,
+                          onTap: () {},
+                        ),
+                      )
                       .toList(),
                 ),
               ],

@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/core/features/auth/signup/presentation/bloc/signup_bloc.dart';
+import 'package:keja_hunt/core/presentation/components/custom_snackbar.dart';
 
 import '../../../../../presentation/components/custom_checkbox.dart';
 import '../../../../../presentation/components/custom_filled_button.dart';
 import '../../../../../presentation/components/custom_text_field.dart';
+import '../../../../../presentation/components/snackbars/enum/snackbar_types.dart';
 import '../../../../../utils/constants.dart';
 import '../../../../../utils/theme/colors.dart';
 import '../../../presentation/components/auth_type_card_mini.dart';
@@ -42,249 +44,297 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(
-          parent: BouncingScrollPhysics(),
-        ),
-        slivers: [
-          SliverToBoxAdapter(
-            child: Image.asset(
-              "assets/images/logo.png",
-              width: 200,
-              height: 200,
-            ),
+    return BlocListener<SignupBloc, SignupState>(
+      listener: (context, signupState) {
+        if (signupState is SignupSuccess) {
+          // context.pushNamed('login');
+          showCustomSnackbar(
+            context,
+            signupState.message,
+            type: SnackbarType.success,
+          );
+        } else if (signupState is SignupFailure) {
+          showCustomSnackbar(
+            context,
+            signupState.errorMessage,
+            type: SnackbarType.error,
+          );
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics(),
           ),
-
-          SliverToBoxAdapter(
-            child: Text(
-              "Start Your Hunt\nToday",
-              textAlign: TextAlign.center,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontSize: 32),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Image.asset(
+                "assets/images/logo.png",
+                width: 200,
+                height: 200,
+              ),
             ),
-          ),
 
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverToBoxAdapter(
+              child: Text(
+                "Start Your Hunt\nToday",
+                textAlign: TextAlign.center,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontSize: 32),
+              ),
+            ),
 
-          SliverToBoxAdapter(
-            child: Form(
-              key: formKey,
-              // autovalidateMode: AutovalidateMode.onUserInteraction,
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+
+            SliverToBoxAdapter(
+              child: Form(
+                key: formKey,
+                // autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  spacing: 20,
+                  children: [
+                    CustomTextField(
+                      controller: emailController,
+                      hintText: 'Email',
+                      borderColor: Colors.transparent,
+                      prefixIcon: SvgPicture.asset(
+                        "assets/images/icons/email.svg",
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
+                      ),
+                      validator: (email) {
+                        if (email == null || email.isEmpty) {
+                          return 'Email is required';
+                        }
+
+                        if (!email.isEmailValid()) {
+                          return 'Invalid email format';
+                        }
+                        return null;
+                      },
+                    ),
+                    CustomTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      borderColor: Colors.transparent,
+                      obscureText: !isPasswordVisible,
+                      prefixIcon: SvgPicture.asset(
+                        "assets/images/icons/lock.svg",
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        },
+                        icon: SvgPicture.asset(
+                          "assets/images/icons/visibility_${isPasswordVisible ? 'on' : 'off'}.svg",
+                          width: 16,
+                          height: 16,
+                          colorFilter: ColorFilter.mode(
+                            grey500,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                      validator: (pass) {
+                        if (pass == null || pass.isEmpty) {
+                          return 'Password is required';
+                        }
+
+                        if (!pass.isPasswordValid(minLength: 8)) {
+                          return 'Invalid password';
+                        }
+                        return null;
+                      },
+                    ),
+                    CustomTextField(
+                      controller: confirmPasswordController,
+                      hintText: 'Confirm Password',
+                      borderColor: Colors.transparent,
+                      obscureText: !isConfirmPasswordVisible,
+                      prefixIcon: SvgPicture.asset(
+                        "assets/images/icons/lock.svg",
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isConfirmPasswordVisible =
+                                !isConfirmPasswordVisible;
+                          });
+                        },
+                        icon: SvgPicture.asset(
+                          "assets/images/icons/visibility_${isConfirmPasswordVisible ? 'on' : 'off'}.svg",
+                          width: 16,
+                          height: 16,
+                          colorFilter: ColorFilter.mode(
+                            grey500,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                      validator: (pass) {
+                        if (pass == null || pass.isEmpty) {
+                          return 'Password is required';
+                        }
+
+                        if (passwordController.text !=
+                            confirmPasswordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+
+            SliverToBoxAdapter(
               child: Column(
-                spacing: 20,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 24,
                 children: [
-                  CustomTextField(
-                    controller: emailController,
-                    hintText: 'Email',
-                    borderColor: Colors.transparent,
-                    prefixIcon: SvgPicture.asset(
-                      "assets/images/icons/email.svg",
-                      width: 16,
-                      height: 16,
-                      colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                    ),
-                    validator: (email) {
-                      if (email == null || email.isEmpty) {
-                        return 'Email is required';
-                      }
-
-                      if (!email.isEmailValid()) {
-                        return 'Invalid email format';
-                      }
-                      return null;
+                  //  Remember Me
+                  CustomCheckbox(
+                    label: "Remember me",
+                    isChecked: isRememberMeChecked,
+                    onTap: () {
+                      setState(() {
+                        isRememberMeChecked = !isRememberMeChecked;
+                      });
                     },
                   ),
-                  CustomTextField(
-                    controller: passwordController,
-                    hintText: 'Password',
-                    borderColor: Colors.transparent,
-                    obscureText: !isPasswordVisible,
-                    prefixIcon: SvgPicture.asset(
-                      "assets/images/icons/lock.svg",
-                      width: 16,
-                      height: 16,
-                      colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isPasswordVisible = !isPasswordVisible;
-                        });
-                      },
-                      icon: SvgPicture.asset(
-                        "assets/images/icons/visibility_${isPasswordVisible ? 'on' : 'off'}.svg",
-                        width: 16,
-                        height: 16,
-                        colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                      ),
-                    ),
-                    validator: (pass) {
-                      if (pass == null || pass.isEmpty) {
-                        return 'Password is required';
-                      }
 
-                      if (!pass.isPasswordValid(minLength: 8)) {
-                        return 'Invalid password';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextField(
-                    controller: confirmPasswordController,
-                    hintText: 'Confirm Password',
-                    borderColor: Colors.transparent,
-                    obscureText: !isConfirmPasswordVisible,
-                    prefixIcon: SvgPicture.asset(
-                      "assets/images/icons/lock.svg",
-                      width: 16,
-                      height: 16,
-                      colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isConfirmPasswordVisible = !isConfirmPasswordVisible;
-                        });
-                      },
-                      icon: SvgPicture.asset(
-                        "assets/images/icons/visibility_${isConfirmPasswordVisible ? 'on' : 'off'}.svg",
-                        width: 16,
-                        height: 16,
-                        colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
-                      ),
-                    ),
-                    validator: (pass) {
-                      if (pass == null || pass.isEmpty) {
-                        return 'Password is required';
-                      }
-
-                      if (passwordController.text !=
-                          confirmPasswordController.text) {
-                        return 'Passwords do not match';
-                      }
-                      return null;
+                  BlocBuilder<SignupBloc, SignupState>(
+                    builder: (context, signupState) {
+                      return CustomFilledButton(
+                        text: "Sign up",
+                        isLoading: signupState is SignupLoading,
+                        onTap: () {
+                          if (formKey.currentState?.validate() ?? false) {
+                            BlocProvider.of<SignupBloc>(context).add(
+                              SignupWithEmailEvent(
+                                email: emailController.text.trim(),
+                                password: passwordController.text,
+                              ),
+                            );
+                          } else {
+                            showCustomSnackbar(
+                              context,
+                              "Please fill in all fields correctly.",
+                              type: SnackbarType.error,
+                            );
+                          }
+                        },
+                      );
                     },
                   ),
                 ],
               ),
             ),
-          ),
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 24,
+                children: [
+                  Row(
+                    spacing: 16,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Divider(thickness: 1, color: grey200),
+                      ),
+                      Text(
+                        "or continue with",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: grey700,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Divider(thickness: 1, color: grey200),
+                      ),
+                    ],
+                  ),
 
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
-
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 24,
-              children: [
-                //  Remember Me
-                CustomCheckbox(
-                  label: "Remember me",
-                  isChecked: isRememberMeChecked,
-                  onTap: () {
-                    setState(() {
-                      isRememberMeChecked = !isRememberMeChecked;
-                    });
-                  },
-                ),
-
-                BlocBuilder<SignupBloc, SignupState>(
-                  builder: (context, signupState) {
-                    return CustomFilledButton(
-                      text: "Sign up",
-                      isLoading: signupState is SignupLoading,
-                      onTap: () {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SignupSubmittedEvent(
-                            email: emailController.text.trim(),
-                            password: passwordController.text,
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: supportedAuthTypes
+                        .map(
+                          (type) => AuthTypeCardMini(authTypeCardModel: type,
+                          onTap: () {
+                            if (type.title == 'Google') {
+                              BlocProvider.of<SignupBloc>(context).add(
+                                SignupWithGoogleEvent(),
+                              );
+                            } else {
+                              showCustomSnackbar(
+                                context,
+                                "This feature is not available yet.",
+                                type: SnackbarType.info,
+                              );
+                            }
+                          },),
+                        )
+                        .toList(),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 24,
-              children: [
-                Row(
-                  spacing: 16,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Divider(thickness: 1, color: grey200),
-                    ),
-                    Text(
-                      "or continue with",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: grey700,
-                        fontWeight: FontWeight.w700,
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverToBoxAdapter(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Already have an account? ",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: grey700,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Divider(thickness: 1, color: grey200),
-                    ),
-                  ],
-                ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: supportedAuthTypes
-                      .map((type) => AuthTypeCardMini(authTypeCardModel: type))
-                      .toList(),
-                ),
-              ],
-            ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverToBoxAdapter(
-            child: Align(
-              alignment: Alignment.center,
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Already have an account? ",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: grey700,
-                        fontWeight: FontWeight.w500,
+                      TextSpan(
+                        text: "Sign in",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            context.pushNamed('login');
+                          },
                       ),
-                    ),
-
-                    TextSpan(
-                      text: "Sign in",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          context.pushNamed('login');
-                        },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 100)),
-        ],
+            SliverToBoxAdapter(child: SizedBox(height: 100)),
+          ],
+        ),
       ),
     );
   }
