@@ -1,0 +1,1 @@
+enum HouseUnitFeature {balcony, ensuite, furnished, wifi}

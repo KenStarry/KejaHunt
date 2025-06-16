@@ -1,0 +1,1 @@
+enum HouseUnitType {oneBr, twoBr, threeBr, fourBr, bedsitter, studio}
