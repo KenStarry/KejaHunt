@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../../core/di/locator.dart';
-import '../../../../../core/features/auth/presentation/bloc/auth_bloc.dart';
-import '../../../../../core/presentation/components/avatar.dart';
+import '../../../../../di/locator.dart';
+import '../../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../../../presentation/components/avatar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
@@ -92,7 +92,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                       ),
                       Text(
                         userState is UserSuccess
-                            ? userState.user.username!
+                            ? (userState.user.username!.isEmpty ? 'Anonymous' : userState.user.username!)
                             : 'Hunter',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w700,

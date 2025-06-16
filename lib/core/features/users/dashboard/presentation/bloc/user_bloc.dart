@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:keja_hunt/core/features/auth/domain/models/user_model.dart';
-import 'package:keja_hunt/users/features/dashboard/data/repository/dashboard_repository.dart';
+import 'package:keja_hunt/core/features/users/dashboard/data/repository/dashboard_repository.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../../core/di/locator.dart';
-import '../../../../../core/features/auth/data/repository/auth_repository.dart';
+import '../../../../../di/locator.dart';
+import '../../../../auth/data/repository/auth_repository.dart';
 
 part 'user_event.dart';
 

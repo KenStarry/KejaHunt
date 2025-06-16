@@ -9,6 +9,7 @@ class HouseUnitModel with _$HouseUnitModel {
   const factory HouseUnitModel({
     @JsonKey(name: "unit_id") @Default('') String unitId,
     @JsonKey(name: "apartment_id") @Default('') String apartmentId,
+    @JsonKey(name: "apartment_name") @Default('') String apartmentName,
     @JsonKey(name: "unit_type") @Default('') String unitType,
     @JsonKey(name: "floor") @Default(1) int floor,
     @JsonKey(name: "rent_amount") @Default(0.00) double rentAmount,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart' as slider;
+import 'package:keja_hunt/core/presentation/components/fading_carousel.dart';
+import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 class HouseCardFeatured extends StatefulWidget {
   final HouseUnitModel houseUnitModel;
@@ -40,34 +43,147 @@ class _HouseCardFeaturedState extends State<HouseCardFeatured> {
               width: double.infinity,
               height: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.red,
                 borderRadius: BorderRadius.circular(32),
               ),
-              child: slider.CarouselSlider(
-                carouselController: _carouselController,
-                items: widget.houseUnitModel.images
-                    .map(
-                      (url) => ClipRRect(
-                        borderRadius: BorderRadius.circular(32),
-                        child: CustomNetworkImage(url: url),
-                      ),
-                    )
-                    .toList(),
-                options: slider.CarouselOptions(
-                  height: double.infinity,
-                  viewportFraction: 1.0,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 6),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 1200),
-                  autoPlayCurve: Curves.easeInOut,
-                  enlargeCenterPage: false,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      activeIndex = index;
-                    });
-                  },
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: FadingCarousel(imageUrls: widget.houseUnitModel.images),
               ),
+            ),
+          ),
+
+          // Container(
+          //   width: double.infinity,
+          //   height: double.infinity,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(32),
+          //     color: blackColor.withValues(alpha: 0.1)
+          //   ),
+          // ),
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 28,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: grey10,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        spacing: 4,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/images/icons/rate.svg",
+                            width: 16,
+                            height: 16,
+                          ),
+                          Text(
+                            "4.6",
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                          vertical: 20,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(32),
+                            bottomRight: Radius.circular(32),
+                          ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              blackColor.withValues(alpha: 0.1),
+                              blackColor.withValues(alpha: 0.6),
+                              blackColor.withValues(alpha: 0.9),
+                            ],
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Luxury Apartments",
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(color: whiteColor),
+                            ),
+                            Text(
+                              "1 Bedroom",
+                              style: Theme.of(context).textTheme.bodyLarge
+                                  ?.copyWith(color: whiteColor),
+                            ),
+
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: "Ksh 15,000",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(color: whiteColor),
+                                        ),
+                                        TextSpan(
+                                          text: "/month",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(color: whiteColor),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: SvgPicture.asset(
+                                    "assets/images/icons/heart.svg",
+                                    width: 24,
+                                    height: 24,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -8,8 +8,8 @@ import 'package:keja_hunt/core/features/onboarding/presentation/pages/welcome_pa
 import 'package:keja_hunt/core/utils/routing/agent_routes.dart';
 import 'package:keja_hunt/core/utils/routing/auth_routes.dart';
 import 'package:keja_hunt/core/utils/routing/user_routes.dart';
-import 'package:keja_hunt/users/features/dashboard/presentation/bloc/user_bloc.dart';
-import 'package:keja_hunt/users/features/dashboard/presentation/pages/user_dashboard_page.dart';
+import 'package:keja_hunt/core/features/users/dashboard/presentation/bloc/user_bloc.dart';
+import 'package:keja_hunt/core/features/users/dashboard/presentation/pages/user_dashboard_page.dart';
 
 /// Onboarding Routes
 final GoRoute welcomeRoute = GoRoute(

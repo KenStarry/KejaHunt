@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keja_hunt/core/di/locator.dart';
 import 'package:keja_hunt/core/features/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:keja_hunt/core/utils/theme/app_theme.dart';
-import 'package:keja_hunt/users/features/dashboard/presentation/bloc/user_bloc.dart';
+import 'package:keja_hunt/core/features/users/dashboard/presentation/bloc/user_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/env/env.dart';

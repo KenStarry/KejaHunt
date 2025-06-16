@@ -46,11 +46,11 @@ class _LoginPageState extends State<LoginPage> {
       listener: (context, loginState) {
         if (loginState is LoginSuccess) {
           context.pushNamed('user-home');
-          showCustomSnackbar(
-            context,
-            loginState.message,
-            type: SnackbarType.success,
-          );
+          // showCustomSnackbar(
+          //   context,
+          //   loginState.message,
+          //   type: SnackbarType.success,
+          // );
         } else if (loginState is LoginFailure) {
           showCustomSnackbar(
             context,

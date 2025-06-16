@@ -13,6 +13,7 @@ const scaffoldBackgroundColor = Color(0xFFFFFFFF);
 const scaffoldBackgroundSecondaryColor = Color(0xFFFAFAFA);
 
 /// INTERFACE COLORS
+const grey10 = Color(0xFFF0F0F0);
 const grey50 = Color(0xFFFAFAFA);
 const grey100 = Color(0xFFF5F5F5);
 const grey200 = Color(0xFFEEEEEE);

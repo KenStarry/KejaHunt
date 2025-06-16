@@ -17,7 +17,7 @@ class Avatar extends StatelessWidget {
         height: size?.height ?? 50.0,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         child: imageUrl.isEmpty
             ? Center(child: Icon(Icons.person_rounded))

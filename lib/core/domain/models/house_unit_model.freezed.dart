@@ -24,6 +24,8 @@ mixin _$HouseUnitModel {
   String get unitId => throw _privateConstructorUsedError;
   @JsonKey(name: "apartment_id")
   String get apartmentId => throw _privateConstructorUsedError;
+  @JsonKey(name: "apartment_name")
+  String get apartmentName => throw _privateConstructorUsedError;
   @JsonKey(name: "unit_type")
   String get unitType => throw _privateConstructorUsedError;
   @JsonKey(name: "floor")
@@ -58,6 +60,7 @@ abstract class $HouseUnitModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "unit_id") String unitId,
       @JsonKey(name: "apartment_id") String apartmentId,
+      @JsonKey(name: "apartment_name") String apartmentName,
       @JsonKey(name: "unit_type") String unitType,
       @JsonKey(name: "floor") int floor,
       @JsonKey(name: "rent_amount") double rentAmount,
@@ -84,6 +87,7 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
   $Res call({
     Object? unitId = null,
     Object? apartmentId = null,
+    Object? apartmentName = null,
     Object? unitType = null,
     Object? floor = null,
     Object? rentAmount = null,
@@ -100,6 +104,10 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
       apartmentId: null == apartmentId
           ? _value.apartmentId
           : apartmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      apartmentName: null == apartmentName
+          ? _value.apartmentName
+          : apartmentName // ignore: cast_nullable_to_non_nullable
               as String,
       unitType: null == unitType
           ? _value.unitType
@@ -144,6 +152,7 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "unit_id") String unitId,
       @JsonKey(name: "apartment_id") String apartmentId,
+      @JsonKey(name: "apartment_name") String apartmentName,
       @JsonKey(name: "unit_type") String unitType,
       @JsonKey(name: "floor") int floor,
       @JsonKey(name: "rent_amount") double rentAmount,
@@ -168,6 +177,7 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
   $Res call({
     Object? unitId = null,
     Object? apartmentId = null,
+    Object? apartmentName = null,
     Object? unitType = null,
     Object? floor = null,
     Object? rentAmount = null,
@@ -184,6 +194,10 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
       apartmentId: null == apartmentId
           ? _value.apartmentId
           : apartmentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      apartmentName: null == apartmentName
+          ? _value.apartmentName
+          : apartmentName // ignore: cast_nullable_to_non_nullable
               as String,
       unitType: null == unitType
           ? _value.unitType
@@ -223,6 +237,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
   const _$HouseUnitModelImpl(
       {@JsonKey(name: "unit_id") this.unitId = '',
       @JsonKey(name: "apartment_id") this.apartmentId = '',
+      @JsonKey(name: "apartment_name") this.apartmentName = '',
       @JsonKey(name: "unit_type") this.unitType = '',
       @JsonKey(name: "floor") this.floor = 1,
       @JsonKey(name: "rent_amount") this.rentAmount = 0.00,
@@ -242,6 +257,9 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
   @override
   @JsonKey(name: "apartment_id")
   final String apartmentId;
+  @override
+  @JsonKey(name: "apartment_name")
+  final String apartmentName;
   @override
   @JsonKey(name: "unit_type")
   final String unitType;
@@ -278,7 +296,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
 
   @override
   String toString() {
-    return 'HouseUnitModel(unitId: $unitId, apartmentId: $apartmentId, unitType: $unitType, floor: $floor, rentAmount: $rentAmount, availableCount: $availableCount, images: $images, features: $features, createdAt: $createdAt)';
+    return 'HouseUnitModel(unitId: $unitId, apartmentId: $apartmentId, apartmentName: $apartmentName, unitType: $unitType, floor: $floor, rentAmount: $rentAmount, availableCount: $availableCount, images: $images, features: $features, createdAt: $createdAt)';
   }
 
   @override
@@ -289,6 +307,8 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
             (identical(other.unitId, unitId) || other.unitId == unitId) &&
             (identical(other.apartmentId, apartmentId) ||
                 other.apartmentId == apartmentId) &&
+            (identical(other.apartmentName, apartmentName) ||
+                other.apartmentName == apartmentName) &&
             (identical(other.unitType, unitType) ||
                 other.unitType == unitType) &&
             (identical(other.floor, floor) || other.floor == floor) &&
@@ -308,6 +328,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       runtimeType,
       unitId,
       apartmentId,
+      apartmentName,
       unitType,
       floor,
       rentAmount,
@@ -337,6 +358,7 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   const factory _HouseUnitModel(
           {@JsonKey(name: "unit_id") final String unitId,
           @JsonKey(name: "apartment_id") final String apartmentId,
+          @JsonKey(name: "apartment_name") final String apartmentName,
           @JsonKey(name: "unit_type") final String unitType,
           @JsonKey(name: "floor") final int floor,
           @JsonKey(name: "rent_amount") final double rentAmount,
@@ -355,6 +377,9 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   @override
   @JsonKey(name: "apartment_id")
   String get apartmentId;
+  @override
+  @JsonKey(name: "apartment_name")
+  String get apartmentName;
   @override
   @JsonKey(name: "unit_type")
   String get unitType;

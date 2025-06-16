@@ -69,7 +69,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       keyboardType: keyboardType ?? TextInputType.text,
-      cursorColor: cursorColor ?? theme.colorScheme.tertiary.withOpacity(0.5),
+      cursorColor: cursorColor ?? theme.colorScheme.tertiary.withValues(alpha: 0.5),
       minLines: minLines ?? 1,
       maxLines: maxLines ?? 1,
       style: Theme.of(

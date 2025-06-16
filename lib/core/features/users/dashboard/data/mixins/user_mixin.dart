@@ -1,8 +1,8 @@
 import 'package:keja_hunt/core/di/locator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../../core/features/auth/domain/models/user_model.dart';
-import '../../../../../core/utils/supabase_constants.dart';
+import '../../../../auth/domain/models/user_model.dart';
+import '../../../../../utils/supabase_constants.dart';
 
 mixin UserMixin {
 

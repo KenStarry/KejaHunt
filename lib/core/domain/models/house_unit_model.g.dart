@@ -10,6 +10,7 @@ _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
     _$HouseUnitModelImpl(
       unitId: json['unit_id'] as String? ?? '',
       apartmentId: json['apartment_id'] as String? ?? '',
+      apartmentName: json['apartment_name'] as String? ?? '',
       unitType: json['unit_type'] as String? ?? '',
       floor: (json['floor'] as num?)?.toInt() ?? 1,
       rentAmount: (json['rent_amount'] as num?)?.toDouble() ?? 0.00,
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$HouseUnitModelImplToJson(
     <String, dynamic>{
       'unit_id': instance.unitId,
       'apartment_id': instance.apartmentId,
+      'apartment_name': instance.apartmentName,
       'unit_type': instance.unitType,
       'floor': instance.floor,
       'rent_amount': instance.rentAmount,
