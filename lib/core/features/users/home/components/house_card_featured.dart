@@ -138,7 +138,7 @@ class _HouseCardFeaturedState extends State<HouseCardFeatured> {
                                   ?.copyWith(color: whiteColor),
                             ),
                             Text(
-                              "1 Bedroom",
+                              "1 Bdr, Westlands",
                               style: Theme.of(context).textTheme.bodyLarge
                                   ?.copyWith(color: whiteColor),
                             ),
@@ -160,7 +160,7 @@ class _HouseCardFeaturedState extends State<HouseCardFeatured> {
                                           text: "/month",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyLarge
+                                              .bodyMedium
                                               ?.copyWith(color: whiteColor),
                                         ),
                                       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:keja_hunt/core/features/users/home/components/user_recommended_homes_section.dart';
 import 'package:keja_hunt/core/presentation/components/custom_text_field.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:keja_hunt/core/features/users/home/components/user_featured_homes_section.dart';
@@ -27,7 +28,7 @@ class _UserHomePageState extends State<UserHomePage> {
       width: double.infinity,
       height: double.infinity,
       margin: const EdgeInsets.only(top: 24),
-      padding: const EdgeInsets.only(left: 20),
+      // padding: const EdgeInsets.only(left: 20),
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
@@ -35,7 +36,7 @@ class _UserHomePageState extends State<UserHomePage> {
         slivers: [
           /// Search
           SliverPadding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             sliver: SliverToBoxAdapter(
               child: CustomTextField(
                 controller: controller,
@@ -55,13 +56,15 @@ class _UserHomePageState extends State<UserHomePage> {
                 ),
                 suffixIcon: IconButton(
                   onPressed: () {},
-                  icon: SvgPicture.asset(
-                    "assets/images/icons/filter.svg",
-                    width: 24,
-                    height: 24,
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.primary,
-                      BlendMode.srcIn,
+                  icon: UnconstrainedBox(
+                    child: SvgPicture.asset(
+                      "assets/images/icons/filter.svg",
+                      width: 20,
+                      height: 20,
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.primary,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),
@@ -71,7 +74,11 @@ class _UserHomePageState extends State<UserHomePage> {
 
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-          UserFeaturedHomesSection()
+          UserFeaturedHomesSection(),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+          UserRecommendedHomesSection()
         ],
       ),
     );
