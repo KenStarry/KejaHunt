@@ -36,7 +36,7 @@ mixin SignUpMixin {
           username: '',
           fullName: '',
           phoneNumber: '',
-          avatarUrl: '',
+          avatarUrl: "https://api.dicebear.com/7.x/adventurer/svg?seed=${supabaseUser.email!}",
         );
 
         /// Create a new user in the database

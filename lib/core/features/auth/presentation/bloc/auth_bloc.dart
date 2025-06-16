@@ -15,10 +15,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     final supabase = locator.get<SupabaseClient>();
 
-    on<FetchUserEvent>(_onFetchUserEvent);
     on<AuthCheckStatusEvent>(_onAuthCheckStatus);
     on<AuthLoggedInEvent>(_onLoggedIn);
     on<AuthLoggedOutEvent>(_onLoggedOut);
+    on<AuthSignOutEvent>(_signOut);
 
     /// Listen to Auth State Changes
     supabase.auth.onAuthStateChange.listen((data) {
@@ -59,19 +59,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(Unauthenticated());
   }
 
-  Future<void> _onFetchUserEvent(
-    FetchUserEvent event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(AuthLoading());
-    try {
-      final authRepo = locator.get<AuthRepository>();
+  Future<void> _signOut(AuthSignOutEvent event, Emitter<AuthState> emit) async {
+    final authRepo = locator.get<AuthRepository>();
 
-      await authRepo.fetchCurrentUser().then((user) {
-        emit(AuthSuccess(user));
-      });
-    } catch (e) {
-      emit(AuthFailed(errorMessage: "Login failed: ${e.toString()}"));
-    }
+    await authRepo.signOut();
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keja_hunt/core/di/locator.dart';
+import 'package:keja_hunt/core/features/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:keja_hunt/core/utils/theme/app_theme.dart';
+import 'package:keja_hunt/users/features/dashboard/presentation/bloc/user_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/env/env.dart';
+import 'core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'core/features/auth/signup/presentation/bloc/signup_bloc.dart';
 import 'core/utils/routing/app_router.dart';
 
@@ -18,7 +21,14 @@ Future<void> main() async {
 
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => SignupBloc())],
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc()..add(AuthCheckStatusEvent()),
+        ),
+        BlocProvider(create: (context) => SignupBloc()),
+        BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => UserBloc()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -29,14 +39,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'KejaHunt',
-      theme: AppTheme.lightTheme(),
-      themeMode: ThemeMode.light,
-      routerDelegate: appRouter.routerDelegate,
-      routeInformationParser: appRouter.routeInformationParser,
-      routeInformationProvider: appRouter.routeInformationProvider,
-      debugShowCheckedModeBanner: false,
+    return Builder(
+      builder: (context) {
+        final authBloc = context.read<AuthBloc>();
+
+        return MaterialApp.router(
+          title: 'KejaHunt',
+          theme: AppTheme.lightTheme(),
+          themeMode: ThemeMode.light,
+          routerDelegate: appRouter(authBloc).routerDelegate,
+          routeInformationParser: appRouter(authBloc).routeInformationParser,
+          routeInformationProvider: appRouter(
+            authBloc,
+          ).routeInformationProvider,
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

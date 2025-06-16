@@ -1,10 +1,14 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/agents/features/dashboard/presentation/pages/agent_dashboard_page.dart';
+import 'package:keja_hunt/core/features/auth/data/classes/gorouter_refresh_stream.dart';
+import 'package:keja_hunt/core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/welcome_page.dart';
 import 'package:keja_hunt/core/utils/routing/agent_routes.dart';
 import 'package:keja_hunt/core/utils/routing/auth_routes.dart';
 import 'package:keja_hunt/core/utils/routing/user_routes.dart';
+import 'package:keja_hunt/users/features/dashboard/presentation/bloc/user_bloc.dart';
 import 'package:keja_hunt/users/features/dashboard/presentation/pages/user_dashboard_page.dart';
 
 /// Onboarding Routes
@@ -20,22 +24,42 @@ final GoRoute onboardingRoute = GoRoute(
   builder: (context, state) => const OnboardingPage(),
 );
 
-final GoRouter appRouter = GoRouter(
-  initialLocation: '/signup',
-  routes: [
-    // Welcome Route
-    welcomeRoute,
+GoRouter appRouter(AuthBloc authBloc) => GoRouter(
+  refreshListenable: GorouterRefreshStream(authBloc.stream),
+    initialLocation: '/login',
+    redirect: (context, state) {
+      final authState = authBloc.state;
 
-    // Onboarding Route
-    onboardingRoute,
+      final isLoggedIn = authState is Authenticated;
+      final isUserLoggingIn = state.matchedLocation == '/login';
 
-    /// Auth Routes
-    authRoutes,
+      if (!isLoggedIn && !isUserLoggingIn) {
+        return '/login';
+      }
 
-    /// Agent Routes
-    agentDashboardRoute,
+      if (isLoggedIn && isUserLoggingIn) {
+        /// Fetch User Details
+        context.read<UserBloc>().add(FetchUserEvent());
 
-    /// User Routes
-    userDashboardRoute,
-  ],
-);
+        return '/user-home';
+      }
+
+      return null;
+    },
+    routes: [
+      // Welcome Route
+      welcomeRoute,
+
+      // Onboarding Route
+      onboardingRoute,
+
+      /// Auth Routes
+      authRoutes,
+
+      /// Agent Routes
+      agentDashboardRoute,
+
+      /// User Routes
+      userDashboardRoute,
+    ],
+  );
