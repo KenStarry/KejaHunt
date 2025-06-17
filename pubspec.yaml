@@ -91,6 +91,7 @@ dependencies:
   flutter_extend: ^0.1.2
   google_sign_in: ^6.3.0
   sliver_tools: ^0.2.12
+  convex_bottom_bar: ^3.2.0
 
 dev_dependencies:
   flutter_test:

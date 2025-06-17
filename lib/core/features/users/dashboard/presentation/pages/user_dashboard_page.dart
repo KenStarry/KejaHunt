@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../../di/locator.dart';
 import '../../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../../../presentation/components/avatar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 
 import '../bloc/user_bloc.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class UserDashboardPage extends StatefulWidget {
   final Widget child;
@@ -25,12 +23,40 @@ class UserDashboardPage extends StatefulWidget {
 class _UserDashboardPageState extends State<UserDashboardPage> {
   GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
 
+  int activeIndex = 0;
+
   final List<Map<String, dynamic>> bottomNavigationItems = [
-    {'label': 'Home', 'icon': 'assets/images/icons/home.svg'},
-    {'label': 'Community', 'icon': 'assets/images/icons/home.svg'},
-    {'label': 'Discover', 'icon': 'assets/images/icons/home.svg'},
-    {'label': 'Settings', 'icon': 'assets/images/icons/home.svg'},
+    {
+      'label': 'Home',
+      'icon': 'assets/images/icons/home_outlined.svg',
+      'icon_filled': 'assets/images/icons/home_filled.svg',
+    },
+    {
+      'label': 'Explore',
+      'icon': 'assets/images/icons/search_outlined.svg',
+      'icon_filled': 'assets/images/icons/search_filled.svg',
+    },
+    {
+      'label': 'Community',
+      'icon': 'assets/images/icons/message_outlined.svg',
+      'icon_filled': 'assets/images/icons/message_filled.svg',
+    },
+    {
+      'label': 'Map',
+      'icon': 'assets/images/icons/message_outlined.svg',
+      'icon_filled': 'assets/images/icons/message_filled.svg',
+    },
+    {
+      'label': 'Profile',
+      'icon': 'assets/images/icons/profile_outlined.svg',
+      'icon_filled': 'assets/images/icons/profile_filled.svg',
+    },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +118,9 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                       ),
                       Text(
                         userState is UserSuccess
-                            ? (userState.user.username!.isEmpty ? 'Anonymous' : userState.user.username!)
+                            ? (userState.user.username!.isEmpty
+                                  ? 'Anonymous'
+                                  : userState.user.username!)
                             : 'Hunter',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w700,
@@ -124,67 +152,149 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               ],
             ),
           ),
-          bottomNavigationBar: Container(
-            width: double.infinity,
+          bottomNavigationBar: ConvexAppBar(
+            style: TabStyle.react,
+            key: bottomNavigationKey,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            color: grey500,
+            // activeColor: Theme.of(context).colorScheme.primary,
             height: 70,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onPrimary,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.shadow.withValues(alpha: 0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Row(
-              children: bottomNavigationItems
-                  .map(
-                    (item) => Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          spacing: 4,
-                          children: [
-                            SvgPicture.asset(
-                              item['icon'],
-                              width: 24,
-                              height: 24,
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).textTheme.bodyMedium!.color!
-                                    .withValues(alpha: 0.7),
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                            Text(
-                              item['label'],
-                              style: TextStyle(
-                                fontSize: Theme.of(
-                                  context,
-                                ).textTheme.bodySmall!.fontSize,
-                                color: Theme.of(
-                                  context,
-                                ).textTheme.bodyMedium!.color,
-                              ),
-                            ),
-                          ],
+            shadowColor: grey200,
+            top: -20,
+            elevation: 8,
+            items: bottomNavigationItems
+                .map(
+                  (item) => TabItem(
+                    icon: SvgPicture.asset(
+                      item['icon'],
+                      width: 24,
+                      height: 24,
+                      colorFilter: ColorFilter.mode(grey500, BlendMode.srcIn),
+                    ),
+                    // isIconBlend: true,
+                    title: item['label'],
+                    activeIcon: UnconstrainedBox(
+                      child: SvgPicture.asset(
+                        item['icon_filled'],
+                        width: 28,
+                        height: 28,
+                        colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.primary,
+                          BlendMode.srcIn,
                         ),
                       ),
                     ),
-                  )
-                  .toList(),
-            ),
+                  ),
+                )
+                .toList(),
+            initialActiveIndex: activeIndex,
+            onTap: (index) {
+              setState(() {
+                activeIndex = index;
+              });
+            },
           ),
+          // bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+          //   itemCount: bottomNavigationItems.length,
+          //   tabBuilder: (index, isActive) => Container(
+          //     width: double.infinity,
+          //     height: double.infinity,
+          //     margin: const EdgeInsets.only(top: 8),
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         UnconstrainedBox(
+          //           child: SvgPicture.asset(
+          //             bottomNavigationItems[index][isActive ? 'icon_filled' : 'icon'],
+          //             width: 24,
+          //             height: 24,
+          //             colorFilter: ColorFilter.mode(isActive ? Theme.of(context).colorScheme.primary : grey500, BlendMode.srcIn),
+          //           ),
+          //         ),
+          //         Text(
+          //           bottomNavigationItems[index]['label'],
+          //           style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          //             fontWeight: FontWeight.w700,
+          //             color: isActive ? Theme.of(context).colorScheme.primary : grey500,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          //   activeIndex: activeIndex,
+          //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          //   elevation: 8,
+          //   gapLocation: GapLocation.center,
+          //   notchSmoothness: NotchSmoothness.softEdge,
+          //   scaleFactor: 0.4,
+          //   onTap: (index) {
+          //     setState(() {
+          //       activeIndex = index;
+          //     });
+          //   },
+          // ),
+          // bottomNavigationBar: Container(
+          //   width: double.infinity,
+          //   height: 70,
+          //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          //   decoration: BoxDecoration(
+          //     color: Theme.of(context).colorScheme.onPrimary,
+          //     borderRadius: BorderRadius.circular(16),
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: Theme.of(
+          //           context,
+          //         ).colorScheme.shadow.withValues(alpha: 0.1),
+          //         blurRadius: 10,
+          //         offset: const Offset(0, 2),
+          //       ),
+          //     ],
+          //   ),
+          //   child: Row(
+          //     children: bottomNavigationItems
+          //         .map(
+          //           (item) => Expanded(
+          //             child: Container(
+          //               width: double.infinity,
+          //               height: double.infinity,
+          //               decoration: BoxDecoration(
+          //                 borderRadius: BorderRadius.circular(16),
+          //               ),
+          //               child: Column(
+          //                 mainAxisAlignment: MainAxisAlignment.center,
+          //                 crossAxisAlignment: CrossAxisAlignment.center,
+          //                 spacing: 4,
+          //                 children: [
+          //                   SvgPicture.asset(
+          //                     item['icon'],
+          //                     width: 24,
+          //                     height: 24,
+          //                     colorFilter: ColorFilter.mode(
+          //                       Theme.of(context).textTheme.bodyMedium!.color!
+          //                           .withValues(alpha: 0.7),
+          //                       BlendMode.srcIn,
+          //                     ),
+          //                   ),
+          //                   Text(
+          //                     item['label'],
+          //                     style: TextStyle(
+          //                       fontSize: Theme.of(
+          //                         context,
+          //                       ).textTheme.bodySmall!.fontSize,
+          //                       color: Theme.of(
+          //                         context,
+          //                       ).textTheme.bodyMedium!.color,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         )
+          //         .toList(),
+          //   ),
+          // ),
           // bottomNavigationBar: CurvedNavigationBar(
           //   key: bottomNavigationKey,
           //   backgroundColor: Colors.transparent,
