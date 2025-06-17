@@ -26,7 +26,7 @@ final GoRoute onboardingRoute = GoRoute(
 
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
-    initialLocation: '/login',
+    initialLocation: '/user-profile',
     redirect: (context, state) {
       final authState = authBloc.state;
 
@@ -42,6 +42,7 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
         context.read<UserBloc>().add(FetchUserEvent());
 
         return '/user-home';
+        // return '/user-profile';
       }
 
       return null;
@@ -60,6 +61,6 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
       agentDashboardRoute,
 
       /// User Routes
-      userDashboardRoute,
+      userDashboardRoutes,
     ],
   );

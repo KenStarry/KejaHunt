@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 import '../../../../auth/presentation/bloc/auth_bloc.dart';
@@ -13,8 +14,13 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class UserDashboardPage extends StatefulWidget {
   final Widget child;
+  final String location;
 
-  const UserDashboardPage({super.key, required this.child});
+  const UserDashboardPage({
+    super.key,
+    required this.child,
+    required this.location,
+  });
 
   @override
   State<UserDashboardPage> createState() => _UserDashboardPageState();
@@ -38,8 +44,8 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
     },
     {
       'label': 'Community',
-      'icon': 'assets/images/icons/message_outlined.svg',
-      'icon_filled': 'assets/images/icons/message_filled.svg',
+      'icon': 'assets/images/icons/community_outlined.svg',
+      'icon_filled': 'assets/images/icons/community_filled.svg',
     },
     {
       'label': 'Map',
@@ -68,28 +74,21 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             actionsPadding: EdgeInsets.only(right: 20, left: 20),
-            // leading: GestureDetector(
-            //   onTap: () {
-            //
-            //   },
-            //   child: Container(
-            //     width: double.infinity,
-            //     height: double.infinity,
-            //     padding: const EdgeInsets.all(8),
-            //     child: SvgPicture.asset(
-            //       'assets/images/icons/menu.svg',
-            //       width: 26,
-            //       height: 26,
-            //       colorFilter: ColorFilter.mode(
-            //         Theme.of(context).textTheme.bodyMedium!.color!,
-            //         BlendMode.srcIn,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             automaticallyImplyLeading: false,
             leadingWidth: 0,
-            title: Row(
+            title: widget.location != '/user-home' ? Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 16,
+              children: [
+                Text(
+                  'Profile',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ) : Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 16,
@@ -192,6 +191,24 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               setState(() {
                 activeIndex = index;
               });
+
+              switch (bottomNavigationItems[index]['label']) {
+                case 'Home':
+                  context.goNamed("user-home");
+                  break;
+                case 'Explore':
+                  // Navigate to Explore
+                  break;
+                case 'Community':
+                  // Navigate to Community
+                  break;
+                case 'Map':
+                  // Navigate to Map
+                  break;
+                case 'Profile':
+                  context.goNamed("user-profile");
+                  break;
+              }
             },
           ),
           // bottomNavigationBar: AnimatedBottomNavigationBar.builder(
