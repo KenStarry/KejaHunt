@@ -1,14 +1,13 @@
-import 'package:keja_hunt/core/di/locator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../auth/domain/models/user_model.dart';
-import '../../../../../utils/supabase_constants.dart';
+import '../../../di/locator.dart';
+import '../../../features/auth/domain/models/user_model.dart';
+import '../../../utils/supabase_constants.dart';
 
-mixin UserMixin {
-
+mixin UserDataMixin {
   final supabase = locator.get<SupabaseClient>();
 
-  Future<UserModel> fetchCurrentUser() async {
+  Future<UserModel> fetchUser() async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw Exception('No user is currently logged in');

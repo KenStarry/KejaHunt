@@ -20,7 +20,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  @JsonKey(name: "id")
+  @JsonKey(name: "user_id")
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: "email")
   String get email => throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "id") String id,
+      {@JsonKey(name: "user_id") String id,
       @JsonKey(name: "email") String email,
       @JsonKey(name: "created_at") String? createdAt,
       @JsonKey(name: "username") String? username,
@@ -159,7 +159,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "id") String id,
+      {@JsonKey(name: "user_id") String id,
       @JsonKey(name: "email") String email,
       @JsonKey(name: "created_at") String? createdAt,
       @JsonKey(name: "username") String? username,
@@ -250,7 +250,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
   const _$UserModelImpl(
-      {@JsonKey(name: "id") required this.id,
+      {@JsonKey(name: "user_id") required this.id,
       @JsonKey(name: "email") required this.email,
       @JsonKey(name: "created_at") this.createdAt,
       @JsonKey(name: "username") this.username,
@@ -266,7 +266,7 @@ class _$UserModelImpl implements _UserModel {
       _$$UserModelImplFromJson(json);
 
   @override
-  @JsonKey(name: "id")
+  @JsonKey(name: "user_id")
   final String id;
   @override
   @JsonKey(name: "email")
@@ -367,7 +367,7 @@ class _$UserModelImpl implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-      {@JsonKey(name: "id") required final String id,
+      {@JsonKey(name: "user_id") required final String id,
       @JsonKey(name: "email") required final String email,
       @JsonKey(name: "created_at") final String? createdAt,
       @JsonKey(name: "username") final String? username,
@@ -383,7 +383,7 @@ abstract class _UserModel implements UserModel {
       _$UserModelImpl.fromJson;
 
   @override
-  @JsonKey(name: "id")
+  @JsonKey(name: "user_id")
   String get id;
   @override
   @JsonKey(name: "email")

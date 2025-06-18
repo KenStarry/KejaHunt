@@ -44,7 +44,7 @@ mixin SignUpMixin {
             .from(USER_TABLE)
             .upsert(
               kejaUser.toJson(),
-              onConflict: 'id',
+              onConflict: 'user_id',
               ignoreDuplicates: false,
             )
             .select();
@@ -105,7 +105,7 @@ mixin SignUpMixin {
                 .from(USER_TABLE)
                 .upsert(
                   kejaUser.toJson(),
-                  onConflict: 'id',
+                  onConflict: 'user_id',
                   ignoreDuplicates: false,
                 )
                 .select();

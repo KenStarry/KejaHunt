@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:percent_indicator/flutter_percent_indicator.dart';
@@ -105,121 +106,12 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
                       ).textTheme.bodyMedium?.color?.withValues(alpha: 0.8),
                     ),
                   ),
+
+                  CustomFilledButton(text: "Become a Keja Hunter", onTap: (){
+                    /// Approve this User and upgrade them to be an agent
+                  })
                 ],
               ),
-              // Expanded(
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     spacing: 16,
-              //     children: [
-              //
-              //       /// Metrics
-              //       Row(
-              //         spacing: 24,
-              //         children: [
-              //           Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               Text(
-              //                 "98",
-              //                 style: Theme.of(context).textTheme.titleMedium
-              //                     ?.copyWith(fontWeight: FontWeight.w700),
-              //               ),
-              //
-              //               Text(
-              //                 "Bookings",
-              //                 style: Theme.of(context).textTheme.bodyMedium
-              //                     ?.copyWith(fontWeight: FontWeight.w700,
-              //                 color: Theme.of(context).textTheme.bodySmall?.color),
-              //               ),
-              //             ],
-              //           ),
-              //           Column(
-              //             children: [
-              //               Text(
-              //                 "150",
-              //                 style: Theme.of(context).textTheme.titleMedium
-              //                     ?.copyWith(fontWeight: FontWeight.w700),
-              //               ),
-              //
-              //               Text(
-              //                 "Likes",
-              //                 style: Theme.of(context).textTheme.bodyMedium
-              //                     ?.copyWith(fontWeight: FontWeight.w700,
-              //                     color: Theme.of(context).textTheme.bodyMedium?.color),
-              //               ),
-              //             ],
-              //           ),
-              //         ],
-              //       ),
-              //
-              //       Column(
-              //         spacing: 8,
-              //         children: [
-              //           Row(
-              //             children: [
-              //               Expanded(
-              //                 child: Row(
-              //                   mainAxisAlignment: MainAxisAlignment.start,
-              //                   crossAxisAlignment: CrossAxisAlignment.center,
-              //                   spacing: 8,
-              //                   children: [
-              //                     SvgPicture.asset(
-              //                       "assets/images/icons/discount_outlined.svg",
-              //                       width: 20,
-              //                       height: 20,
-              //                       colorFilter: ColorFilter.mode(
-              //                         grey400,
-              //                         BlendMode.srcIn,
-              //                       ),
-              //                     ),
-              //
-              //                     Text(
-              //                       "Explorer",
-              //                       style: Theme.of(context).textTheme.bodyLarge
-              //                           ?.copyWith(fontWeight: FontWeight.w700),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //
-              //               Text.rich(
-              //                 TextSpan(
-              //                   children: [
-              //                     TextSpan(
-              //                       text: "120 ",
-              //                       style: Theme.of(context)
-              //                           .textTheme
-              //                           .bodyMedium
-              //                           ?.copyWith(fontWeight: FontWeight.w700),
-              //                     ),
-              //
-              //                     TextSpan(
-              //                       text: "Pts",
-              //                       style: Theme.of(context).textTheme.bodySmall
-              //                           ?.copyWith(fontWeight: FontWeight.w700),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ],
-              //           ),
-              //           LinearPercentIndicator(
-              //             backgroundColor: grey100,
-              //             progressColor: Theme.of(context).colorScheme.primary,
-              //             lineHeight: 8,
-              //             padding: EdgeInsets.zero,
-              //             barRadius: Radius.circular(100),
-              //             animation: true,
-              //             animateToInitialPercent: true,
-              //             percent: 0.37,
-              //           ),
-              //         ],
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         );
