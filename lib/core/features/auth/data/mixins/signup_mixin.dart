@@ -26,13 +26,12 @@ mixin SignUpMixin {
         throw Exception("User creation failed. Please try again.");
       } else {
         final kejaUser = UserModel(
-          id: supabaseUser.id,
+          userId: supabaseUser.id,
           email: supabaseUser.email!,
           userType: UserType.user.name,
           createdAt: supabaseUser.createdAt,
           updatedAt: supabaseUser.createdAt,
           isVerifiedUser: false,
-          isVerifiedAgent: false,
           username: '',
           fullName: '',
           phoneNumber: '',
@@ -86,14 +85,13 @@ mixin SignUpMixin {
             throw Exception("User creation failed. Please try again.");
           } else {
             final kejaUser = UserModel(
-              id: supabaseUser.id,
+              userId: supabaseUser.id,
               email: supabaseUser.email!,
               userType: UserType.user.name,
               createdAt: supabaseUser.createdAt,
               updatedAt: supabaseUser.createdAt,
               isVerifiedUser:
                   supabaseUser.userMetadata?['email_verified'] ?? false,
-              isVerifiedAgent: false,
               username: supabaseUser.userMetadata?['name'] ?? '',
               fullName: supabaseUser.userMetadata?['full_name'] ?? '',
               phoneNumber: '',

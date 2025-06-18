@@ -91,9 +91,7 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
                 spacing: 4,
                 children: [
                   Text(
-                    userState is UserSuccess
-                        ? userState.user.username!
-                        : '',
+                    userState is UserSuccess ? userState.user.username! : '',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
 
@@ -107,9 +105,19 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
                     ),
                   ),
 
-                  CustomFilledButton(text: "Become a Keja Hunter", onTap: (){
-                    /// Approve this User and upgrade them to be an agent
-                  })
+                  // BlocBuilder<UserBloc, UserState>(
+                  //   builder: (context, userState) {
+                  //     return CustomFilledButton(
+                  //       text: "Become a Keja Hunter",
+                  //       onTap: () {
+                  //         /// Approve this User and upgrade them to be an agent
+                  //         context.read<UserBloc>().add(
+                  //           UpgradeUserToAgentEvent(),
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ],

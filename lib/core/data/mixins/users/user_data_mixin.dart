@@ -19,6 +19,34 @@ mixin UserDataMixin {
         .eq('user_id', user.id)
         .single();
 
-    return UserModel.fromJson(userResponse);
+    /// Check if the user is an agent
+    final data = await supabase
+        .from(USER_TABLE)
+        .select('*, agents(user_id)')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+    final agentData = await supabase
+        .from('agents')
+        .select()
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+    final isAgent = agentData != null;
+
+    final userModel = UserModel.fromJson(
+      userResponse,
+    ).copyWith(isAgent: isAgent);
+
+    return userModel;
+  }
+
+  Future<void> upgradeUserToAgent() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      throw Exception('No user is currently logged in');
+    }
+
+    await supabase.from(AGENTS_TABLE).insert({"user_id": user.id});
   }
 }

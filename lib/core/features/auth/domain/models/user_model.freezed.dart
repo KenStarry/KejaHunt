@@ -21,7 +21,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   @JsonKey(name: "user_id")
-  String get id => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "email")
   String get email => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
@@ -38,8 +38,7 @@ mixin _$UserModel {
   String? get userType => throw _privateConstructorUsedError;
   @JsonKey(name: "is_verified_user")
   bool? get isVerifiedUser => throw _privateConstructorUsedError;
-  @JsonKey(name: "is_verified_agent")
-  bool? get isVerifiedAgent => throw _privateConstructorUsedError;
+  bool? get isAgent => throw _privateConstructorUsedError;
   @JsonKey(name: "avatar_url")
   String? get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: "updated_at")
@@ -61,7 +60,7 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "user_id") String id,
+      {@JsonKey(name: "user_id") String userId,
       @JsonKey(name: "email") String email,
       @JsonKey(name: "created_at") String? createdAt,
       @JsonKey(name: "username") String? username,
@@ -69,7 +68,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: "phone") String? phoneNumber,
       @JsonKey(name: "user_type") String? userType,
       @JsonKey(name: "is_verified_user") bool? isVerifiedUser,
-      @JsonKey(name: "is_verified_agent") bool? isVerifiedAgent,
+      bool? isAgent,
       @JsonKey(name: "avatar_url") String? avatarUrl,
       @JsonKey(name: "updated_at") String? updatedAt});
 }
@@ -89,7 +88,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? userId = null,
     Object? email = null,
     Object? createdAt = freezed,
     Object? username = freezed,
@@ -97,14 +96,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? phoneNumber = freezed,
     Object? userType = freezed,
     Object? isVerifiedUser = freezed,
-    Object? isVerifiedAgent = freezed,
+    Object? isAgent = freezed,
     Object? avatarUrl = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
@@ -134,9 +133,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.isVerifiedUser
           : isVerifiedUser // ignore: cast_nullable_to_non_nullable
               as bool?,
-      isVerifiedAgent: freezed == isVerifiedAgent
-          ? _value.isVerifiedAgent
-          : isVerifiedAgent // ignore: cast_nullable_to_non_nullable
+      isAgent: freezed == isAgent
+          ? _value.isAgent
+          : isAgent // ignore: cast_nullable_to_non_nullable
               as bool?,
       avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
@@ -159,7 +158,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "user_id") String id,
+      {@JsonKey(name: "user_id") String userId,
       @JsonKey(name: "email") String email,
       @JsonKey(name: "created_at") String? createdAt,
       @JsonKey(name: "username") String? username,
@@ -167,7 +166,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: "phone") String? phoneNumber,
       @JsonKey(name: "user_type") String? userType,
       @JsonKey(name: "is_verified_user") bool? isVerifiedUser,
-      @JsonKey(name: "is_verified_agent") bool? isVerifiedAgent,
+      bool? isAgent,
       @JsonKey(name: "avatar_url") String? avatarUrl,
       @JsonKey(name: "updated_at") String? updatedAt});
 }
@@ -185,7 +184,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? userId = null,
     Object? email = null,
     Object? createdAt = freezed,
     Object? username = freezed,
@@ -193,14 +192,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? userType = freezed,
     Object? isVerifiedUser = freezed,
-    Object? isVerifiedAgent = freezed,
+    Object? isAgent = freezed,
     Object? avatarUrl = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$UserModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
@@ -230,9 +229,9 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.isVerifiedUser
           : isVerifiedUser // ignore: cast_nullable_to_non_nullable
               as bool?,
-      isVerifiedAgent: freezed == isVerifiedAgent
-          ? _value.isVerifiedAgent
-          : isVerifiedAgent // ignore: cast_nullable_to_non_nullable
+      isAgent: freezed == isAgent
+          ? _value.isAgent
+          : isAgent // ignore: cast_nullable_to_non_nullable
               as bool?,
       avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
@@ -250,7 +249,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
   const _$UserModelImpl(
-      {@JsonKey(name: "user_id") required this.id,
+      {@JsonKey(name: "user_id") required this.userId,
       @JsonKey(name: "email") required this.email,
       @JsonKey(name: "created_at") this.createdAt,
       @JsonKey(name: "username") this.username,
@@ -258,7 +257,7 @@ class _$UserModelImpl implements _UserModel {
       @JsonKey(name: "phone") this.phoneNumber,
       @JsonKey(name: "user_type") this.userType,
       @JsonKey(name: "is_verified_user") this.isVerifiedUser = false,
-      @JsonKey(name: "is_verified_agent") this.isVerifiedAgent = false,
+      this.isAgent = false,
       @JsonKey(name: "avatar_url") this.avatarUrl,
       @JsonKey(name: "updated_at") this.updatedAt});
 
@@ -267,7 +266,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   @JsonKey(name: "user_id")
-  final String id;
+  final String userId;
   @override
   @JsonKey(name: "email")
   final String email;
@@ -292,8 +291,8 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey(name: "is_verified_user")
   final bool? isVerifiedUser;
   @override
-  @JsonKey(name: "is_verified_agent")
-  final bool? isVerifiedAgent;
+  @JsonKey()
+  final bool? isAgent;
   @override
   @JsonKey(name: "avatar_url")
   final String? avatarUrl;
@@ -303,7 +302,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, email: $email, createdAt: $createdAt, username: $username, fullName: $fullName, phoneNumber: $phoneNumber, userType: $userType, isVerifiedUser: $isVerifiedUser, isVerifiedAgent: $isVerifiedAgent, avatarUrl: $avatarUrl, updatedAt: $updatedAt)';
+    return 'UserModel(userId: $userId, email: $email, createdAt: $createdAt, username: $username, fullName: $fullName, phoneNumber: $phoneNumber, userType: $userType, isVerifiedUser: $isVerifiedUser, isAgent: $isAgent, avatarUrl: $avatarUrl, updatedAt: $updatedAt)';
   }
 
   @override
@@ -311,7 +310,7 @@ class _$UserModelImpl implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -325,8 +324,7 @@ class _$UserModelImpl implements _UserModel {
                 other.userType == userType) &&
             (identical(other.isVerifiedUser, isVerifiedUser) ||
                 other.isVerifiedUser == isVerifiedUser) &&
-            (identical(other.isVerifiedAgent, isVerifiedAgent) ||
-                other.isVerifiedAgent == isVerifiedAgent) &&
+            (identical(other.isAgent, isAgent) || other.isAgent == isAgent) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -337,7 +335,7 @@ class _$UserModelImpl implements _UserModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
+      userId,
       email,
       createdAt,
       username,
@@ -345,7 +343,7 @@ class _$UserModelImpl implements _UserModel {
       phoneNumber,
       userType,
       isVerifiedUser,
-      isVerifiedAgent,
+      isAgent,
       avatarUrl,
       updatedAt);
 
@@ -367,7 +365,7 @@ class _$UserModelImpl implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-      {@JsonKey(name: "user_id") required final String id,
+      {@JsonKey(name: "user_id") required final String userId,
       @JsonKey(name: "email") required final String email,
       @JsonKey(name: "created_at") final String? createdAt,
       @JsonKey(name: "username") final String? username,
@@ -375,7 +373,7 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: "phone") final String? phoneNumber,
       @JsonKey(name: "user_type") final String? userType,
       @JsonKey(name: "is_verified_user") final bool? isVerifiedUser,
-      @JsonKey(name: "is_verified_agent") final bool? isVerifiedAgent,
+      final bool? isAgent,
       @JsonKey(name: "avatar_url") final String? avatarUrl,
       @JsonKey(name: "updated_at") final String? updatedAt}) = _$UserModelImpl;
 
@@ -384,7 +382,7 @@ abstract class _UserModel implements UserModel {
 
   @override
   @JsonKey(name: "user_id")
-  String get id;
+  String get userId;
   @override
   @JsonKey(name: "email")
   String get email;
@@ -409,8 +407,7 @@ abstract class _UserModel implements UserModel {
   @JsonKey(name: "is_verified_user")
   bool? get isVerifiedUser;
   @override
-  @JsonKey(name: "is_verified_agent")
-  bool? get isVerifiedAgent;
+  bool? get isAgent;
   @override
   @JsonKey(name: "avatar_url")
   String? get avatarUrl;

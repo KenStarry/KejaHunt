@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:keja_hunt/core/presentation/bloc/theme_cubit.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 import '../../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../../../presentation/components/avatar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
 import '../bloc/user_bloc.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class UserDashboardPage extends StatefulWidget {
   final Widget child;
@@ -83,12 +80,31 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 16,
               children: [
-                Text(
-                  'Profile',
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontWeight: FontWeight.w700,
+                Expanded(
+                  child: Text(
+                    'Profile',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
+
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Theme.of(context).colorScheme.onPrimary
+                    ),
+                    child: Row(
+                      children: [
+                        Text("Agent Mode", style: Theme.of(context).textTheme.bodyMedium),
+                        Icon(Icons.arrow_drop_down_rounded)
+                      ],
+                    ),
+                  ),
+                )
               ],
             ) : Row(
               mainAxisAlignment: MainAxisAlignment.start,
