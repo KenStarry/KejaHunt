@@ -35,7 +35,7 @@ mixin _$HouseUnitModel {
   @JsonKey(name: "available_count")
   int get availableCount => throw _privateConstructorUsedError;
   @JsonKey(name: "images")
-  List<String> get images => throw _privateConstructorUsedError;
+  List<UnitImageModel> get images => throw _privateConstructorUsedError;
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
@@ -65,7 +65,7 @@ abstract class $HouseUnitModelCopyWith<$Res> {
       @JsonKey(name: "floor") int floor,
       @JsonKey(name: "rent_amount") double rentAmount,
       @JsonKey(name: "available_count") int availableCount,
-      @JsonKey(name: "images") List<String> images,
+      @JsonKey(name: "images") List<UnitImageModel> images,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
       @JsonKey(name: "created_at") String createdAt});
 }
@@ -128,7 +128,7 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<UnitImageModel>,
       features: null == features
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
@@ -157,7 +157,7 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
       @JsonKey(name: "floor") int floor,
       @JsonKey(name: "rent_amount") double rentAmount,
       @JsonKey(name: "available_count") int availableCount,
-      @JsonKey(name: "images") List<String> images,
+      @JsonKey(name: "images") List<UnitImageModel> images,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
       @JsonKey(name: "created_at") String createdAt});
 }
@@ -218,7 +218,7 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<UnitImageModel>,
       features: null == features
           ? _value._features
           : features // ignore: cast_nullable_to_non_nullable
@@ -242,7 +242,8 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       @JsonKey(name: "floor") this.floor = 1,
       @JsonKey(name: "rent_amount") this.rentAmount = 0.00,
       @JsonKey(name: "available_count") this.availableCount = 1,
-      @JsonKey(name: "images") final List<String> images = const [],
+      @JsonKey(name: "images")
+      final List<UnitImageModel> images = const <UnitImageModel>[],
       @JsonKey(name: "features")
       final List<UnitFeatureModel> features = const <UnitFeatureModel>[],
       @JsonKey(name: "created_at") this.createdAt = ''})
@@ -273,10 +274,10 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
   @override
   @JsonKey(name: "available_count")
   final int availableCount;
-  final List<String> _images;
+  final List<UnitImageModel> _images;
   @override
   @JsonKey(name: "images")
-  List<String> get images {
+  List<UnitImageModel> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_images);
@@ -364,7 +365,7 @@ abstract class _HouseUnitModel implements HouseUnitModel {
           @JsonKey(name: "floor") final int floor,
           @JsonKey(name: "rent_amount") final double rentAmount,
           @JsonKey(name: "available_count") final int availableCount,
-          @JsonKey(name: "images") final List<String> images,
+          @JsonKey(name: "images") final List<UnitImageModel> images,
           @JsonKey(name: "features") final List<UnitFeatureModel> features,
           @JsonKey(name: "created_at") final String createdAt}) =
       _$HouseUnitModelImpl;
@@ -395,7 +396,7 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   int get availableCount;
   @override
   @JsonKey(name: "images")
-  List<String> get images;
+  List<UnitImageModel> get images;
   @override
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features;

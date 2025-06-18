@@ -27,9 +27,35 @@ class _UnitDetailHeaderState extends State<UnitDetailHeader> {
               mainAxisAlignment: MainAxisAlignment.start,
               spacing: 16,
               children: [
-                Text(
-                  "1 Bedroom",
-                  style: Theme.of(context).textTheme.titleLarge,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 8,
+                  children: [
+                    Text(
+                      "1 Bedroom",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+
+                    Row(
+                      spacing: 12,
+                      children: [
+                        //  Ratings
+                        SvgPicture.asset(
+                          "assets/images/icons/location_outlined.svg",
+                          width: 16,
+                          height: 16,
+                          colorFilter: ColorFilter.mode(grey700, BlendMode.srcIn),
+                        ),
+
+                        Text(
+                          "Dagoretti, Uthiiru",
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w700,
+                          color: grey700),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
 
                 Row(

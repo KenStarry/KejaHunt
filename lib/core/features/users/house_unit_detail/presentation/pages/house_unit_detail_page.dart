@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_agent_card.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_carousel.dart';
+import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_gallery.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_header.dart';
 import 'package:keja_hunt/core/presentation/components/custom_divider.dart';
+import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/utils/constants.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
@@ -22,6 +24,8 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
   final ScrollController _scrollController = ScrollController();
   Color _appbarBackgroundColor = Colors.transparent;
 
+  bool isScrolled = false;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +34,7 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
       double scrollOffset = _scrollController.offset;
 
       setState(() {
+        isScrolled = scrollOffset > 100;
         _appbarBackgroundColor = scrollOffset > 100
             ? Theme.of(context).scaffoldBackgroundColor
             : Colors.transparent;
@@ -55,47 +60,63 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
             onPressed: () {},
             icon: Icon(Icons.arrow_back_rounded),
           ),
-          title: Align(
-            alignment: Alignment.centerRight,
-            child: UnconstrainedBox(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: grey10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset(
-                        "assets/images/icons/heart.svg",
-                        width: 24,
-                        height: 24,
-                        colorFilter: ColorFilter.mode(grey800, BlendMode.srcIn),
+          title: Row(
+            children: [
+              Expanded(
+                child: isScrolled
+                    ? Text(
+                        "Details Page",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      )
+                    : SizedBox.shrink(),
+              ),
+              UnconstrainedBox(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: isScrolled ? Colors.transparent : grey10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          "assets/images/icons/heart.svg",
+                          width: 24,
+                          height: 24,
+                          colorFilter: ColorFilter.mode(
+                            grey800,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                       ),
-                    ),
 
-                    IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset(
-                        "assets/images/icons/send_outlined.svg",
-                        width: 24,
-                        height: 24,
-                        colorFilter: ColorFilter.mode(grey800, BlendMode.srcIn),
+                      IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          "assets/images/icons/send_outlined.svg",
+                          width: 24,
+                          height: 24,
+                          colorFilter: ColorFilter.mode(
+                            grey800,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
           backgroundColor: _appbarBackgroundColor,
           surfaceTintColor: _appbarBackgroundColor,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.light,
+            statusBarIconBrightness: isScrolled
+                ?Brightness.dark : Brightness.light,
             systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
@@ -107,10 +128,9 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
           child: Stack(
             children: [
               CustomScrollView(
-                physics: const BouncingScrollPhysics(),
                 controller: _scrollController,
                 slivers: [
-                  UnitDetailCarousel(imageUrls: widget.houseUnitModel.images),
+                  UnitDetailCarousel(imageUrls: widget.houseUnitModel.images.map((image) => image.imageUrl).toList()),
 
                   SliverToBoxAdapter(child: SizedBox(height: 16)),
 
@@ -130,7 +150,80 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
                   UnitDetailAgentCard(),
 
                   SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                  UnitDetailGallery(imageUrls: widget.houseUnitModel.images.map((image) => image.imageUrl).toList()),
+
+                  SliverToBoxAdapter(child: SizedBox(height: 200)),
                 ],
+              ),
+
+              /// Book Now CTA
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  height: 120,
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(36),
+                      topRight: Radius.circular(36),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: grey300.withValues(alpha: 0.5),
+                        offset: Offset(0, -8),
+                        blurRadius: 15,
+                      ),
+                    ],
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                  child: Row(
+                    spacing: 24,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 8,
+                        children: [
+                          Text(
+                            "Price",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "Ksh 315,000",
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 26,
+                                      ),
+                                ),
+                                TextSpan(
+                                  text: " / mo",
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.bodySmall?.copyWith(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: CustomFilledButton(
+                          text: "Book Now",
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

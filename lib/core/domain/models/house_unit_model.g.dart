@@ -16,9 +16,9 @@ _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
       rentAmount: (json['rent_amount'] as num?)?.toDouble() ?? 0.00,
       availableCount: (json['available_count'] as num?)?.toInt() ?? 1,
       images: (json['images'] as List<dynamic>?)
-              ?.map((e) => e as String)
+              ?.map((e) => UnitImageModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const [],
+          const <UnitImageModel>[],
       features: (json['features'] as List<dynamic>?)
               ?.map((e) => UnitFeatureModel.fromJson(e as Map<String, dynamic>))
               .toList() ??

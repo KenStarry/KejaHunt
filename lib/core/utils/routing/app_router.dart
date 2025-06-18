@@ -14,6 +14,8 @@ import 'package:keja_hunt/core/utils/routing/user_routes.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/bloc/user_bloc.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/pages/user_dashboard_page.dart';
 
+import '../../domain/models/unit_image_model.dart';
+
 /// Onboarding Routes
 final GoRoute welcomeRoute = GoRoute(
   path: '/welcome',
@@ -50,10 +52,26 @@ final GoRoute unitDetailRoute = GoRoute(
         ),
       ],
       images: [
-        "https://images.unsplash.com/photo-1666282167632-c613fbeb163c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1670244208613-6da9cefb3ba1?q=80&w=770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1670244208039-ff6275134b67?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1715985160053-d339e8b6eb94?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        UnitImageModel(
+          imageUrl:
+          "https://images.unsplash.com/photo-1666282167632-c613fbeb163c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          imageTag: "Bathroom",
+        ),
+        UnitImageModel(
+          imageUrl:
+          "https://images.unsplash.com/photo-1670244208613-6da9cefb3ba1?q=80&w=770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          imageTag: "Sitting Room",
+        ),
+        UnitImageModel(
+          imageUrl:
+          "https://images.unsplash.com/photo-1670244208039-ff6275134b67?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          imageTag: "Bathroom",
+        ),
+        UnitImageModel(
+          imageUrl:
+          "https://images.unsplash.com/photo-1715985160053-d339e8b6eb94?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          imageTag: "Kitchen",
+        ),
       ],
     ),
   ),
@@ -61,7 +79,7 @@ final GoRoute unitDetailRoute = GoRoute(
 
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
-  initialLocation: '/unit-detail',
+  initialLocation: '/login',
   redirect: (context, state) {
     final authState = authBloc.state;
 

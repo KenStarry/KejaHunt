@@ -47,7 +47,7 @@ class _HouseCardFeaturedState extends State<HouseCardFeatured> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(32),
-                child: FadingCarousel(imageUrls: widget.houseUnitModel.images),
+                child: FadingCarousel(imageUrls: widget.houseUnitModel.images.map((image) => image.imageUrl).toList()),
               ),
             ),
           ),

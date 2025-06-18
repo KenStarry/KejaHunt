@@ -56,7 +56,7 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(32),
-                      child: CustomNetworkImage(url: widget.houseUnitModel.images[0])),
+                      child: CustomNetworkImage(url: widget.houseUnitModel.images[0].imageUrl)),
                 ),
 
                 //  Rating

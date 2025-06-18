@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class CustomNetworkImage extends StatelessWidget {
   final String url;
   final bool makeRound;
+  final BorderRadius? borderRadius;
   final Size? size;
 
   const CustomNetworkImage({
     super.key,
     this.makeRound = false,
+    this.borderRadius,
     this.size,
     required this.url,
   });
@@ -16,7 +18,7 @@ class CustomNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: makeRound ? BorderRadius.circular(((size?.width ?? 100) * 2)) : BorderRadius.zero,
+      borderRadius: makeRound ? BorderRadius.circular(((size?.width ?? 100) * 2)) : (borderRadius ?? BorderRadius.zero),
       child: CachedNetworkImage(
         imageUrl: url,
         width: size?.width ?? double.infinity,

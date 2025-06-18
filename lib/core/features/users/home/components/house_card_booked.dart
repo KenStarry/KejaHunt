@@ -85,7 +85,7 @@ class _HouseCardBookedState extends State<HouseCardBooked> {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(32),
                             child: CustomNetworkImage(url: widget.houseUnitModel
-                                .images[0])),
+                                .images[0].imageUrl)),
                       ),
 
                       //  Rating
