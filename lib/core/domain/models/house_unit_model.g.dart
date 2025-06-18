@@ -20,9 +20,9 @@ _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       features: (json['features'] as List<dynamic>?)
-              ?.map((e) => e as String)
+              ?.map((e) => UnitFeatureModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const [],
+          const <UnitFeatureModel>[],
       createdAt: json['created_at'] as String? ?? '',
     );
 

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/agents/features/dashboard/presentation/pages/agent_dashboard_page.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
+import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/features/auth/data/classes/gorouter_refresh_stream.dart';
 import 'package:keja_hunt/core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/onboarding_page.dart';
@@ -31,10 +32,28 @@ final GoRoute unitDetailRoute = GoRoute(
   name: 'unit-detail',
   builder: (context, state) => HouseUnitDetailPage(
     houseUnitModel: HouseUnitModel(
+      features: [
+        UnitFeatureModel(
+          featureName: "Bed",
+          featureDescription: "8 Beds",
+          featureIconPath: "assets/images/icons/features/car_park.svg"
+        ),
+        UnitFeatureModel(
+            featureName: "Balcony",
+            featureDescription: "",
+            featureIconPath: "assets/images/icons/features/car_park.svg"
+        ),
+        UnitFeatureModel(
+            featureName: "Balcony",
+            featureDescription: "",
+            featureIconPath: "assets/images/icons/features/car_park.svg"
+        ),
+      ],
       images: [
-        "https://images.unsplash.com/photo-1662454419716-c4c504728811?q=80&w=886&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://plus.unsplash.com/premium_photo-1674676471339-fe57f0056992?q=80&w=743&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1662454419736-de132ff75638?q=80&w=1102&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1666282167632-c613fbeb163c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1670244208613-6da9cefb3ba1?q=80&w=770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1670244208039-ff6275134b67?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1715985160053-d339e8b6eb94?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       ],
     ),
   ),

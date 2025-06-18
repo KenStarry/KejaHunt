@@ -37,7 +37,7 @@ mixin _$HouseUnitModel {
   @JsonKey(name: "images")
   List<String> get images => throw _privateConstructorUsedError;
   @JsonKey(name: "features")
-  List<String> get features => throw _privateConstructorUsedError;
+  List<UnitFeatureModel> get features => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
   String get createdAt => throw _privateConstructorUsedError;
 
@@ -66,7 +66,7 @@ abstract class $HouseUnitModelCopyWith<$Res> {
       @JsonKey(name: "rent_amount") double rentAmount,
       @JsonKey(name: "available_count") int availableCount,
       @JsonKey(name: "images") List<String> images,
-      @JsonKey(name: "features") List<String> features,
+      @JsonKey(name: "features") List<UnitFeatureModel> features,
       @JsonKey(name: "created_at") String createdAt});
 }
 
@@ -132,7 +132,7 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
       features: null == features
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<UnitFeatureModel>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -158,7 +158,7 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
       @JsonKey(name: "rent_amount") double rentAmount,
       @JsonKey(name: "available_count") int availableCount,
       @JsonKey(name: "images") List<String> images,
-      @JsonKey(name: "features") List<String> features,
+      @JsonKey(name: "features") List<UnitFeatureModel> features,
       @JsonKey(name: "created_at") String createdAt});
 }
 
@@ -222,7 +222,7 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
       features: null == features
           ? _value._features
           : features // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<UnitFeatureModel>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -243,7 +243,8 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       @JsonKey(name: "rent_amount") this.rentAmount = 0.00,
       @JsonKey(name: "available_count") this.availableCount = 1,
       @JsonKey(name: "images") final List<String> images = const [],
-      @JsonKey(name: "features") final List<String> features = const [],
+      @JsonKey(name: "features")
+      final List<UnitFeatureModel> features = const <UnitFeatureModel>[],
       @JsonKey(name: "created_at") this.createdAt = ''})
       : _images = images,
         _features = features;
@@ -281,10 +282,10 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
     return EqualUnmodifiableListView(_images);
   }
 
-  final List<String> _features;
+  final List<UnitFeatureModel> _features;
   @override
   @JsonKey(name: "features")
-  List<String> get features {
+  List<UnitFeatureModel> get features {
     if (_features is EqualUnmodifiableListView) return _features;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_features);
@@ -364,7 +365,7 @@ abstract class _HouseUnitModel implements HouseUnitModel {
           @JsonKey(name: "rent_amount") final double rentAmount,
           @JsonKey(name: "available_count") final int availableCount,
           @JsonKey(name: "images") final List<String> images,
-          @JsonKey(name: "features") final List<String> features,
+          @JsonKey(name: "features") final List<UnitFeatureModel> features,
           @JsonKey(name: "created_at") final String createdAt}) =
       _$HouseUnitModelImpl;
 
@@ -397,7 +398,7 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   List<String> get images;
   @override
   @JsonKey(name: "features")
-  List<String> get features;
+  List<UnitFeatureModel> get features;
   @override
   @JsonKey(name: "created_at")
   String get createdAt;

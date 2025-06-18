@@ -173,7 +173,7 @@ class AppTextTheme {
   static TextTheme darkTextTheme() {
     return const TextTheme(
       bodyLarge: TextStyle(
-          color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
+          color: whiteColor, fontSize: 16, fontWeight: FontWeight.w600),
       bodyMedium: TextStyle(
           color: whiteColor, fontSize: 14, fontWeight: FontWeight.w500),
       bodySmall: TextStyle(
