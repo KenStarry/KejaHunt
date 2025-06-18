@@ -14,3 +14,5 @@ List<AuthTypeCardModel> supportedAuthTypes = [
     imagePath: "assets/images/icons/apple.svg",
   ),
 ];
+
+const horizontalPadding = 20.0;

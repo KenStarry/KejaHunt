@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
+import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_agent_card.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_carousel.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_header.dart';
+import 'package:keja_hunt/core/presentation/components/custom_divider.dart';
+import 'package:keja_hunt/core/utils/constants.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 class HouseUnitDetailPage extends StatefulWidget {
@@ -58,7 +61,7 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
-                  color: grey10
+                  color: grey10,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -96,9 +99,7 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
             systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
-          actions: [
-
-          ],
+          actions: [],
         ),
         body: SizedBox(
           width: double.infinity,
@@ -113,7 +114,22 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
 
                   SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-                  UnitDetailHeader(houseUnitModel: widget.houseUnitModel)
+                  UnitDetailHeader(houseUnitModel: widget.houseUnitModel),
+
+                  SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                  SliverPadding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: horizontalPadding,
+                    ),
+                    sliver: SliverToBoxAdapter(child: CustomDivider()),
+                  ),
+
+                  SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                  UnitDetailAgentCard(),
+
+                  SliverToBoxAdapter(child: SizedBox(height: 16)),
                 ],
               ),
             ],
