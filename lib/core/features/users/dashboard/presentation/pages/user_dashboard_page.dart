@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:keja_hunt/core/presentation/bloc/theme_cubit.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 import '../../../../auth/presentation/bloc/auth_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 
 import '../bloc/user_bloc.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class UserDashboardPage extends StatefulWidget {
   final Widget child;
@@ -150,15 +152,33 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 ),
               ],
             ),
+            actions: [
+              // if (widget.location == '/user-profile')
+              //   ToggleSwitch(
+              //     initialLabelIndex: 0,
+              //     totalSwitches: 2,
+              //     cornerRadius: 100,
+              //     labels: ["Dark", "Light"],
+              //     inactiveBgColor: grey200,
+              //     activeFgColor: Theme.of(context).colorScheme.primary,
+              //     onToggle: (index) {
+              //       if (index == 0) {
+              //         context.read<ThemeCubit>().toggleTheme(true);
+              //       } else {
+              //         context.read<ThemeCubit>().toggleTheme(false);
+              //       }
+              //     },
+              //   )
+            ],
           ),
           bottomNavigationBar: ConvexAppBar(
             style: TabStyle.react,
             key: bottomNavigationKey,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             color: grey500,
-            // activeColor: Theme.of(context).colorScheme.primary,
+            activeColor: Theme.of(context).colorScheme.primary,
             height: 70,
-            shadowColor: grey200,
+            shadowColor: grey800.withValues(alpha: 0.2),
             top: -20,
             elevation: 8,
             items: bottomNavigationItems
@@ -192,20 +212,20 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                 activeIndex = index;
               });
 
-              switch (bottomNavigationItems[index]['label']) {
-                case 'Home':
+              switch (index) {
+                case 0:
                   context.goNamed("user-home");
                   break;
-                case 'Explore':
+                case 1:
                   // Navigate to Explore
                   break;
-                case 'Community':
+                case 2:
                   // Navigate to Community
                   break;
-                case 'Map':
+                case 3:
                   // Navigate to Map
                   break;
-                case 'Profile':
+                case 4:
                   context.goNamed("user-profile");
                   break;
               }

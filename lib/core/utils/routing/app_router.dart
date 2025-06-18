@@ -42,7 +42,6 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
         context.read<UserBloc>().add(FetchUserEvent());
 
         return '/user-home';
-        // return '/user-profile';
       }
 
       return null;

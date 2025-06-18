@@ -23,15 +23,19 @@ class Avatar extends StatelessWidget {
             ? Center(child: Icon(Icons.person_rounded))
             : ClipRRect(
                 borderRadius: BorderRadius.circular((size?.width ?? 50) * 2),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) =>
-                      Icon(Icons.person_rounded),
+                child: Hero(
+                  tag: imageUrl,
+                  transitionOnUserGestures: true,
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        Icon(Icons.person_rounded),
+                  ),
                 ),
               ),
       ),

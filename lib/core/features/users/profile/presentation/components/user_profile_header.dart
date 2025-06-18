@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:percent_indicator/flutter_percent_indicator.dart';
@@ -89,7 +90,9 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
                 spacing: 4,
                 children: [
                   Text(
-                    "Carly Jones",
+                    userState is UserSuccess
+                        ? userState.user.username!
+                        : '',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
 

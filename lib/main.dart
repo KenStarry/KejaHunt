@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/env/env.dart';
 import 'core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'core/features/auth/signup/presentation/bloc/signup_bloc.dart';
+import 'core/presentation/bloc/theme_cubit.dart';
 import 'core/utils/routing/app_router.dart';
 
 Future<void> main() async {
@@ -22,8 +23,11 @@ Future<void> main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(
-          create: (context) => AuthBloc()..add(AuthCheckStatusEvent()),
+          create: (context) =>
+          AuthBloc()
+            ..add(AuthCheckStatusEvent()),
         ),
         BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => LoginBloc()),
@@ -43,16 +47,22 @@ class MyApp extends StatelessWidget {
       builder: (context) {
         final authBloc = context.read<AuthBloc>();
 
-        return MaterialApp.router(
-          title: 'KejaHunt',
-          theme: AppTheme.lightTheme(),
-          themeMode: ThemeMode.light,
-          routerDelegate: appRouter(authBloc).routerDelegate,
-          routeInformationParser: appRouter(authBloc).routeInformationParser,
-          routeInformationProvider: appRouter(
-            authBloc,
-          ).routeInformationProvider,
-          debugShowCheckedModeBanner: false,
+        return BlocBuilder<ThemeCubit, ThemeMode>(
+          builder: (context, themeMode) {
+            return MaterialApp.router(
+              title: 'KejaHunt',
+              theme: AppTheme.lightTheme(),
+              darkTheme: AppTheme.darkTheme(),
+              themeMode: themeMode,
+              routerConfig: appRouter(authBloc),
+              // routerDelegate: appRouter(authBloc).routerDelegate,
+              // routeInformationParser: appRouter(authBloc).routeInformationParser,
+              // routeInformationProvider: appRouter(
+              //   authBloc,
+              // ).routeInformationProvider,
+              debugShowCheckedModeBanner: false,
+            );
+          },
         );
       },
     );

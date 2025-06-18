@@ -10,7 +10,9 @@ const primaryColor400 = Color(0xFF0096C7);
 const secondaryColor = Color(0xFFFF6F61);
 
 const scaffoldBackgroundColor = Color(0xFFFFFFFF);
+const scaffoldBackgroundColorDark = Color(0xFF181A20);
 const scaffoldBackgroundSecondaryColor = Color(0xFFFAFAFA);
+const scaffoldBackgroundSecondaryColorDark = Color(0xFF35383F);
 
 /// INTERFACE COLORS
 const grey10 = Color(0xFFF0F0F0);
