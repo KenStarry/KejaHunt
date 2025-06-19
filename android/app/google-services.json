@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "178610942641",
+    "project_id": "kejahunt-b5402",
+    "storage_bucket": "kejahunt-b5402.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178610942641:android:115df8a0785e1830f1a890",
+        "android_client_info": {
+          "package_name": "com.kenstarry.keja_hunt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBivdxE36iRtj0iaYq3UixFN_6tZxtiVqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
