@@ -20,26 +20,37 @@ HouseUnitModel _$HouseUnitModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HouseUnitModel {
-  @JsonKey(name: "unit_id")
+  /// Primary Keys
+  @JsonKey(name: "unit_id", includeToJson: false)
   String get unitId => throw _privateConstructorUsedError;
+  @JsonKey(name: "user_id")
+  String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "apartment_id")
   String get apartmentId => throw _privateConstructorUsedError;
-  @JsonKey(name: "apartment_name")
-  String get apartmentName => throw _privateConstructorUsedError;
   @JsonKey(name: "unit_type")
   String get unitType => throw _privateConstructorUsedError;
-  @JsonKey(name: "floor")
-  int get floor => throw _privateConstructorUsedError;
-  @JsonKey(name: "rent_amount")
-  double get rentAmount => throw _privateConstructorUsedError;
-  @JsonKey(name: "available_count")
-  int get availableCount => throw _privateConstructorUsedError;
-  @JsonKey(name: "images")
-  List<UnitImageModel> get images => throw _privateConstructorUsedError;
+  @JsonKey(name: "created_at", includeToJson: false)
+  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "title")
+  String get title => throw _privateConstructorUsedError;
+  @JsonKey(name: "description")
+  String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: "price")
+  double get price => throw _privateConstructorUsedError;
+  @JsonKey(name: "price_frequency")
+  String get priceFrequency => throw _privateConstructorUsedError;
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features => throw _privateConstructorUsedError;
-  @JsonKey(name: "created_at")
-  String get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "images")
+  List<UnitImageModel> get images => throw _privateConstructorUsedError;
+
+  /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
+  @JsonKey(name: "floors")
+  List<int> get floors => throw _privateConstructorUsedError;
+
+  /// How many 1 brs are left
+  @JsonKey(name: "available_units_count")
+  int get availableUnitsCount => throw _privateConstructorUsedError;
 
   /// Serializes this HouseUnitModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,16 +69,19 @@ abstract class $HouseUnitModelCopyWith<$Res> {
       _$HouseUnitModelCopyWithImpl<$Res, HouseUnitModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "unit_id") String unitId,
+      {@JsonKey(name: "unit_id", includeToJson: false) String unitId,
+      @JsonKey(name: "user_id") String userId,
       @JsonKey(name: "apartment_id") String apartmentId,
-      @JsonKey(name: "apartment_name") String apartmentName,
       @JsonKey(name: "unit_type") String unitType,
-      @JsonKey(name: "floor") int floor,
-      @JsonKey(name: "rent_amount") double rentAmount,
-      @JsonKey(name: "available_count") int availableCount,
-      @JsonKey(name: "images") List<UnitImageModel> images,
+      @JsonKey(name: "created_at", includeToJson: false) String createdAt,
+      @JsonKey(name: "title") String title,
+      @JsonKey(name: "description") String description,
+      @JsonKey(name: "price") double price,
+      @JsonKey(name: "price_frequency") String priceFrequency,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
-      @JsonKey(name: "created_at") String createdAt});
+      @JsonKey(name: "images") List<UnitImageModel> images,
+      @JsonKey(name: "floors") List<int> floors,
+      @JsonKey(name: "available_units_count") int availableUnitsCount});
 }
 
 /// @nodoc
@@ -86,57 +100,72 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
   @override
   $Res call({
     Object? unitId = null,
+    Object? userId = null,
     Object? apartmentId = null,
-    Object? apartmentName = null,
     Object? unitType = null,
-    Object? floor = null,
-    Object? rentAmount = null,
-    Object? availableCount = null,
-    Object? images = null,
-    Object? features = null,
     Object? createdAt = null,
+    Object? title = null,
+    Object? description = null,
+    Object? price = null,
+    Object? priceFrequency = null,
+    Object? features = null,
+    Object? images = null,
+    Object? floors = null,
+    Object? availableUnitsCount = null,
   }) {
     return _then(_value.copyWith(
       unitId: null == unitId
           ? _value.unitId
           : unitId // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       apartmentId: null == apartmentId
           ? _value.apartmentId
           : apartmentId // ignore: cast_nullable_to_non_nullable
-              as String,
-      apartmentName: null == apartmentName
-          ? _value.apartmentName
-          : apartmentName // ignore: cast_nullable_to_non_nullable
               as String,
       unitType: null == unitType
           ? _value.unitType
           : unitType // ignore: cast_nullable_to_non_nullable
               as String,
-      floor: null == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as int,
-      rentAmount: null == rentAmount
-          ? _value.rentAmount
-          : rentAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      availableCount: null == availableCount
-          ? _value.availableCount
-          : availableCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<UnitImageModel>,
-      features: null == features
-          ? _value.features
-          : features // ignore: cast_nullable_to_non_nullable
-              as List<UnitFeatureModel>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      priceFrequency: null == priceFrequency
+          ? _value.priceFrequency
+          : priceFrequency // ignore: cast_nullable_to_non_nullable
+              as String,
+      features: null == features
+          ? _value.features
+          : features // ignore: cast_nullable_to_non_nullable
+              as List<UnitFeatureModel>,
+      images: null == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<UnitImageModel>,
+      floors: null == floors
+          ? _value.floors
+          : floors // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      availableUnitsCount: null == availableUnitsCount
+          ? _value.availableUnitsCount
+          : availableUnitsCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -150,16 +179,19 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "unit_id") String unitId,
+      {@JsonKey(name: "unit_id", includeToJson: false) String unitId,
+      @JsonKey(name: "user_id") String userId,
       @JsonKey(name: "apartment_id") String apartmentId,
-      @JsonKey(name: "apartment_name") String apartmentName,
       @JsonKey(name: "unit_type") String unitType,
-      @JsonKey(name: "floor") int floor,
-      @JsonKey(name: "rent_amount") double rentAmount,
-      @JsonKey(name: "available_count") int availableCount,
-      @JsonKey(name: "images") List<UnitImageModel> images,
+      @JsonKey(name: "created_at", includeToJson: false) String createdAt,
+      @JsonKey(name: "title") String title,
+      @JsonKey(name: "description") String description,
+      @JsonKey(name: "price") double price,
+      @JsonKey(name: "price_frequency") String priceFrequency,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
-      @JsonKey(name: "created_at") String createdAt});
+      @JsonKey(name: "images") List<UnitImageModel> images,
+      @JsonKey(name: "floors") List<int> floors,
+      @JsonKey(name: "available_units_count") int availableUnitsCount});
 }
 
 /// @nodoc
@@ -176,57 +208,72 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? unitId = null,
+    Object? userId = null,
     Object? apartmentId = null,
-    Object? apartmentName = null,
     Object? unitType = null,
-    Object? floor = null,
-    Object? rentAmount = null,
-    Object? availableCount = null,
-    Object? images = null,
-    Object? features = null,
     Object? createdAt = null,
+    Object? title = null,
+    Object? description = null,
+    Object? price = null,
+    Object? priceFrequency = null,
+    Object? features = null,
+    Object? images = null,
+    Object? floors = null,
+    Object? availableUnitsCount = null,
   }) {
     return _then(_$HouseUnitModelImpl(
       unitId: null == unitId
           ? _value.unitId
           : unitId // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       apartmentId: null == apartmentId
           ? _value.apartmentId
           : apartmentId // ignore: cast_nullable_to_non_nullable
-              as String,
-      apartmentName: null == apartmentName
-          ? _value.apartmentName
-          : apartmentName // ignore: cast_nullable_to_non_nullable
               as String,
       unitType: null == unitType
           ? _value.unitType
           : unitType // ignore: cast_nullable_to_non_nullable
               as String,
-      floor: null == floor
-          ? _value.floor
-          : floor // ignore: cast_nullable_to_non_nullable
-              as int,
-      rentAmount: null == rentAmount
-          ? _value.rentAmount
-          : rentAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      availableCount: null == availableCount
-          ? _value.availableCount
-          : availableCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<UnitImageModel>,
-      features: null == features
-          ? _value._features
-          : features // ignore: cast_nullable_to_non_nullable
-              as List<UnitFeatureModel>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      priceFrequency: null == priceFrequency
+          ? _value.priceFrequency
+          : priceFrequency // ignore: cast_nullable_to_non_nullable
+              as String,
+      features: null == features
+          ? _value._features
+          : features // ignore: cast_nullable_to_non_nullable
+              as List<UnitFeatureModel>,
+      images: null == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<UnitImageModel>,
+      floors: null == floors
+          ? _value._floors
+          : floors // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      availableUnitsCount: null == availableUnitsCount
+          ? _value.availableUnitsCount
+          : availableUnitsCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -235,54 +282,56 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$HouseUnitModelImpl implements _HouseUnitModel {
   const _$HouseUnitModelImpl(
-      {@JsonKey(name: "unit_id") this.unitId = '',
-      @JsonKey(name: "apartment_id") this.apartmentId = '',
-      @JsonKey(name: "apartment_name") this.apartmentName = '',
-      @JsonKey(name: "unit_type") this.unitType = '',
-      @JsonKey(name: "floor") this.floor = 1,
-      @JsonKey(name: "rent_amount") this.rentAmount = 0.00,
-      @JsonKey(name: "available_count") this.availableCount = 1,
-      @JsonKey(name: "images")
-      final List<UnitImageModel> images = const <UnitImageModel>[],
+      {@JsonKey(name: "unit_id", includeToJson: false) this.unitId = '',
+      @JsonKey(name: "user_id") this.userId = '',
+      @JsonKey(name: "apartment_id") required this.apartmentId,
+      @JsonKey(name: "unit_type") required this.unitType,
+      @JsonKey(name: "created_at", includeToJson: false) this.createdAt = '',
+      @JsonKey(name: "title") this.title = '',
+      @JsonKey(name: "description") this.description = '',
+      @JsonKey(name: "price") required this.price,
+      @JsonKey(name: "price_frequency") this.priceFrequency = 'month',
       @JsonKey(name: "features")
       final List<UnitFeatureModel> features = const <UnitFeatureModel>[],
-      @JsonKey(name: "created_at") this.createdAt = ''})
-      : _images = images,
-        _features = features;
+      @JsonKey(name: "images")
+      final List<UnitImageModel> images = const <UnitImageModel>[],
+      @JsonKey(name: "floors") final List<int> floors = const [1],
+      @JsonKey(name: "available_units_count") this.availableUnitsCount = 1})
+      : _features = features,
+        _images = images,
+        _floors = floors;
 
   factory _$HouseUnitModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HouseUnitModelImplFromJson(json);
 
+  /// Primary Keys
   @override
-  @JsonKey(name: "unit_id")
+  @JsonKey(name: "unit_id", includeToJson: false)
   final String unitId;
+  @override
+  @JsonKey(name: "user_id")
+  final String userId;
   @override
   @JsonKey(name: "apartment_id")
   final String apartmentId;
   @override
-  @JsonKey(name: "apartment_name")
-  final String apartmentName;
-  @override
   @JsonKey(name: "unit_type")
   final String unitType;
   @override
-  @JsonKey(name: "floor")
-  final int floor;
+  @JsonKey(name: "created_at", includeToJson: false)
+  final String createdAt;
   @override
-  @JsonKey(name: "rent_amount")
-  final double rentAmount;
+  @JsonKey(name: "title")
+  final String title;
   @override
-  @JsonKey(name: "available_count")
-  final int availableCount;
-  final List<UnitImageModel> _images;
+  @JsonKey(name: "description")
+  final String description;
   @override
-  @JsonKey(name: "images")
-  List<UnitImageModel> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
-  }
-
+  @JsonKey(name: "price")
+  final double price;
+  @override
+  @JsonKey(name: "price_frequency")
+  final String priceFrequency;
   final List<UnitFeatureModel> _features;
   @override
   @JsonKey(name: "features")
@@ -292,13 +341,35 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
     return EqualUnmodifiableListView(_features);
   }
 
+  final List<UnitImageModel> _images;
   @override
-  @JsonKey(name: "created_at")
-  final String createdAt;
+  @JsonKey(name: "images")
+  List<UnitImageModel> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
+  /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
+  final List<int> _floors;
+
+  /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
+  @override
+  @JsonKey(name: "floors")
+  List<int> get floors {
+    if (_floors is EqualUnmodifiableListView) return _floors;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_floors);
+  }
+
+  /// How many 1 brs are left
+  @override
+  @JsonKey(name: "available_units_count")
+  final int availableUnitsCount;
 
   @override
   String toString() {
-    return 'HouseUnitModel(unitId: $unitId, apartmentId: $apartmentId, apartmentName: $apartmentName, unitType: $unitType, floor: $floor, rentAmount: $rentAmount, availableCount: $availableCount, images: $images, features: $features, createdAt: $createdAt)';
+    return 'HouseUnitModel(unitId: $unitId, userId: $userId, apartmentId: $apartmentId, unitType: $unitType, createdAt: $createdAt, title: $title, description: $description, price: $price, priceFrequency: $priceFrequency, features: $features, images: $images, floors: $floors, availableUnitsCount: $availableUnitsCount)';
   }
 
   @override
@@ -307,21 +378,24 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
         (other.runtimeType == runtimeType &&
             other is _$HouseUnitModelImpl &&
             (identical(other.unitId, unitId) || other.unitId == unitId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.apartmentId, apartmentId) ||
                 other.apartmentId == apartmentId) &&
-            (identical(other.apartmentName, apartmentName) ||
-                other.apartmentName == apartmentName) &&
             (identical(other.unitType, unitType) ||
                 other.unitType == unitType) &&
-            (identical(other.floor, floor) || other.floor == floor) &&
-            (identical(other.rentAmount, rentAmount) ||
-                other.rentAmount == rentAmount) &&
-            (identical(other.availableCount, availableCount) ||
-                other.availableCount == availableCount) &&
-            const DeepCollectionEquality().equals(other._images, _images) &&
-            const DeepCollectionEquality().equals(other._features, _features) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.priceFrequency, priceFrequency) ||
+                other.priceFrequency == priceFrequency) &&
+            const DeepCollectionEquality().equals(other._features, _features) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
+            const DeepCollectionEquality().equals(other._floors, _floors) &&
+            (identical(other.availableUnitsCount, availableUnitsCount) ||
+                other.availableUnitsCount == availableUnitsCount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -329,15 +403,18 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
   int get hashCode => Object.hash(
       runtimeType,
       unitId,
+      userId,
       apartmentId,
-      apartmentName,
       unitType,
-      floor,
-      rentAmount,
-      availableCount,
-      const DeepCollectionEquality().hash(_images),
+      createdAt,
+      title,
+      description,
+      price,
+      priceFrequency,
       const DeepCollectionEquality().hash(_features),
-      createdAt);
+      const DeepCollectionEquality().hash(_images),
+      const DeepCollectionEquality().hash(_floors),
+      availableUnitsCount);
 
   /// Create a copy of HouseUnitModel
   /// with the given fields replaced by the non-null parameter values.
@@ -358,51 +435,68 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
 
 abstract class _HouseUnitModel implements HouseUnitModel {
   const factory _HouseUnitModel(
-          {@JsonKey(name: "unit_id") final String unitId,
-          @JsonKey(name: "apartment_id") final String apartmentId,
-          @JsonKey(name: "apartment_name") final String apartmentName,
-          @JsonKey(name: "unit_type") final String unitType,
-          @JsonKey(name: "floor") final int floor,
-          @JsonKey(name: "rent_amount") final double rentAmount,
-          @JsonKey(name: "available_count") final int availableCount,
-          @JsonKey(name: "images") final List<UnitImageModel> images,
-          @JsonKey(name: "features") final List<UnitFeatureModel> features,
-          @JsonKey(name: "created_at") final String createdAt}) =
-      _$HouseUnitModelImpl;
+      {@JsonKey(name: "unit_id", includeToJson: false) final String unitId,
+      @JsonKey(name: "user_id") final String userId,
+      @JsonKey(name: "apartment_id") required final String apartmentId,
+      @JsonKey(name: "unit_type") required final String unitType,
+      @JsonKey(name: "created_at", includeToJson: false) final String createdAt,
+      @JsonKey(name: "title") final String title,
+      @JsonKey(name: "description") final String description,
+      @JsonKey(name: "price") required final double price,
+      @JsonKey(name: "price_frequency") final String priceFrequency,
+      @JsonKey(name: "features") final List<UnitFeatureModel> features,
+      @JsonKey(name: "images") final List<UnitImageModel> images,
+      @JsonKey(name: "floors") final List<int> floors,
+      @JsonKey(name: "available_units_count")
+      final int availableUnitsCount}) = _$HouseUnitModelImpl;
 
   factory _HouseUnitModel.fromJson(Map<String, dynamic> json) =
       _$HouseUnitModelImpl.fromJson;
 
+  /// Primary Keys
   @override
-  @JsonKey(name: "unit_id")
+  @JsonKey(name: "unit_id", includeToJson: false)
   String get unitId;
+  @override
+  @JsonKey(name: "user_id")
+  String get userId;
   @override
   @JsonKey(name: "apartment_id")
   String get apartmentId;
   @override
-  @JsonKey(name: "apartment_name")
-  String get apartmentName;
-  @override
   @JsonKey(name: "unit_type")
   String get unitType;
   @override
-  @JsonKey(name: "floor")
-  int get floor;
+  @JsonKey(name: "created_at", includeToJson: false)
+  String get createdAt;
   @override
-  @JsonKey(name: "rent_amount")
-  double get rentAmount;
+  @JsonKey(name: "title")
+  String get title;
   @override
-  @JsonKey(name: "available_count")
-  int get availableCount;
+  @JsonKey(name: "description")
+  String get description;
   @override
-  @JsonKey(name: "images")
-  List<UnitImageModel> get images;
+  @JsonKey(name: "price")
+  double get price;
+  @override
+  @JsonKey(name: "price_frequency")
+  String get priceFrequency;
   @override
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features;
   @override
-  @JsonKey(name: "created_at")
-  String get createdAt;
+  @JsonKey(name: "images")
+  List<UnitImageModel> get images;
+
+  /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
+  @override
+  @JsonKey(name: "floors")
+  List<int> get floors;
+
+  /// How many 1 brs are left
+  @override
+  @JsonKey(name: "available_units_count")
+  int get availableUnitsCount;
 
   /// Create a copy of HouseUnitModel
   /// with the given fields replaced by the non-null parameter values.

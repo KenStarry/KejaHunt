@@ -15,7 +15,7 @@ mixin UserMixin {
     }
 
     final userResponse = await supabase
-        .from(USER_TABLE)
+        .from(usersTable)
         .select()
         .eq('user_id', user.id)
         .single();

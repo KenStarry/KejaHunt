@@ -5,6 +5,7 @@ import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:keja_hunt/core/features/users/home/components/house_card_featured.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
+import '../../../../domain/enum/units/unit_type_enum.dart';
 import '../../../../domain/models/unit_image_model.dart';
 
 class UserRecommendedHomesSection extends StatefulWidget {
@@ -25,6 +26,9 @@ class _UserRecommendedHomesSectionState
 
     _houseUnits = [
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:
@@ -39,6 +43,9 @@ class _UserRecommendedHomesSectionState
         ],
       ),
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:
@@ -53,6 +60,9 @@ class _UserRecommendedHomesSectionState
         ],
       ),
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:
@@ -67,6 +77,9 @@ class _UserRecommendedHomesSectionState
         ],
       ),
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:

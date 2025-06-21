@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/agents/features/dashboard/presentation/pages/agent_dashboard_page.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
+import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/pages/agent_unit_upload_page.dart';
 import 'package:keja_hunt/core/features/auth/data/classes/gorouter_refresh_stream.dart';
 import 'package:keja_hunt/core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/onboarding_page.dart';
@@ -14,6 +15,7 @@ import 'package:keja_hunt/core/utils/routing/user_routes.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/bloc/user_bloc.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/pages/user_dashboard_page.dart';
 
+import '../../domain/enum/units/unit_type_enum.dart';
 import '../../domain/models/unit_image_model.dart';
 
 /// Onboarding Routes
@@ -34,6 +36,9 @@ final GoRoute unitDetailRoute = GoRoute(
   name: 'unit-detail',
   builder: (context, state) => HouseUnitDetailPage(
     houseUnitModel: HouseUnitModel(
+      apartmentId: '1',
+      unitType: UnitTypeEnum.oneBr.name,
+      price: 32000,
       features: [
         UnitFeatureModel(
           featureName: "Bed",
@@ -77,9 +82,15 @@ final GoRoute unitDetailRoute = GoRoute(
   ),
 );
 
+final GoRoute agentUnitUploadRoute = GoRoute(
+  path: '/agent-unit-upload',
+  name: 'agent-unit-upload',
+  builder: (context, state) => AgentUnitUploadPage(),
+);
+
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
-  initialLocation: '/login',
+  initialLocation: '/agent-unit-upload',
   redirect: (context, state) {
     final authState = authBloc.state;
 
@@ -114,6 +125,7 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
 
     /// Agent Routes
     agentDashboardRoute,
+    agentUnitUploadRoute,
 
     /// User Routes
     userDashboardRoutes,

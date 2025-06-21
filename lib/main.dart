@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keja_hunt/core/di/locator.dart';
+import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/bloc/upload_unit_bloc.dart';
 import 'package:keja_hunt/core/features/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:keja_hunt/core/utils/theme/app_theme.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/bloc/user_bloc.dart';
@@ -36,6 +37,9 @@ Future<void> main() async {
         BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => LoginBloc()),
         BlocProvider(create: (context) => UserBloc()),
+
+        /// Agent
+        BlocProvider(create: (context) => UploadUnitBloc()),
       ],
       child: const MyApp(),
     ),

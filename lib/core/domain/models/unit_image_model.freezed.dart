@@ -20,8 +20,6 @@ UnitImageModel _$UnitImageModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UnitImageModel {
-  @JsonKey(name: "image_id")
-  String get imageId => throw _privateConstructorUsedError;
   @JsonKey(name: "image_url")
   String get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: "image_tag")
@@ -44,8 +42,7 @@ abstract class $UnitImageModelCopyWith<$Res> {
       _$UnitImageModelCopyWithImpl<$Res, UnitImageModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "image_id") String imageId,
-      @JsonKey(name: "image_url") String imageUrl,
+      {@JsonKey(name: "image_url") String imageUrl,
       @JsonKey(name: "image_tag") String imageTag});
 }
 
@@ -64,15 +61,10 @@ class _$UnitImageModelCopyWithImpl<$Res, $Val extends UnitImageModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageId = null,
     Object? imageUrl = null,
     Object? imageTag = null,
   }) {
     return _then(_value.copyWith(
-      imageId: null == imageId
-          ? _value.imageId
-          : imageId // ignore: cast_nullable_to_non_nullable
-              as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -94,8 +86,7 @@ abstract class _$$UnitImageModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "image_id") String imageId,
-      @JsonKey(name: "image_url") String imageUrl,
+      {@JsonKey(name: "image_url") String imageUrl,
       @JsonKey(name: "image_tag") String imageTag});
 }
 
@@ -112,15 +103,10 @@ class __$$UnitImageModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageId = null,
     Object? imageUrl = null,
     Object? imageTag = null,
   }) {
     return _then(_$UnitImageModelImpl(
-      imageId: null == imageId
-          ? _value.imageId
-          : imageId // ignore: cast_nullable_to_non_nullable
-              as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -137,16 +123,12 @@ class __$$UnitImageModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UnitImageModelImpl implements _UnitImageModel {
   const _$UnitImageModelImpl(
-      {@JsonKey(name: "image_id") this.imageId = '',
-      @JsonKey(name: "image_url") this.imageUrl = '',
+      {@JsonKey(name: "image_url") this.imageUrl = '',
       @JsonKey(name: "image_tag") this.imageTag = ''});
 
   factory _$UnitImageModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UnitImageModelImplFromJson(json);
 
-  @override
-  @JsonKey(name: "image_id")
-  final String imageId;
   @override
   @JsonKey(name: "image_url")
   final String imageUrl;
@@ -156,7 +138,7 @@ class _$UnitImageModelImpl implements _UnitImageModel {
 
   @override
   String toString() {
-    return 'UnitImageModel(imageId: $imageId, imageUrl: $imageUrl, imageTag: $imageTag)';
+    return 'UnitImageModel(imageUrl: $imageUrl, imageTag: $imageTag)';
   }
 
   @override
@@ -164,7 +146,6 @@ class _$UnitImageModelImpl implements _UnitImageModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnitImageModelImpl &&
-            (identical(other.imageId, imageId) || other.imageId == imageId) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.imageTag, imageTag) ||
@@ -173,7 +154,7 @@ class _$UnitImageModelImpl implements _UnitImageModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, imageId, imageUrl, imageTag);
+  int get hashCode => Object.hash(runtimeType, imageUrl, imageTag);
 
   /// Create a copy of UnitImageModel
   /// with the given fields replaced by the non-null parameter values.
@@ -194,17 +175,13 @@ class _$UnitImageModelImpl implements _UnitImageModel {
 
 abstract class _UnitImageModel implements UnitImageModel {
   const factory _UnitImageModel(
-          {@JsonKey(name: "image_id") final String imageId,
-          @JsonKey(name: "image_url") final String imageUrl,
+          {@JsonKey(name: "image_url") final String imageUrl,
           @JsonKey(name: "image_tag") final String imageTag}) =
       _$UnitImageModelImpl;
 
   factory _UnitImageModel.fromJson(Map<String, dynamic> json) =
       _$UnitImageModelImpl.fromJson;
 
-  @override
-  @JsonKey(name: "image_id")
-  String get imageId;
   @override
   @JsonKey(name: "image_url")
   String get imageUrl;

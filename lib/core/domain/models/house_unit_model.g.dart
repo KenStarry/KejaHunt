@@ -9,34 +9,42 @@ part of 'house_unit_model.dart';
 _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
     _$HouseUnitModelImpl(
       unitId: json['unit_id'] as String? ?? '',
-      apartmentId: json['apartment_id'] as String? ?? '',
-      apartmentName: json['apartment_name'] as String? ?? '',
-      unitType: json['unit_type'] as String? ?? '',
-      floor: (json['floor'] as num?)?.toInt() ?? 1,
-      rentAmount: (json['rent_amount'] as num?)?.toDouble() ?? 0.00,
-      availableCount: (json['available_count'] as num?)?.toInt() ?? 1,
-      images: (json['images'] as List<dynamic>?)
-              ?.map((e) => UnitImageModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <UnitImageModel>[],
+      userId: json['user_id'] as String? ?? '',
+      apartmentId: json['apartment_id'] as String,
+      unitType: json['unit_type'] as String,
+      createdAt: json['created_at'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      price: (json['price'] as num).toDouble(),
+      priceFrequency: json['price_frequency'] as String? ?? 'month',
       features: (json['features'] as List<dynamic>?)
               ?.map((e) => UnitFeatureModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <UnitFeatureModel>[],
-      createdAt: json['created_at'] as String? ?? '',
+      images: (json['images'] as List<dynamic>?)
+              ?.map((e) => UnitImageModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <UnitImageModel>[],
+      floors: (json['floors'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          const [1],
+      availableUnitsCount:
+          (json['available_units_count'] as num?)?.toInt() ?? 1,
     );
 
 Map<String, dynamic> _$$HouseUnitModelImplToJson(
         _$HouseUnitModelImpl instance) =>
     <String, dynamic>{
-      'unit_id': instance.unitId,
+      'user_id': instance.userId,
       'apartment_id': instance.apartmentId,
-      'apartment_name': instance.apartmentName,
       'unit_type': instance.unitType,
-      'floor': instance.floor,
-      'rent_amount': instance.rentAmount,
-      'available_count': instance.availableCount,
-      'images': instance.images,
+      'title': instance.title,
+      'description': instance.description,
+      'price': instance.price,
+      'price_frequency': instance.priceFrequency,
       'features': instance.features,
-      'created_at': instance.createdAt,
+      'images': instance.images,
+      'floors': instance.floors,
+      'available_units_count': instance.availableUnitsCount,
     };

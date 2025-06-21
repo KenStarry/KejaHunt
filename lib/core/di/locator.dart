@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:keja_hunt/core/di/agent_di.dart';
 import 'package:keja_hunt/core/di/auth_di.dart';
 import 'package:keja_hunt/core/di/core_di.dart';
 import 'package:keja_hunt/core/di/dash_di.dart';
@@ -15,4 +16,6 @@ void setupLocator() {
   setupAuthDI(locator);
   setupDashDI(locator);
   setupCoreDI(locator);
+
+  setupAgentDI(locator);
 }

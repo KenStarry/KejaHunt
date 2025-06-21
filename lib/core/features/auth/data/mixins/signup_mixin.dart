@@ -47,7 +47,7 @@ mixin SignUpMixin {
 
         /// Create a new user in the database
         await supabase
-            .from(USER_TABLE)
+            .from(usersTable)
             .upsert(
               kejaUser.toJson(),
               onConflict: 'user_id',
@@ -112,7 +112,7 @@ mixin SignUpMixin {
 
             /// Create a new user in the database
             await supabase
-                .from(USER_TABLE)
+                .from(usersTable)
                 .upsert(
                   kejaUser.toJson(),
                   onConflict: 'user_id',

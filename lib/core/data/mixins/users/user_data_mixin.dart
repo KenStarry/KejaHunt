@@ -14,7 +14,7 @@ mixin UserDataMixin {
     }
 
     final userResponse = await supabase
-        .from(USER_TABLE)
+        .from(usersTable)
         .select()
         .eq('user_id', user.id)
         .maybeSingle();
@@ -39,6 +39,6 @@ mixin UserDataMixin {
       throw Exception('No user is currently logged in');
     }
 
-    await supabase.from(AGENTS_TABLE).insert({"user_id": user.id});
+    await supabase.from(agentsTable).insert({"user_id": user.id});
   }
 }

@@ -1,0 +1,1 @@
+enum UnitPriceFrequencyEnum {hour, day, month, year}

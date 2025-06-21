@@ -1,0 +1,1 @@
+enum UnitTypeEnum {oneBr, twoBr, threeBr, fourBr, oneBrEnsuite, twoBrEnsuite, bedsitter, studio, airBnB}

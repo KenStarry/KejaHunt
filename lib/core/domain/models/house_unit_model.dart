@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:keja_hunt/core/domain/enum/units/unit_price_frequency_enum.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
 
@@ -9,16 +10,26 @@ part 'house_unit_model.g.dart';
 @freezed
 class HouseUnitModel with _$HouseUnitModel {
   const factory HouseUnitModel({
-    @JsonKey(name: "unit_id") @Default('') String unitId,
-    @JsonKey(name: "apartment_id") @Default('') String apartmentId,
-    @JsonKey(name: "apartment_name") @Default('') String apartmentName,
-    @JsonKey(name: "unit_type") @Default('') String unitType,
-    @JsonKey(name: "floor") @Default(1) int floor,
-    @JsonKey(name: "rent_amount") @Default(0.00) double rentAmount,
-    @JsonKey(name: "available_count") @Default(1) int availableCount,
-    @JsonKey(name: "images") @Default(<UnitImageModel>[]) List<UnitImageModel> images,
+
+    /// Primary Keys
+    @JsonKey(name: "unit_id", includeToJson: false) @Default('') String unitId,
+    @JsonKey(name: "user_id") @Default('') String userId,
+    @JsonKey(name: "apartment_id") required String apartmentId,
+    @JsonKey(name: "unit_type") required String unitType,
+
+    @JsonKey(name: "created_at", includeToJson: false) @Default('') String createdAt,
+    @JsonKey(name: "title") @Default('') String title,
+    @JsonKey(name: "description") @Default('') String description,
+    @JsonKey(name: "price") required double price,
+    @JsonKey(name: "price_frequency") @Default('month') String priceFrequency,
     @JsonKey(name: "features") @Default(<UnitFeatureModel>[]) List<UnitFeatureModel> features,
-    @JsonKey(name: "created_at") @Default('') String createdAt,
+    @JsonKey(name: "images") @Default(<UnitImageModel>[]) List<UnitImageModel> images,
+
+    /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
+    @JsonKey(name: "floors") @Default([1]) List<int> floors,
+
+    /// How many 1 brs are left
+    @JsonKey(name: "available_units_count") @Default(1) int availableUnitsCount,
   }) = _HouseUnitModel;
 
   factory HouseUnitModel.fromJson(Map<String, dynamic> json) =>

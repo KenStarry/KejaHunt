@@ -1,0 +1,1 @@
+enum UnitFeaturesEnum {balcony, ensuite, furnished, wifi}

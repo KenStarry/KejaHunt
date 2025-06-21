@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:keja_hunt/core/domain/enum/units/unit_type_enum.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/features/users/home/components/house_card_booked.dart';
 import 'package:keja_hunt/core/features/users/profile/presentation/model/setting_card_model.dart';
@@ -76,6 +77,9 @@ class _UserProfileSettingsSectionState
 
     _bookedHouseUnits = [
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:
@@ -90,6 +94,9 @@ class _UserProfileSettingsSectionState
         ],
       ),
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:
@@ -104,6 +111,9 @@ class _UserProfileSettingsSectionState
         ],
       ),
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:
@@ -118,6 +128,9 @@ class _UserProfileSettingsSectionState
         ],
       ),
       HouseUnitModel(
+        apartmentId: '1',
+        unitType: UnitTypeEnum.oneBr.name,
+        price: 32000,
         images: [
           UnitImageModel(
             imageUrl:
