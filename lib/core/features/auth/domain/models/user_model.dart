@@ -8,6 +8,7 @@ part 'user_model.g.dart';
 class UserModel with _$UserModel {
   const factory UserModel({
     @JsonKey(name: "user_id") required String userId,
+    @JsonKey(name: "fcm_token") @Default(null) String? fcmToken,
     @JsonKey(name: "email") required String email,
     @JsonKey(name: "created_at") String? createdAt,
     @JsonKey(name: "username") String? username,
@@ -18,6 +19,8 @@ class UserModel with _$UserModel {
     @JsonKey(name: "user_type") String? userType,
 
     @JsonKey(name: "is_verified_user") @Default(false) bool? isVerifiedUser,
+
+    @JsonKey(includeFromJson: false, includeToJson: false)
     @Default(false) bool? isAgent,
 
     @JsonKey(name: "avatar_url") String? avatarUrl,

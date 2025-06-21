@@ -1,9 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keja_hunt/core/di/locator.dart';
 import 'package:keja_hunt/core/features/auth/login/presentation/bloc/login_bloc.dart';
 import 'package:keja_hunt/core/utils/theme/app_theme.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/bloc/user_bloc.dart';
+import 'package:keja_hunt/firebase_options.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/env/env.dart';
@@ -17,6 +19,8 @@ Future<void> main() async {
 
   /// Initialize Supabase
   await Supabase.initialize(url: Env.supabaseUrl, anonKey: Env.supabaseAnonKey);
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   setupLocator();
 

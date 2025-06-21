@@ -22,6 +22,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   @JsonKey(name: "user_id")
   String get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: "fcm_token")
+  String? get fcmToken => throw _privateConstructorUsedError;
   @JsonKey(name: "email")
   String get email => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
@@ -38,6 +40,7 @@ mixin _$UserModel {
   String? get userType => throw _privateConstructorUsedError;
   @JsonKey(name: "is_verified_user")
   bool? get isVerifiedUser => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   bool? get isAgent => throw _privateConstructorUsedError;
   @JsonKey(name: "avatar_url")
   String? get avatarUrl => throw _privateConstructorUsedError;
@@ -61,6 +64,7 @@ abstract class $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "user_id") String userId,
+      @JsonKey(name: "fcm_token") String? fcmToken,
       @JsonKey(name: "email") String email,
       @JsonKey(name: "created_at") String? createdAt,
       @JsonKey(name: "username") String? username,
@@ -68,7 +72,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: "phone") String? phoneNumber,
       @JsonKey(name: "user_type") String? userType,
       @JsonKey(name: "is_verified_user") bool? isVerifiedUser,
-      bool? isAgent,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool? isAgent,
       @JsonKey(name: "avatar_url") String? avatarUrl,
       @JsonKey(name: "updated_at") String? updatedAt});
 }
@@ -89,6 +93,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? userId = null,
+    Object? fcmToken = freezed,
     Object? email = null,
     Object? createdAt = freezed,
     Object? username = freezed,
@@ -105,6 +110,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      fcmToken: freezed == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -159,6 +168,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "user_id") String userId,
+      @JsonKey(name: "fcm_token") String? fcmToken,
       @JsonKey(name: "email") String email,
       @JsonKey(name: "created_at") String? createdAt,
       @JsonKey(name: "username") String? username,
@@ -166,7 +176,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: "phone") String? phoneNumber,
       @JsonKey(name: "user_type") String? userType,
       @JsonKey(name: "is_verified_user") bool? isVerifiedUser,
-      bool? isAgent,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool? isAgent,
       @JsonKey(name: "avatar_url") String? avatarUrl,
       @JsonKey(name: "updated_at") String? updatedAt});
 }
@@ -185,6 +195,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userId = null,
+    Object? fcmToken = freezed,
     Object? email = null,
     Object? createdAt = freezed,
     Object? username = freezed,
@@ -201,6 +212,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      fcmToken: freezed == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -250,6 +265,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 class _$UserModelImpl implements _UserModel {
   const _$UserModelImpl(
       {@JsonKey(name: "user_id") required this.userId,
+      @JsonKey(name: "fcm_token") this.fcmToken = null,
       @JsonKey(name: "email") required this.email,
       @JsonKey(name: "created_at") this.createdAt,
       @JsonKey(name: "username") this.username,
@@ -257,6 +273,7 @@ class _$UserModelImpl implements _UserModel {
       @JsonKey(name: "phone") this.phoneNumber,
       @JsonKey(name: "user_type") this.userType,
       @JsonKey(name: "is_verified_user") this.isVerifiedUser = false,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       this.isAgent = false,
       @JsonKey(name: "avatar_url") this.avatarUrl,
       @JsonKey(name: "updated_at") this.updatedAt});
@@ -267,6 +284,9 @@ class _$UserModelImpl implements _UserModel {
   @override
   @JsonKey(name: "user_id")
   final String userId;
+  @override
+  @JsonKey(name: "fcm_token")
+  final String? fcmToken;
   @override
   @JsonKey(name: "email")
   final String email;
@@ -291,7 +311,7 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey(name: "is_verified_user")
   final bool? isVerifiedUser;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final bool? isAgent;
   @override
   @JsonKey(name: "avatar_url")
@@ -302,7 +322,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(userId: $userId, email: $email, createdAt: $createdAt, username: $username, fullName: $fullName, phoneNumber: $phoneNumber, userType: $userType, isVerifiedUser: $isVerifiedUser, isAgent: $isAgent, avatarUrl: $avatarUrl, updatedAt: $updatedAt)';
+    return 'UserModel(userId: $userId, fcmToken: $fcmToken, email: $email, createdAt: $createdAt, username: $username, fullName: $fullName, phoneNumber: $phoneNumber, userType: $userType, isVerifiedUser: $isVerifiedUser, isAgent: $isAgent, avatarUrl: $avatarUrl, updatedAt: $updatedAt)';
   }
 
   @override
@@ -311,6 +331,8 @@ class _$UserModelImpl implements _UserModel {
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.fcmToken, fcmToken) ||
+                other.fcmToken == fcmToken) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -336,6 +358,7 @@ class _$UserModelImpl implements _UserModel {
   int get hashCode => Object.hash(
       runtimeType,
       userId,
+      fcmToken,
       email,
       createdAt,
       username,
@@ -366,6 +389,7 @@ class _$UserModelImpl implements _UserModel {
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
       {@JsonKey(name: "user_id") required final String userId,
+      @JsonKey(name: "fcm_token") final String? fcmToken,
       @JsonKey(name: "email") required final String email,
       @JsonKey(name: "created_at") final String? createdAt,
       @JsonKey(name: "username") final String? username,
@@ -373,6 +397,7 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: "phone") final String? phoneNumber,
       @JsonKey(name: "user_type") final String? userType,
       @JsonKey(name: "is_verified_user") final bool? isVerifiedUser,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       final bool? isAgent,
       @JsonKey(name: "avatar_url") final String? avatarUrl,
       @JsonKey(name: "updated_at") final String? updatedAt}) = _$UserModelImpl;
@@ -383,6 +408,9 @@ abstract class _UserModel implements UserModel {
   @override
   @JsonKey(name: "user_id")
   String get userId;
+  @override
+  @JsonKey(name: "fcm_token")
+  String? get fcmToken;
   @override
   @JsonKey(name: "email")
   String get email;
@@ -407,6 +435,7 @@ abstract class _UserModel implements UserModel {
   @JsonKey(name: "is_verified_user")
   bool? get isVerifiedUser;
   @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   bool? get isAgent;
   @override
   @JsonKey(name: "avatar_url")

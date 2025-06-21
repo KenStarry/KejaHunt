@@ -26,7 +26,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final userRepo = locator.get<UserRepository>();
 
-      await userRepo.fetchUser().then((user) {
+      await userRepo.fetchUserById().then((user) {
         emit(UserSuccess(user: user));
       });
     } catch (e) {
@@ -44,7 +44,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       await userRepo.upgradeUserToAgent().then((_) async {
         ///   Fetch User
-        final user = await userRepo.fetchUser();
+        final user = await userRepo.fetchUserById();
         emit(UserSuccess(user: user));
       });
     } catch (e) {

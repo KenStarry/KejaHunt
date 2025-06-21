@@ -1,4 +1,5 @@
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:keja_hunt/core/data/repository/firebase_repository.dart';
 import 'package:keja_hunt/core/features/auth/domain/enums/user_type.dart';
 import 'package:keja_hunt/core/features/auth/domain/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -8,6 +9,7 @@ import '../../../../utils/supabase_constants.dart';
 
 mixin SignUpMixin {
   final supabase = locator.get<SupabaseClient>();
+  final firebaseRepo = locator.get<FirebaseRepository>();
 
   /// Sign Up User with Email and Password
   Future<void> signUpWithEmailAndPassword({
@@ -25,17 +27,22 @@ mixin SignUpMixin {
       if (supabaseUser == null) {
         throw Exception("User creation failed. Please try again.");
       } else {
+        /// Get FCM Token
+        final fcmToken = await firebaseRepo.getFCMToken();
+
         final kejaUser = UserModel(
           userId: supabaseUser.id,
           email: supabaseUser.email!,
           userType: UserType.user.name,
+          fcmToken: fcmToken,
           createdAt: supabaseUser.createdAt,
           updatedAt: supabaseUser.createdAt,
           isVerifiedUser: false,
           username: '',
           fullName: '',
           phoneNumber: '',
-          avatarUrl: "https://api.dicebear.com/7.x/adventurer/svg?seed=${supabaseUser.email!}",
+          avatarUrl:
+              "https://api.dicebear.com/7.x/adventurer/svg?seed=${supabaseUser.email!}",
         );
 
         /// Create a new user in the database
@@ -84,12 +91,17 @@ mixin SignUpMixin {
           if (supabaseUser == null) {
             throw Exception("User creation failed. Please try again.");
           } else {
+
+            /// Get FCM Token
+            final fcmToken = await firebaseRepo.getFCMToken();
+
             final kejaUser = UserModel(
               userId: supabaseUser.id,
               email: supabaseUser.email!,
               userType: UserType.user.name,
               createdAt: supabaseUser.createdAt,
               updatedAt: supabaseUser.createdAt,
+              fcmToken: fcmToken,
               isVerifiedUser:
                   supabaseUser.userMetadata?['email_verified'] ?? false,
               username: supabaseUser.userMetadata?['name'] ?? '',

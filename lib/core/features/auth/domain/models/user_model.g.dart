@@ -9,6 +9,7 @@ part of 'user_model.dart';
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
       userId: json['user_id'] as String,
+      fcmToken: json['fcm_token'] as String? ?? null,
       email: json['email'] as String,
       createdAt: json['created_at'] as String?,
       username: json['username'] as String?,
@@ -16,7 +17,6 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phone'] as String?,
       userType: json['user_type'] as String?,
       isVerifiedUser: json['is_verified_user'] as bool? ?? false,
-      isAgent: json['isAgent'] as bool? ?? false,
       avatarUrl: json['avatar_url'] as String?,
       updatedAt: json['updated_at'] as String?,
     );
@@ -24,6 +24,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
     <String, dynamic>{
       'user_id': instance.userId,
+      'fcm_token': instance.fcmToken,
       'email': instance.email,
       'created_at': instance.createdAt,
       'username': instance.username,
@@ -31,7 +32,6 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'phone': instance.phoneNumber,
       'user_type': instance.userType,
       'is_verified_user': instance.isVerifiedUser,
-      'isAgent': instance.isAgent,
       'avatar_url': instance.avatarUrl,
       'updated_at': instance.updatedAt,
     };

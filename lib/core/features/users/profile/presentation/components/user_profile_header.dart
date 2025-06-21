@@ -47,8 +47,8 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
                         progressColor: Theme.of(context).colorScheme.primary,
                         circularStrokeCap: CircularStrokeCap.round,
                         center: Avatar(
-                          imageUrl: userState is UserSuccess
-                              ? userState.user.avatarUrl!
+                          imageUrl: userState is UserSuccess && userState.user != null
+                              ? userState.user!.avatarUrl!
                               : '',
                           size: Size(120, 120),
                           onTap: () {
@@ -91,7 +91,7 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
                 spacing: 4,
                 children: [
                   Text(
-                    userState is UserSuccess ? userState.user.username! : '',
+                    userState is UserSuccess && userState.user != null ? userState.user!.username! : '',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
 

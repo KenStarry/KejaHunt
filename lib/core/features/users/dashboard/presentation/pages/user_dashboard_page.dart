@@ -112,8 +112,8 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               spacing: 16,
               children: [
                 Avatar(
-                  imageUrl: userState is UserSuccess
-                      ? userState.user.avatarUrl!
+                  imageUrl: userState is UserSuccess && userState.user != null
+                      ? userState.user!.avatarUrl!
                       : '',
                   size: Size(48, 48),
                   onTap: () {
@@ -134,10 +134,10 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                         ),
                       ),
                       Text(
-                        userState is UserSuccess
-                            ? (userState.user.username!.isEmpty
+                        userState is UserSuccess && userState.user != null
+                            ? (userState.user!.username!.isEmpty
                                   ? 'Anonymous'
-                                  : userState.user.username!)
+                                  : userState.user!.username!)
                             : 'Hunter',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w700,
