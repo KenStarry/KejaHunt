@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_extend/flutter_extend.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keja_hunt/core/data/repository/unit_repository.dart';
 import 'package:keja_hunt/core/di/locator.dart';
+import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/image_label_card.dart';
+import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/model/image_label_model.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:sliver_tools/sliver_tools.dart';
@@ -25,7 +28,55 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
   // List<XFile> pickedImages = [];
   List<UnitImageModel> pickedUnitImages = [];
 
-  List<String> imageLabels = ['Unlabelled'];
+  List<ImageLabelModel> imageLabels = [
+    ImageLabelModel(
+      label: "Living Room",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Bathroom",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Kitchen",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Balcony",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Bedroom",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Ensuite Bedroom",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Parking",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Rooftop",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Entrance",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Floor",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+    ImageLabelModel(
+      label: "Corridor",
+      iconPath: "assets/images/icons/community_outlined.svg",
+    ),
+  ].sortByAndReturnSorted((label) => label.label);
+
+  String? selectedLabel;
+  // List<String> imageLabels = ['Unlabelled'];
 
   @override
   Widget build(BuildContext context) {
@@ -45,31 +96,31 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
                   padding: const EdgeInsets.only(right: 12.0),
                   child: TextButton(
                     onPressed: () async {
-                      final unitRepo = locator.get<UnitRepository>();
+                            final unitRepo = locator.get<UnitRepository>();
 
-                      await unitRepo.pickMultipleImages().then((images) {
-                        final currentImages = [...pickedUnitImages];
+                            await unitRepo.pickMultipleImages().then((images) {
+                              final currentImages = [...pickedUnitImages];
 
-                        for (XFile image in images) {
-                          if (!(currentImages
-                              .map((current) => current.imageFile!.name)
-                              .toList()
-                              .contains(image.name))) {
-                            currentImages.add(
-                              UnitImageModel(
-                                imageFile: image,
-                                imageTag: "Unlabelled",
-                              ),
-                            );
-                          }
-                        }
+                              for (XFile image in images) {
+                                if (!(currentImages
+                                    .map((current) => current.imageFile!.name)
+                                    .toList()
+                                    .contains(image.name))) {
+                                  currentImages.add(
+                                    UnitImageModel(
+                                      imageFile: image,
+                                      imageTag: "Unlabelled",
+                                    ),
+                                  );
+                                }
+                              }
 
-                        widget.onImagesPicked(currentImages);
-                        setState(() {
-                          pickedUnitImages = currentImages.toList();
-                        });
-                      });
-                    },
+                              widget.onImagesPicked(currentImages);
+                              setState(() {
+                                pickedUnitImages = currentImages.toList();
+                              });
+                            });
+                          },
                     child: Text(
                       "Add New",
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -161,7 +212,10 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
                                         child: Stack(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 8.0, right: 8),
+                                              padding: const EdgeInsets.only(
+                                                top: 8.0,
+                                                right: 8,
+                                              ),
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(24),
@@ -228,28 +282,98 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
                                     ),
                                     UnconstrainedBox(
                                       child: TextButton(
-                                        onPressed: () {
-                                          /// Add this Image to Kitchen
-                                          final currentImageUsingFileName =
+                                        onPressed: () async {
+
+                                          setState(() {
+                                            selectedLabel = null;
+                                          });
+
+                                          await showModalBottomSheet(
+                                            context: context,
+                                            showDragHandle: true,
+                                            builder: (context) => Container(
+                                              width: double.infinity,
+                                              height: 400,
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 16,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(44),
+                                                  topLeft: Radius.circular(44),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                spacing: 16,
+                                                children: [
+                                                  Text(
+                                                    "Select Label",
+                                                    style: Theme.of(
+                                                      context,
+                                                    ).textTheme.titleMedium,
+                                                  ),
+
+                                                  Expanded(
+                                                    child: CustomScrollView(
+                                                      physics: const BouncingScrollPhysics(),
+                                                      slivers: [
+                                                        SliverGrid(
+                                                          delegate:
+                                                          SliverChildBuilderDelegate(
+                                                                (context, index) =>
+                                                                ImageLabelCard(
+                                                                  imageLabelModel:
+                                                                  imageLabels[index],
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                    setState(() {
+                                                                      selectedLabel = imageLabels[index].label;
+                                                                    });
+                                                                  },
+                                                                ),
+                                                            childCount:
+                                                            imageLabels.length,
+                                                          ),
+                                                          gridDelegate:
+                                                          SliverGridDelegateWithMaxCrossAxisExtent(
+                                                            maxCrossAxisExtent: 100,
+                                                            mainAxisExtent: 100,
+                                                            crossAxisSpacing: 16,
+                                                            mainAxisSpacing: 16,
+                                                            childAspectRatio: 1,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ).then((_) {
+                                            if (selectedLabel != null) {
+                                              /// Add this Image to Kitchen
+                                              final currentImageUsingFileName =
                                               pickedUnitImages.firstWhere(
-                                                (unitImage) =>
-                                                    unitImage.imageFile!.name ==
+                                                    (unitImage) =>
+                                                unitImage.imageFile!.name ==
                                                     currentUnitImage
                                                         .imageFile!
                                                         .name,
                                               );
 
-                                          final actualIndex = pickedUnitImages
-                                              .indexOf(
+                                              final actualIndex = pickedUnitImages
+                                                  .indexOf(
                                                 currentImageUsingFileName,
                                               );
 
-                                          setState(() {
-                                            pickedUnitImages[actualIndex] =
-                                                pickedUnitImages[actualIndex]
-                                                    .copyWith(
-                                                      imageTag: "Bedroom",
+                                              setState(() {
+                                                pickedUnitImages[actualIndex] =
+                                                    pickedUnitImages[actualIndex]
+                                                        .copyWith(
+                                                      imageTag: selectedLabel!,
                                                     );
+                                              });
+                                            }
                                           });
                                         },
                                         child: Row(
@@ -267,7 +391,9 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
                                               ),
                                             ),
                                             Text(
-                                              label == 'Unlabelled' ? "Add Label" : label,
+                                              label == 'Unlabelled'
+                                                  ? "Add Label"
+                                                  : label,
                                               textAlign: TextAlign.center,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -296,8 +422,8 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 170,
                         mainAxisExtent: 200,
-                        crossAxisSpacing: 24,
-                        mainAxisSpacing: 24,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
                         childAspectRatio: 1,
                       ),
                     ),

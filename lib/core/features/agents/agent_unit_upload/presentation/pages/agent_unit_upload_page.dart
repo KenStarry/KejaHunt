@@ -62,23 +62,6 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
           "Upload Unit",
           style: Theme.of(context).textTheme.titleMedium,
         ),
-
-        actions: [
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: UnconstrainedBox(
-          //     child: SvgPicture.asset(
-          //       "assets/images/icons/visibility_on.svg",
-          //       width: 20,
-          //       height: 20,
-          //       colorFilter: ColorFilter.mode(
-          //         grey500,
-          //         BlendMode.srcIn,
-          //       ),
-          //     ),
-          //   ),
-          // ),
-        ],
       ),
       body: Container(
         width: double.infinity,
@@ -92,13 +75,19 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                   activeIcon: "assets/images/icons/edit_alt_filled.svg",
                   inactiveIcon: "assets/images/icons/edit_alt_outlined.svg",
                   title: "Unit Details",
-                  stepperScreen: Text("Apartment"),
+                  stepperScreen: UnitUploadImagesSection(
+                    onImagesPicked: (images) {
+                      setState(() {
+                        pickedImages = images;
+                      });
+                    },
+                  ),
                 ),
                 StepperModel(
                   activeIcon: "assets/images/icons/discount_filled.svg",
                   inactiveIcon: "assets/images/icons/discount_outlined.svg",
                   title: "Features & Images",
-                  stepperScreen: Text("Apartment"),
+                  stepperScreen: Text("Hello"),
                 ),
                 StepperModel(
                   activeIcon: "assets/images/icons/show_filled.svg",
@@ -108,6 +97,14 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                 ),
               ],
             ),
+
+            // UnitUploadImagesSection(
+            //   onImagesPicked: (images) {
+            //     setState(() {
+            //       pickedImages = images;
+            //     });
+            //   },
+            // ),
 
             // CustomScrollView(
             //   physics: const BouncingScrollPhysics(),
