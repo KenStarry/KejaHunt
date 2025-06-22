@@ -1,10 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:keja_hunt/core/data/repository/unit_repository.dart';
+import 'package:keja_hunt/core/di/locator.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class UnitUploadImagesSection extends StatefulWidget {
-  const UnitUploadImagesSection({super.key});
+
+  final Function(List<XFile>) onImagesPicked;
+
+  const UnitUploadImagesSection({super.key, required this.onImagesPicked});
 
   @override
   State<UnitUploadImagesSection> createState() =>
@@ -12,6 +20,8 @@ class UnitUploadImagesSection extends StatefulWidget {
 }
 
 class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
+  List<XFile> pickedImages = [];
+
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
@@ -23,24 +33,41 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Images",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+                Text("Images", style: Theme.of(context).textTheme.titleSmall),
 
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 12.0),
-                //   child: TextButton(
-                //     onPressed: () {},
-                //     child: Text(
-                //       "See All",
-                //       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                //         color: Theme.of(context).colorScheme.primary,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 12.0),
+                  child: TextButton(
+                    onPressed: () async {
+                      final unitRepo = locator.get<UnitRepository>();
+
+                      await unitRepo.pickMultipleImages().then((images) {
+                        final currentImages = [...pickedImages];
+
+                        for (XFile image in images) {
+                          if (!(currentImages
+                              .map((current) => current.name)
+                              .toList()
+                              .contains(image.name))) {
+                            currentImages.add(image);
+                          }
+                        }
+
+                        widget.onImagesPicked(currentImages);
+                        setState(() {
+                          pickedImages = currentImages;
+                        });
+                      });
+                    },
+                    child: Text(
+                      "Add New",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -60,13 +87,17 @@ class _UnitUploadImagesSectionState extends State<UnitUploadImagesSection> {
                     borderRadius: BorderRadius.circular(24),
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
-                  child: CustomNetworkImage(
-                    url:
-                        "https://plus.unsplash.com/premium_photo-1661902863227-410df18b90e8?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(24),
+                    child: Image.file(
+                      File(pickedImages[index].path),
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                itemCount: 10,
+                itemCount: pickedImages.length,
                 scrollDirection: Axis.horizontal,
                 separatorBuilder: (BuildContext context, int index) =>
                     SizedBox(width: 24),

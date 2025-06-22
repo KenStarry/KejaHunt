@@ -21,10 +21,6 @@ _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => UnitFeatureModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <UnitFeatureModel>[],
-      images: (json['images'] as List<dynamic>?)
-              ?.map((e) => UnitImageModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <UnitImageModel>[],
       floors: (json['floors'] as List<dynamic>?)
               ?.map((e) => (e as num).toInt())
               .toList() ??
@@ -44,7 +40,6 @@ Map<String, dynamic> _$$HouseUnitModelImplToJson(
       'price': instance.price,
       'price_frequency': instance.priceFrequency,
       'features': instance.features,
-      'images': instance.images,
       'floors': instance.floors,
       'available_units_count': instance.availableUnitsCount,
     };

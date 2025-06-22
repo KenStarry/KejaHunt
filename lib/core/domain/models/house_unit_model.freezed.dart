@@ -41,7 +41,7 @@ mixin _$HouseUnitModel {
   String get priceFrequency => throw _privateConstructorUsedError;
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features => throw _privateConstructorUsedError;
-  @JsonKey(name: "images")
+  @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
   List<UnitImageModel> get images => throw _privateConstructorUsedError;
 
   /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
@@ -79,7 +79,8 @@ abstract class $HouseUnitModelCopyWith<$Res> {
       @JsonKey(name: "price") double price,
       @JsonKey(name: "price_frequency") String priceFrequency,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
-      @JsonKey(name: "images") List<UnitImageModel> images,
+      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
+      List<UnitImageModel> images,
       @JsonKey(name: "floors") List<int> floors,
       @JsonKey(name: "available_units_count") int availableUnitsCount});
 }
@@ -189,7 +190,8 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
       @JsonKey(name: "price") double price,
       @JsonKey(name: "price_frequency") String priceFrequency,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
-      @JsonKey(name: "images") List<UnitImageModel> images,
+      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
+      List<UnitImageModel> images,
       @JsonKey(name: "floors") List<int> floors,
       @JsonKey(name: "available_units_count") int availableUnitsCount});
 }
@@ -293,7 +295,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       @JsonKey(name: "price_frequency") this.priceFrequency = 'month',
       @JsonKey(name: "features")
       final List<UnitFeatureModel> features = const <UnitFeatureModel>[],
-      @JsonKey(name: "images")
+      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
       final List<UnitImageModel> images = const <UnitImageModel>[],
       @JsonKey(name: "floors") final List<int> floors = const [1],
       @JsonKey(name: "available_units_count") this.availableUnitsCount = 1})
@@ -343,7 +345,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
 
   final List<UnitImageModel> _images;
   @override
-  @JsonKey(name: "images")
+  @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
   List<UnitImageModel> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
@@ -445,7 +447,8 @@ abstract class _HouseUnitModel implements HouseUnitModel {
       @JsonKey(name: "price") required final double price,
       @JsonKey(name: "price_frequency") final String priceFrequency,
       @JsonKey(name: "features") final List<UnitFeatureModel> features,
-      @JsonKey(name: "images") final List<UnitImageModel> images,
+      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
+      final List<UnitImageModel> images,
       @JsonKey(name: "floors") final List<int> floors,
       @JsonKey(name: "available_units_count")
       final int availableUnitsCount}) = _$HouseUnitModelImpl;
@@ -485,7 +488,7 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features;
   @override
-  @JsonKey(name: "images")
+  @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
   List<UnitImageModel> get images;
 
   /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
