@@ -25,13 +25,22 @@ class AgentUnitUploadPage extends StatefulWidget {
 
 class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
   late final TextEditingController _apartmentNameController;
+  late final PageController _pageController;
   List<UnitImageModel> pickedImages = [];
+  int activeIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
     _apartmentNameController = TextEditingController();
+    _pageController = PageController(initialPage: 0, keepPage: true);
+
+    _pageController.addListener(() {
+      setState(() {
+        activeIndex = _pageController.page!.toInt();
+      });
+    });
   }
 
   @override
@@ -77,26 +86,25 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
         child: Stack(
           children: [
             StepperScreen(
+              pageController: _pageController,
               steppers: [
                 StepperModel(
-                  activeIcon: "assets/images/icons/home_filled.svg",
-                  inactiveIcon: "assets/images/icons/home_outlined.svg",
-                  title: "Apartment",
-                ),
-                StepperModel(
-                  activeIcon: "assets/images/icons/home_filled.svg",
-                  inactiveIcon: "assets/images/icons/home_outlined.svg",
+                  activeIcon: "assets/images/icons/edit_alt_filled.svg",
+                  inactiveIcon: "assets/images/icons/edit_alt_outlined.svg",
                   title: "Unit Details",
+                  stepperScreen: Text("Apartment"),
                 ),
                 StepperModel(
-                  activeIcon: "assets/images/icons/home_filled.svg",
-                  inactiveIcon: "assets/images/icons/home_outlined.svg",
+                  activeIcon: "assets/images/icons/discount_filled.svg",
+                  inactiveIcon: "assets/images/icons/discount_outlined.svg",
                   title: "Features & Images",
+                  stepperScreen: Text("Apartment"),
                 ),
                 StepperModel(
-                  activeIcon: "assets/images/icons/home_filled.svg",
-                  inactiveIcon: "assets/images/icons/home_outlined.svg",
+                  activeIcon: "assets/images/icons/show_filled.svg",
+                  inactiveIcon: "assets/images/icons/show_outlined.svg",
                   title: "Preview",
+                  stepperScreen: Text("Apartment"),
                 ),
               ],
             ),
@@ -172,28 +180,37 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                 child: BlocBuilder<UploadUnitBloc, UploadUnitState>(
                   builder: (context, uploadUnitState) {
                     return CustomFilledButton(
-                      text: "Save Changes",
+                      text: activeIndex != 2 ? "Next" : "Save Changes",
                       isLoading: uploadUnitState is UploadUnitLoading,
-                      onTap: () {
-                        final uuid = Uuid();
+                      onTap: activeIndex != 2
+                          ? () {
+                              _pageController.animateToPage(
+                                activeIndex + 1,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease,
+                              );
+                            }
+                          : () {
+                              final uuid = Uuid();
 
-                        context.read<UploadUnitBloc>().add(
-                          HouseUnitUploadEvent(
-                            houseUnitModel: HouseUnitModel(
-                              apartmentId: uuid.v4(),
-                              title: "Classic Studio",
-                              description:
-                                  "A very Spacious Studio that will leave you drooling",
-                              price: 17500,
-                              priceFrequency: UnitPriceFrequencyEnum.month.name,
-                              features: [],
-                              images: pickedImages,
-                              unitType: UnitTypeEnum.studio.name,
-                              floors: [4, 6],
-                            ),
-                          ),
-                        );
-                      },
+                              context.read<UploadUnitBloc>().add(
+                                HouseUnitUploadEvent(
+                                  houseUnitModel: HouseUnitModel(
+                                    apartmentId: uuid.v4(),
+                                    title: "Classic Studio",
+                                    description:
+                                        "A very Spacious Studio that will leave you drooling",
+                                    price: 17500,
+                                    priceFrequency:
+                                        UnitPriceFrequencyEnum.month.name,
+                                    features: [],
+                                    images: pickedImages,
+                                    unitType: UnitTypeEnum.studio.name,
+                                    floors: [4, 6],
+                                  ),
+                                ),
+                              );
+                            },
                     );
                   },
                 ),
