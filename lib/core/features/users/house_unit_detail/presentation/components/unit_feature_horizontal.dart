@@ -3,16 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
-class UnitFacilityHorizontal extends StatefulWidget {
+class UnitFeatureHorizontal extends StatefulWidget {
   final UnitFeatureModel featureModel;
 
-  const UnitFacilityHorizontal({super.key, required this.featureModel});
+  const UnitFeatureHorizontal({super.key, required this.featureModel});
 
   @override
-  State<UnitFacilityHorizontal> createState() => _UnitFacilityHorizontalState();
+  State<UnitFeatureHorizontal> createState() => _UnitFeatureHorizontalState();
 }
 
-class _UnitFacilityHorizontalState extends State<UnitFacilityHorizontal> {
+class _UnitFeatureHorizontalState extends State<UnitFeatureHorizontal> {
   @override
   Widget build(BuildContext context) {
     return Container(
