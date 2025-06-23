@@ -10,7 +10,8 @@ _$UnitFeatureModelImpl _$$UnitFeatureModelImplFromJson(
         Map<String, dynamic> json) =>
     _$UnitFeatureModelImpl(
       featureName: json['feature_name'] as String? ?? '',
-      featureDescription: json['feature_description'] as String? ?? null,
+      featureGroup: json['feature_group'] as String? ?? '',
+      featureLevel: json['feature_level'] as String? ?? '',
       featureIconPath: json['feature_icon_path'] as String? ?? '',
     );
 
@@ -18,6 +19,7 @@ Map<String, dynamic> _$$UnitFeatureModelImplToJson(
         _$UnitFeatureModelImpl instance) =>
     <String, dynamic>{
       'feature_name': instance.featureName,
-      'feature_description': instance.featureDescription,
+      'feature_group': instance.featureGroup,
+      'feature_level': instance.featureLevel,
       'feature_icon_path': instance.featureIconPath,
     };
