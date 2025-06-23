@@ -9,6 +9,7 @@ import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/bloc/upload_unit_bloc.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/stepper_screen.dart';
+import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/unit_details_section.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/unit_upload_images_section.dart';
 import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/presentation/components/custom_text_field.dart';
@@ -75,6 +76,12 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                   activeIcon: "assets/images/icons/edit_alt_filled.svg",
                   inactiveIcon: "assets/images/icons/edit_alt_outlined.svg",
                   title: "Unit Details",
+                  stepperScreen: UnitDetailsSection(),
+                ),
+                StepperModel(
+                  activeIcon: "assets/images/icons/discount_filled.svg",
+                  inactiveIcon: "assets/images/icons/discount_outlined.svg",
+                  title: "Features & Images",
                   stepperScreen: UnitUploadImagesSection(
                     onImagesPicked: (images) {
                       setState(() {
@@ -82,12 +89,6 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                       });
                     },
                   ),
-                ),
-                StepperModel(
-                  activeIcon: "assets/images/icons/discount_filled.svg",
-                  inactiveIcon: "assets/images/icons/discount_outlined.svg",
-                  title: "Features & Images",
-                  stepperScreen: Text("Hello"),
                 ),
                 StepperModel(
                   activeIcon: "assets/images/icons/show_filled.svg",

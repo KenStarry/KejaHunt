@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keja_hunt/core/data/repository/unit_repository.dart';
 import 'package:keja_hunt/core/di/locator.dart';
+import 'package:keja_hunt/core/domain/enum/units/unit_price_frequency_enum.dart';
+import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/image_label_card.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/model/image_label_model.dart';
 import 'package:keja_hunt/core/presentation/components/custom_dropdown_button.dart';
@@ -42,20 +44,20 @@ class _UnitDetailsSectionState extends State<UnitDetailsSection> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Apartment Details",
+                      "Apartment",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
                 ),
               ),
 
+              SliverToBoxAdapter(child: SizedBox(height: 16)),
+
               SliverToBoxAdapter(
                 child: CustomDropdownButton<String>(
                   hint: "Choose Apartment Name",
                   items: ["Apartment 1", "Apartment 2"],
-                  onChanged: (apartment) {
-
-                  },
+                  onChanged: (apartment) {},
                 ),
               ),
             ],
@@ -71,31 +73,45 @@ class _UnitDetailsSectionState extends State<UnitDetailsSection> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Pricing Details",
+                      "Pricing",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
                 ),
               ),
 
+              SliverToBoxAdapter(child: SizedBox(height: 16)),
+
               SliverToBoxAdapter(
                 child: Row(
                   spacing: 16,
                   children: [
                     Expanded(
+                      flex: 2,
                       child: CustomTextField(
                         controller: pricingController,
-                        hintText: "Enter Rent per month",
+                        inputType: TextInputType.number,
+                        hintText: "Rent amount",
                       ),
                     ),
 
-                    Text("/"),
+                    Text(
+                      "/",
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: grey500,
+                      ),
+                    ),
 
-                    Container(
-                      width: 30,
-                      height: 30,
-                      color: redColor,
-                    )
+                    Expanded(
+                      child: CustomDropdownButton<String>(
+                        hint: "Month",
+                        items: UnitPriceFrequencyEnum.values
+                            .map((value) => value.name)
+                            .toList(),
+                        onChanged: (apartment) {},
+                      ),
+                    ),
                   ],
                 ),
               ),

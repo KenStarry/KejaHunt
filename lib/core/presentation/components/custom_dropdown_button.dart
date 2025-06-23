@@ -65,7 +65,7 @@ class _CustomDropdownButtonState<T> extends State<CustomDropdownButton<T>> {
           context,
         ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),
         icon: Padding(
-          padding: const EdgeInsets.only(left: 45.0),
+          padding: const EdgeInsets.only(left: 12.0),
           child: UnconstrainedBox(
             child: SvgPicture.asset(
               'assets/images/icons/arrow_dropdown.svg',

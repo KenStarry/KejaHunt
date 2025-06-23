@@ -9,7 +9,7 @@ import 'package:keja_hunt/core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:keja_hunt/core/features/auth/presentation/components/auth_type_card.dart';
 import 'package:keja_hunt/core/presentation/components/custom_checkbox.dart';
 import 'package:keja_hunt/core/presentation/components/custom_text_field.dart';
-import 'package:keja_hunt/core/utils/constants.dart';
+import 'package:keja_hunt/core/utils/constants/constants.dart';
 
 import '../../../../../presentation/components/custom_filled_button.dart';
 import '../../../../../presentation/components/custom_snackbar.dart';

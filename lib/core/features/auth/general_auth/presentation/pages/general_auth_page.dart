@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/core/features/auth/presentation/model/auth_type_card_model.dart';
 import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
-import 'package:keja_hunt/core/utils/constants.dart';
+import 'package:keja_hunt/core/utils/constants/constants.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 import '../../../presentation/components/auth_type_card.dart';

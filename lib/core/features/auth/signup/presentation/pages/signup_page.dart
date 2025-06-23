@@ -10,7 +10,7 @@ import '../../../../../presentation/components/custom_checkbox.dart';
 import '../../../../../presentation/components/custom_filled_button.dart';
 import '../../../../../presentation/components/custom_text_field.dart';
 import '../../../../../presentation/components/snackbars/enum/snackbar_types.dart';
-import '../../../../../utils/constants.dart';
+import '../../../../../utils/constants/constants.dart';
 import '../../../../../utils/theme/colors.dart';
 import '../../../presentation/components/auth_type_card_mini.dart';
 import 'package:flutter_extend/flutter_extend.dart';

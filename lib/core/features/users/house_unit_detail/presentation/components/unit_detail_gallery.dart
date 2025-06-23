@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
-import 'package:keja_hunt/core/utils/constants.dart';
+import 'package:keja_hunt/core/utils/constants/constants.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 

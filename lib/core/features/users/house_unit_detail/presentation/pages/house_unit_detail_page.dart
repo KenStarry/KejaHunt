@@ -8,7 +8,7 @@ import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/com
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_header.dart';
 import 'package:keja_hunt/core/presentation/components/custom_divider.dart';
 import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
-import 'package:keja_hunt/core/utils/constants.dart';
+import 'package:keja_hunt/core/utils/constants/constants.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 class HouseUnitDetailPage extends StatefulWidget {

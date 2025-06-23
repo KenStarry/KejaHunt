@@ -5,7 +5,7 @@ import '../../utils/theme/colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
-  final TextInputType? keyboardType;
+  final TextInputType? inputType;
   final Color? filledColor;
   final Color? textColor;
   final FocusNode? focusNode;
@@ -33,7 +33,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.controller,
-    this.keyboardType,
+    this.inputType,
     this.filledColor,
     this.cursorColor,
     this.focusNode,
@@ -68,7 +68,7 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       controller: controller,
       focusNode: focusNode,
-      keyboardType: keyboardType ?? TextInputType.text,
+      keyboardType: inputType ?? TextInputType.text,
       cursorColor: cursorColor ?? theme.colorScheme.tertiary.withValues(alpha: 0.5),
       minLines: minLines ?? 1,
       maxLines: maxLines ?? 1,

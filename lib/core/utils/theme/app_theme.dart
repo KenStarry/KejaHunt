@@ -49,8 +49,8 @@ class AppTheme {
           selectedItemColor: secondaryColor,
         ),
         bottomSheetTheme: BottomSheetThemeData(
-            dragHandleColor: textBlack600,
-            dragHandleSize: const Size(100, 3),
+            dragHandleColor: grey300,
+            dragHandleSize: const Size(60, 3),
             surfaceTintColor: whiteColor,
             backgroundColor: whiteColor,
             modalBackgroundColor: whiteColor),
