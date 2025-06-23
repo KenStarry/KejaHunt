@@ -20,8 +20,6 @@ UnitFeatureModel _$UnitFeatureModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UnitFeatureModel {
-  @JsonKey(name: "feature_id")
-  String get featureId => throw _privateConstructorUsedError;
   @JsonKey(name: "feature_name")
   String get featureName => throw _privateConstructorUsedError;
   @JsonKey(name: "feature_description")
@@ -46,8 +44,7 @@ abstract class $UnitFeatureModelCopyWith<$Res> {
       _$UnitFeatureModelCopyWithImpl<$Res, UnitFeatureModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "feature_id") String featureId,
-      @JsonKey(name: "feature_name") String featureName,
+      {@JsonKey(name: "feature_name") String featureName,
       @JsonKey(name: "feature_description") String? featureDescription,
       @JsonKey(name: "feature_icon_path") String featureIconPath});
 }
@@ -67,16 +64,11 @@ class _$UnitFeatureModelCopyWithImpl<$Res, $Val extends UnitFeatureModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? featureId = null,
     Object? featureName = null,
     Object? featureDescription = freezed,
     Object? featureIconPath = null,
   }) {
     return _then(_value.copyWith(
-      featureId: null == featureId
-          ? _value.featureId
-          : featureId // ignore: cast_nullable_to_non_nullable
-              as String,
       featureName: null == featureName
           ? _value.featureName
           : featureName // ignore: cast_nullable_to_non_nullable
@@ -102,8 +94,7 @@ abstract class _$$UnitFeatureModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "feature_id") String featureId,
-      @JsonKey(name: "feature_name") String featureName,
+      {@JsonKey(name: "feature_name") String featureName,
       @JsonKey(name: "feature_description") String? featureDescription,
       @JsonKey(name: "feature_icon_path") String featureIconPath});
 }
@@ -121,16 +112,11 @@ class __$$UnitFeatureModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? featureId = null,
     Object? featureName = null,
     Object? featureDescription = freezed,
     Object? featureIconPath = null,
   }) {
     return _then(_$UnitFeatureModelImpl(
-      featureId: null == featureId
-          ? _value.featureId
-          : featureId // ignore: cast_nullable_to_non_nullable
-              as String,
       featureName: null == featureName
           ? _value.featureName
           : featureName // ignore: cast_nullable_to_non_nullable
@@ -151,17 +137,13 @@ class __$$UnitFeatureModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UnitFeatureModelImpl implements _UnitFeatureModel {
   const _$UnitFeatureModelImpl(
-      {@JsonKey(name: "feature_id") this.featureId = '',
-      @JsonKey(name: "feature_name") this.featureName = '',
+      {@JsonKey(name: "feature_name") this.featureName = '',
       @JsonKey(name: "feature_description") this.featureDescription = null,
       @JsonKey(name: "feature_icon_path") this.featureIconPath = ''});
 
   factory _$UnitFeatureModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UnitFeatureModelImplFromJson(json);
 
-  @override
-  @JsonKey(name: "feature_id")
-  final String featureId;
   @override
   @JsonKey(name: "feature_name")
   final String featureName;
@@ -174,7 +156,7 @@ class _$UnitFeatureModelImpl implements _UnitFeatureModel {
 
   @override
   String toString() {
-    return 'UnitFeatureModel(featureId: $featureId, featureName: $featureName, featureDescription: $featureDescription, featureIconPath: $featureIconPath)';
+    return 'UnitFeatureModel(featureName: $featureName, featureDescription: $featureDescription, featureIconPath: $featureIconPath)';
   }
 
   @override
@@ -182,8 +164,6 @@ class _$UnitFeatureModelImpl implements _UnitFeatureModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnitFeatureModelImpl &&
-            (identical(other.featureId, featureId) ||
-                other.featureId == featureId) &&
             (identical(other.featureName, featureName) ||
                 other.featureName == featureName) &&
             (identical(other.featureDescription, featureDescription) ||
@@ -195,7 +175,7 @@ class _$UnitFeatureModelImpl implements _UnitFeatureModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, featureId, featureName, featureDescription, featureIconPath);
+      runtimeType, featureName, featureDescription, featureIconPath);
 
   /// Create a copy of UnitFeatureModel
   /// with the given fields replaced by the non-null parameter values.
@@ -216,8 +196,7 @@ class _$UnitFeatureModelImpl implements _UnitFeatureModel {
 
 abstract class _UnitFeatureModel implements UnitFeatureModel {
   const factory _UnitFeatureModel(
-      {@JsonKey(name: "feature_id") final String featureId,
-      @JsonKey(name: "feature_name") final String featureName,
+      {@JsonKey(name: "feature_name") final String featureName,
       @JsonKey(name: "feature_description") final String? featureDescription,
       @JsonKey(name: "feature_icon_path")
       final String featureIconPath}) = _$UnitFeatureModelImpl;
@@ -225,9 +204,6 @@ abstract class _UnitFeatureModel implements UnitFeatureModel {
   factory _UnitFeatureModel.fromJson(Map<String, dynamic> json) =
       _$UnitFeatureModelImpl.fromJson;
 
-  @override
-  @JsonKey(name: "feature_id")
-  String get featureId;
   @override
   @JsonKey(name: "feature_name")
   String get featureName;
