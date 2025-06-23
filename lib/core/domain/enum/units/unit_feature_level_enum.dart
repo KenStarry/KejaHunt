@@ -1,0 +1,1 @@
+enum UnitFeatureLevelEnum {unit, apartment}
