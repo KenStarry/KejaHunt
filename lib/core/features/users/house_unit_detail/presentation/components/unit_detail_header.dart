@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
-import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_facility_horizontal.dart';
+import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_feature_horizontal.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -108,7 +108,7 @@ class _UnitDetailHeaderState extends State<UnitDetailHeader> {
                   width: double.infinity,
                   height: 50,
                   child: ListView.separated(
-                    itemBuilder: (context, index) => UnitFacilityHorizontal(
+                    itemBuilder: (context, index) => UnitFeatureHorizontal(
                       featureModel: widget.houseUnitModel.features[index],
                     ),
                     itemCount: widget.houseUnitModel.features.length,

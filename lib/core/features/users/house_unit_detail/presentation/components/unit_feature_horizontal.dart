@@ -36,10 +36,7 @@ class _UnitFeatureHorizontalState extends State<UnitFeatureHorizontal> {
           ),
 
           Text(
-            (widget.featureModel.featureDescription != null &&
-                    widget.featureModel.featureDescription!.isNotEmpty
-                ? widget.featureModel.featureName
-                : widget.featureModel.featureName),
+            widget.featureModel.featureName,
             style: Theme.of(
               context,
             ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
