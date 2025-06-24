@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/pages/user_dashboard_page.dart';
+import 'package:keja_hunt/core/features/users/home/presentation/bloc/units_bloc.dart';
 import 'package:keja_hunt/core/features/users/home/presentation/pages/user_home_page.dart';
 import 'package:keja_hunt/core/features/users/profile/presentation/pages/user_profile_page.dart';
 
@@ -23,7 +24,13 @@ final userHomePageRoute = StatefulShellBranch(
     GoRoute(
       path: '/user-home',
       name: 'user-home',
-      builder: (context, state) => const UserHomePage(),
+      builder: (context, state) {
+        if (state.matchedLocation == '/user-home') {
+          context.read<UnitsBloc>().add(FetchAllUnitsEvent());
+        }
+
+        return const UserHomePage();
+      },
     ),
   ],
 );
@@ -34,7 +41,6 @@ final userProfilePageRoute = StatefulShellBranch(
       path: '/user-profile',
       name: 'user-profile',
       builder: (context, state) {
-
         if (state.matchedLocation == '/user-profile') {
           context.read<UserBloc>().add(FetchUserEvent());
         }

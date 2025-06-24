@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:keja_hunt/core/features/users/home/components/house_card_featured.dart';
@@ -6,6 +7,7 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../../../domain/enum/units/unit_type_enum.dart';
 import '../../../../domain/models/unit_image_model.dart';
+import '../presentation/bloc/units_bloc.dart';
 
 class UserFeaturedHomesSection extends StatefulWidget {
   const UserFeaturedHomesSection({super.key});
@@ -120,16 +122,25 @@ class _UserFeaturedHomesSectionState extends State<UserFeaturedHomesSection> {
           ),
 
           SliverToBoxAdapter(
-            child: Container(
-              width: double.infinity,
-              height: 400,
-              child: ListView.builder(
-                itemBuilder: (context, index) =>
-                    HouseCardFeatured(houseUnitModel: _houseUnits[index]),
-                itemCount: _houseUnits.length,
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-              ),
+            child: BlocBuilder<UnitsBloc, UnitsState>(
+              builder: (context, unitsState) {
+                return Container(
+                  width: double.infinity,
+                  height: 400,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) => HouseCardFeatured(
+                      houseUnitModel: unitsState is UnitsSuccess
+                          ? unitsState.allUnits[index]
+                          : _houseUnits[index],
+                    ),
+                    itemCount: unitsState is UnitsSuccess
+                        ? unitsState.allUnits.length
+                        : _houseUnits.length,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                  ),
+                );
+              },
             ),
           ),
         ],

@@ -8,7 +8,7 @@ part 'unit_image_model.g.dart';
 @freezed
 class UnitImageModel with _$UnitImageModel {
   const factory UnitImageModel({
-    @JsonKey(name: "image_id", includeToJson: false) @Default('') String imageId,
+    @JsonKey(name: "image_id", includeToJson: false) @Default(0) int imageId,
     @JsonKey(name: "uploaded_at", includeToJson: false) @Default('') String uploadedAt,
     @JsonKey(name: "unit_id") @Default('') String unitId,
     @JsonKey(name: "user_id") @Default('') String userId,

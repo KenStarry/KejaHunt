@@ -8,7 +8,7 @@ part of 'unit_image_model.dart';
 
 _$UnitImageModelImpl _$$UnitImageModelImplFromJson(Map<String, dynamic> json) =>
     _$UnitImageModelImpl(
-      imageId: json['image_id'] as String? ?? '',
+      imageId: (json['image_id'] as num?)?.toInt() ?? 0,
       uploadedAt: json['uploaded_at'] as String? ?? '',
       unitId: json['unit_id'] as String? ?? '',
       userId: json['user_id'] as String? ?? '',

@@ -41,8 +41,6 @@ mixin _$HouseUnitModel {
   String get priceFrequency => throw _privateConstructorUsedError;
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features => throw _privateConstructorUsedError;
-  @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
-  List<UnitImageModel> get images => throw _privateConstructorUsedError;
 
   /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
   @JsonKey(name: "floors")
@@ -51,6 +49,10 @@ mixin _$HouseUnitModel {
   /// How many 1 brs are left
   @JsonKey(name: "available_units_count")
   int get availableUnitsCount => throw _privateConstructorUsedError;
+
+  /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
+  @JsonKey(name: unitImagesTable, includeToJson: false, includeFromJson: true)
+  List<UnitImageModel> get images => throw _privateConstructorUsedError;
 
   /// Serializes this HouseUnitModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -79,10 +81,11 @@ abstract class $HouseUnitModelCopyWith<$Res> {
       @JsonKey(name: "price") double price,
       @JsonKey(name: "price_frequency") String priceFrequency,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
-      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
-      List<UnitImageModel> images,
       @JsonKey(name: "floors") List<int> floors,
-      @JsonKey(name: "available_units_count") int availableUnitsCount});
+      @JsonKey(name: "available_units_count") int availableUnitsCount,
+      @JsonKey(
+          name: unitImagesTable, includeToJson: false, includeFromJson: true)
+      List<UnitImageModel> images});
 }
 
 /// @nodoc
@@ -110,9 +113,9 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
     Object? price = null,
     Object? priceFrequency = null,
     Object? features = null,
-    Object? images = null,
     Object? floors = null,
     Object? availableUnitsCount = null,
+    Object? images = null,
   }) {
     return _then(_value.copyWith(
       unitId: null == unitId
@@ -155,10 +158,6 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
               as List<UnitFeatureModel>,
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<UnitImageModel>,
       floors: null == floors
           ? _value.floors
           : floors // ignore: cast_nullable_to_non_nullable
@@ -167,6 +166,10 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
           ? _value.availableUnitsCount
           : availableUnitsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      images: null == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<UnitImageModel>,
     ) as $Val);
   }
 }
@@ -190,10 +193,11 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
       @JsonKey(name: "price") double price,
       @JsonKey(name: "price_frequency") String priceFrequency,
       @JsonKey(name: "features") List<UnitFeatureModel> features,
-      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
-      List<UnitImageModel> images,
       @JsonKey(name: "floors") List<int> floors,
-      @JsonKey(name: "available_units_count") int availableUnitsCount});
+      @JsonKey(name: "available_units_count") int availableUnitsCount,
+      @JsonKey(
+          name: unitImagesTable, includeToJson: false, includeFromJson: true)
+      List<UnitImageModel> images});
 }
 
 /// @nodoc
@@ -219,9 +223,9 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
     Object? price = null,
     Object? priceFrequency = null,
     Object? features = null,
-    Object? images = null,
     Object? floors = null,
     Object? availableUnitsCount = null,
+    Object? images = null,
   }) {
     return _then(_$HouseUnitModelImpl(
       unitId: null == unitId
@@ -264,10 +268,6 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
           ? _value._features
           : features // ignore: cast_nullable_to_non_nullable
               as List<UnitFeatureModel>,
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<UnitImageModel>,
       floors: null == floors
           ? _value._floors
           : floors // ignore: cast_nullable_to_non_nullable
@@ -276,6 +276,10 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
           ? _value.availableUnitsCount
           : availableUnitsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      images: null == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<UnitImageModel>,
     ));
   }
 }
@@ -295,13 +299,14 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       @JsonKey(name: "price_frequency") this.priceFrequency = 'month',
       @JsonKey(name: "features")
       final List<UnitFeatureModel> features = const <UnitFeatureModel>[],
-      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
-      final List<UnitImageModel> images = const <UnitImageModel>[],
       @JsonKey(name: "floors") final List<int> floors = const [1],
-      @JsonKey(name: "available_units_count") this.availableUnitsCount = 1})
+      @JsonKey(name: "available_units_count") this.availableUnitsCount = 1,
+      @JsonKey(
+          name: unitImagesTable, includeToJson: false, includeFromJson: true)
+      final List<UnitImageModel> images = const <UnitImageModel>[]})
       : _features = features,
-        _images = images,
-        _floors = floors;
+        _floors = floors,
+        _images = images;
 
   factory _$HouseUnitModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HouseUnitModelImplFromJson(json);
@@ -343,15 +348,6 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
     return EqualUnmodifiableListView(_features);
   }
 
-  final List<UnitImageModel> _images;
-  @override
-  @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
-  List<UnitImageModel> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
-  }
-
   /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
   final List<int> _floors;
 
@@ -369,9 +365,21 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
   @JsonKey(name: "available_units_count")
   final int availableUnitsCount;
 
+  /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
+  final List<UnitImageModel> _images;
+
+  /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
+  @override
+  @JsonKey(name: unitImagesTable, includeToJson: false, includeFromJson: true)
+  List<UnitImageModel> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
   @override
   String toString() {
-    return 'HouseUnitModel(unitId: $unitId, userId: $userId, apartmentId: $apartmentId, unitType: $unitType, createdAt: $createdAt, title: $title, description: $description, price: $price, priceFrequency: $priceFrequency, features: $features, images: $images, floors: $floors, availableUnitsCount: $availableUnitsCount)';
+    return 'HouseUnitModel(unitId: $unitId, userId: $userId, apartmentId: $apartmentId, unitType: $unitType, createdAt: $createdAt, title: $title, description: $description, price: $price, priceFrequency: $priceFrequency, features: $features, floors: $floors, availableUnitsCount: $availableUnitsCount, images: $images)';
   }
 
   @override
@@ -394,10 +402,10 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
             (identical(other.priceFrequency, priceFrequency) ||
                 other.priceFrequency == priceFrequency) &&
             const DeepCollectionEquality().equals(other._features, _features) &&
-            const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality().equals(other._floors, _floors) &&
             (identical(other.availableUnitsCount, availableUnitsCount) ||
-                other.availableUnitsCount == availableUnitsCount));
+                other.availableUnitsCount == availableUnitsCount) &&
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -414,9 +422,9 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       price,
       priceFrequency,
       const DeepCollectionEquality().hash(_features),
-      const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(_floors),
-      availableUnitsCount);
+      availableUnitsCount,
+      const DeepCollectionEquality().hash(_images));
 
   /// Create a copy of HouseUnitModel
   /// with the given fields replaced by the non-null parameter values.
@@ -447,11 +455,11 @@ abstract class _HouseUnitModel implements HouseUnitModel {
       @JsonKey(name: "price") required final double price,
       @JsonKey(name: "price_frequency") final String priceFrequency,
       @JsonKey(name: "features") final List<UnitFeatureModel> features,
-      @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
-      final List<UnitImageModel> images,
       @JsonKey(name: "floors") final List<int> floors,
-      @JsonKey(name: "available_units_count")
-      final int availableUnitsCount}) = _$HouseUnitModelImpl;
+      @JsonKey(name: "available_units_count") final int availableUnitsCount,
+      @JsonKey(
+          name: unitImagesTable, includeToJson: false, includeFromJson: true)
+      final List<UnitImageModel> images}) = _$HouseUnitModelImpl;
 
   factory _HouseUnitModel.fromJson(Map<String, dynamic> json) =
       _$HouseUnitModelImpl.fromJson;
@@ -487,9 +495,6 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   @override
   @JsonKey(name: "features")
   List<UnitFeatureModel> get features;
-  @override
-  @JsonKey(name: "images", includeToJson: false, includeFromJson: false)
-  List<UnitImageModel> get images;
 
   /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
   @override
@@ -500,6 +505,11 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   @override
   @JsonKey(name: "available_units_count")
   int get availableUnitsCount;
+
+  /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
+  @override
+  @JsonKey(name: unitImagesTable, includeToJson: false, includeFromJson: true)
+  List<UnitImageModel> get images;
 
   /// Create a copy of HouseUnitModel
   /// with the given fields replaced by the non-null parameter values.

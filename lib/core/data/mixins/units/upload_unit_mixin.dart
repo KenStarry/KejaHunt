@@ -67,7 +67,7 @@ mixin UploadUnitMixin {
 
         /// Once you have gotten the url, upload the image to the images table
         await supabase
-            .from(imagesTable)
+            .from(unitImagesTable)
             .upsert(updatedImageModel.toJson(), onConflict: 'image_url');
       }),
     );

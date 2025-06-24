@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:keja_hunt/core/domain/enum/units/unit_price_frequency_enum.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
+import 'package:keja_hunt/core/utils/supabase_constants.dart';
 
 part 'house_unit_model.freezed.dart';
 
@@ -24,13 +25,15 @@ class HouseUnitModel with _$HouseUnitModel {
     @JsonKey(name: "price") required double price,
     @JsonKey(name: "price_frequency") @Default('month') String priceFrequency,
     @JsonKey(name: "features") @Default(<UnitFeatureModel>[]) List<UnitFeatureModel> features,
-    @JsonKey(name: "images", includeToJson: false, includeFromJson: false) @Default(<UnitImageModel>[]) List<UnitImageModel> images,
 
     /// A 1 bdr in Jojo House can be in 1st, 2nd, 5th floors
     @JsonKey(name: "floors") @Default([1]) List<int> floors,
 
     /// How many 1 brs are left
     @JsonKey(name: "available_units_count") @Default(1) int availableUnitsCount,
+
+    /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
+    @JsonKey(name: unitImagesTable, includeToJson: false, includeFromJson: true) @Default(<UnitImageModel>[]) List<UnitImageModel> images,
   }) = _HouseUnitModel;
 
   factory HouseUnitModel.fromJson(Map<String, dynamic> json) =>

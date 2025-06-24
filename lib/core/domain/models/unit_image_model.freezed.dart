@@ -21,7 +21,7 @@ UnitImageModel _$UnitImageModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UnitImageModel {
   @JsonKey(name: "image_id", includeToJson: false)
-  String get imageId => throw _privateConstructorUsedError;
+  int get imageId => throw _privateConstructorUsedError;
   @JsonKey(name: "uploaded_at", includeToJson: false)
   String get uploadedAt => throw _privateConstructorUsedError;
   @JsonKey(name: "unit_id")
@@ -52,7 +52,7 @@ abstract class $UnitImageModelCopyWith<$Res> {
       _$UnitImageModelCopyWithImpl<$Res, UnitImageModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "image_id", includeToJson: false) String imageId,
+      {@JsonKey(name: "image_id", includeToJson: false) int imageId,
       @JsonKey(name: "uploaded_at", includeToJson: false) String uploadedAt,
       @JsonKey(name: "unit_id") String unitId,
       @JsonKey(name: "user_id") String userId,
@@ -88,7 +88,7 @@ class _$UnitImageModelCopyWithImpl<$Res, $Val extends UnitImageModel>
       imageId: null == imageId
           ? _value.imageId
           : imageId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       uploadedAt: null == uploadedAt
           ? _value.uploadedAt
           : uploadedAt // ignore: cast_nullable_to_non_nullable
@@ -126,7 +126,7 @@ abstract class _$$UnitImageModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "image_id", includeToJson: false) String imageId,
+      {@JsonKey(name: "image_id", includeToJson: false) int imageId,
       @JsonKey(name: "uploaded_at", includeToJson: false) String uploadedAt,
       @JsonKey(name: "unit_id") String unitId,
       @JsonKey(name: "user_id") String userId,
@@ -160,7 +160,7 @@ class __$$UnitImageModelImplCopyWithImpl<$Res>
       imageId: null == imageId
           ? _value.imageId
           : imageId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       uploadedAt: null == uploadedAt
           ? _value.uploadedAt
           : uploadedAt // ignore: cast_nullable_to_non_nullable
@@ -193,7 +193,7 @@ class __$$UnitImageModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UnitImageModelImpl implements _UnitImageModel {
   const _$UnitImageModelImpl(
-      {@JsonKey(name: "image_id", includeToJson: false) this.imageId = '',
+      {@JsonKey(name: "image_id", includeToJson: false) this.imageId = 0,
       @JsonKey(name: "uploaded_at", includeToJson: false) this.uploadedAt = '',
       @JsonKey(name: "unit_id") this.unitId = '',
       @JsonKey(name: "user_id") this.userId = '',
@@ -207,7 +207,7 @@ class _$UnitImageModelImpl implements _UnitImageModel {
 
   @override
   @JsonKey(name: "image_id", includeToJson: false)
-  final String imageId;
+  final int imageId;
   @override
   @JsonKey(name: "uploaded_at", includeToJson: false)
   final String uploadedAt;
@@ -274,7 +274,7 @@ class _$UnitImageModelImpl implements _UnitImageModel {
 
 abstract class _UnitImageModel implements UnitImageModel {
   const factory _UnitImageModel(
-      {@JsonKey(name: "image_id", includeToJson: false) final String imageId,
+      {@JsonKey(name: "image_id", includeToJson: false) final int imageId,
       @JsonKey(name: "uploaded_at", includeToJson: false)
       final String uploadedAt,
       @JsonKey(name: "unit_id") final String unitId,
@@ -289,7 +289,7 @@ abstract class _UnitImageModel implements UnitImageModel {
 
   @override
   @JsonKey(name: "image_id", includeToJson: false)
-  String get imageId;
+  int get imageId;
   @override
   @JsonKey(name: "uploaded_at", includeToJson: false)
   String get uploadedAt;
