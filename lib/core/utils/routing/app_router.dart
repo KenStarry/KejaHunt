@@ -42,17 +42,14 @@ final GoRoute unitDetailRoute = GoRoute(
       features: [
         UnitFeatureModel(
           featureName: "Bed",
-          featureDescription: "8 Beds",
           featureIconPath: "assets/images/icons/features/car_park.svg"
         ),
         UnitFeatureModel(
             featureName: "Balcony",
-            featureDescription: "",
             featureIconPath: "assets/images/icons/features/car_park.svg"
         ),
         UnitFeatureModel(
             featureName: "Balcony",
-            featureDescription: "",
             featureIconPath: "assets/images/icons/features/car_park.svg"
         ),
       ],

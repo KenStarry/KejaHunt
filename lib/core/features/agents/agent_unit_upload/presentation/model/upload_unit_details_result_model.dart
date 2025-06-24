@@ -1,7 +1,8 @@
+import 'package:keja_hunt/core/domain/enum/units/unit_type_enum.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 
 class UploadUnitDetailsResultModel {
-  final String? unitType;
+  final UnitTypeEnum? unitType;
   final String? unitDescription;
   final String? apartmentId;
   final int rentAmount;

@@ -10,7 +10,9 @@ import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/bloc/upload_unit_bloc.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/stepper_screen.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/unit_details_section.dart';
+import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/unit_preview_section.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/components/unit_upload_images_section.dart';
+import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/model/upload_unit_details_result_model.dart';
 import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/presentation/components/custom_text_field.dart';
 import 'package:keja_hunt/core/presentation/components/stepper/stepper_model.dart';
@@ -25,8 +27,8 @@ class AgentUnitUploadPage extends StatefulWidget {
 }
 
 class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
-  late final TextEditingController _apartmentNameController;
   late final PageController _pageController;
+  UploadUnitDetailsResultModel? unitDetailsResultModel;
   List<UnitImageModel> pickedImages = [];
   int activeIndex = 0;
 
@@ -34,7 +36,6 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
   void initState() {
     super.initState();
 
-    _apartmentNameController = TextEditingController();
     _pageController = PageController(initialPage: 0, keepPage: true);
 
     _pageController.addListener(() {
@@ -76,7 +77,18 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                   activeIcon: "assets/images/icons/edit_alt_filled.svg",
                   inactiveIcon: "assets/images/icons/edit_alt_outlined.svg",
                   title: "Unit Details",
-                  stepperScreen: UnitDetailsSection(),
+                  stepperScreen: UnitDetailsSection(
+                    onNext: (unitDetailsResult) {
+                        setState(() {
+                          unitDetailsResultModel = unitDetailsResult;
+                        });
+                      _pageController.animateToPage(
+                        1,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    },
+                  ),
                 ),
                 StepperModel(
                   activeIcon: "assets/images/icons/discount_filled.svg",
@@ -84,9 +96,15 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                   title: "Features & Images",
                   stepperScreen: UnitUploadImagesSection(
                     onImagesPicked: (images) {
-                      setState(() {
-                        pickedImages = images;
-                      });
+                        setState(() {
+                          pickedImages = images;
+                        });
+
+                      _pageController.animateToPage(
+                        2,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
                     },
                   ),
                 ),
@@ -94,7 +112,36 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
                   activeIcon: "assets/images/icons/show_filled.svg",
                   inactiveIcon: "assets/images/icons/show_outlined.svg",
                   title: "Preview",
-                  stepperScreen: Text("Apartment"),
+                  stepperScreen: UnitPreviewSection(
+                    uploadUnitDetailsResultModel: unitDetailsResultModel,
+                    pickedUnitImages: pickedImages,
+                    onSave: () {
+                      final uuid = Uuid();
+
+                      context.read<UploadUnitBloc>().add(
+                        HouseUnitUploadEvent(
+                          houseUnitModel: HouseUnitModel(
+                            apartmentId: uuid.v4(),
+                            title: unitTypeToReadableString(unitType: unitDetailsResultModel?.unitType ?? UnitTypeEnum.oneBr),
+                            description:
+                                unitDetailsResultModel?.unitDescription ??
+                                'null',
+                            price:
+                                unitDetailsResultModel?.rentAmount.toDouble() ??
+                                0.00,
+                            priceFrequency:
+                                unitDetailsResultModel?.priceFrequency ??
+                                UnitPriceFrequencyEnum.month.name,
+                            features:
+                                unitDetailsResultModel?.selectedFeatures ?? [],
+                            images: pickedImages,
+                            unitType: unitDetailsResultModel?.unitType?.name ?? UnitTypeEnum.oneBr.name,
+                            floors: [4, 6],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -168,52 +215,52 @@ class _AgentUnitUploadPageState extends State<AgentUnitUploadPage> {
             //     ),
             //   ],
             // ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 24,
-                ),
-                child: BlocBuilder<UploadUnitBloc, UploadUnitState>(
-                  builder: (context, uploadUnitState) {
-                    return CustomFilledButton(
-                      text: activeIndex != 2 ? "Next" : "Save Changes",
-                      isLoading: uploadUnitState is UploadUnitLoading,
-                      onTap: activeIndex != 2
-                          ? () {
-                              _pageController.animateToPage(
-                                activeIndex + 1,
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.ease,
-                              );
-                            }
-                          : () {
-                              final uuid = Uuid();
-
-                              context.read<UploadUnitBloc>().add(
-                                HouseUnitUploadEvent(
-                                  houseUnitModel: HouseUnitModel(
-                                    apartmentId: uuid.v4(),
-                                    title: "Classic Studio",
-                                    description:
-                                        "A very Spacious Studio that will leave you drooling",
-                                    price: 17500,
-                                    priceFrequency:
-                                        UnitPriceFrequencyEnum.month.name,
-                                    features: [],
-                                    images: pickedImages,
-                                    unitType: UnitTypeEnum.studio.name,
-                                    floors: [4, 6],
-                                  ),
-                                ),
-                              );
-                            },
-                    );
-                  },
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(
+            //       horizontal: 20.0,
+            //       vertical: 24,
+            //     ),
+            //     child: BlocBuilder<UploadUnitBloc, UploadUnitState>(
+            //       builder: (context, uploadUnitState) {
+            //         return CustomFilledButton(
+            //           text: activeIndex != 2 ? "Next" : "Save Changes",
+            //           isLoading: uploadUnitState is UploadUnitLoading,
+            //           onTap: activeIndex != 2
+            //               ? () {
+            //                   _pageController.animateToPage(
+            //                     activeIndex + 1,
+            //                     duration: Duration(milliseconds: 300),
+            //                     curve: Curves.ease,
+            //                   );
+            //                 }
+            //               : () {
+            //                   final uuid = Uuid();
+            //
+            //                   context.read<UploadUnitBloc>().add(
+            //                     HouseUnitUploadEvent(
+            //                       houseUnitModel: HouseUnitModel(
+            //                         apartmentId: uuid.v4(),
+            //                         title: "Classic Studio",
+            //                         description:
+            //                             "A very Spacious Studio that will leave you drooling",
+            //                         price: 17500,
+            //                         priceFrequency:
+            //                             UnitPriceFrequencyEnum.month.name,
+            //                         features: [],
+            //                         images: pickedImages,
+            //                         unitType: UnitTypeEnum.studio.name,
+            //                         floors: [4, 6],
+            //                       ),
+            //                     ),
+            //                   );
+            //                 },
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

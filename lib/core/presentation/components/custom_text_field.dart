@@ -74,7 +74,7 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines ?? 1,
       style: Theme.of(
         context,
-      ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),
+      ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
         prefixIcon: prefixIcon != null
             ? Padding(
@@ -128,7 +128,7 @@ class CustomTextField extends StatelessWidget {
         prefix: prefix,
         contentPadding:
             contentPadding ??
-            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 18.0),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
