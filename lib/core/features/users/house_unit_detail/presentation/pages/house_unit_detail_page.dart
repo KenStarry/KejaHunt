@@ -164,12 +164,13 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
 
                   SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-                  UnitDetailGallery(
-                    images: widget.houseUnitModel.images,
-                  ),
+                  UnitDetailGallery(images: widget.houseUnitModel.images),
                   SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-                  UnitDetailReviews(),
+                  UnitDetailReviews(
+                    averageRating: widget.houseUnitModel.averageRating,
+                    reviews: widget.houseUnitModel.reviews,
+                  ),
 
                   SliverToBoxAdapter(child: SizedBox(height: 200)),
                 ],

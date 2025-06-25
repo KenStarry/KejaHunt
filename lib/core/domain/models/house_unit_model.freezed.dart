@@ -55,6 +55,8 @@ mixin _$HouseUnitModel {
   /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
   @JsonKey(name: "images", includeToJson: false, includeFromJson: true)
   List<UnitImageModel> get images => throw _privateConstructorUsedError;
+  @JsonKey(name: unitReviewsTable, includeToJson: false, includeFromJson: true)
+  List<UnitReviewModel> get reviews => throw _privateConstructorUsedError;
   @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
   AgentModel? get agent => throw _privateConstructorUsedError;
   @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
@@ -92,6 +94,9 @@ abstract class $HouseUnitModelCopyWith<$Res> {
       @JsonKey(name: "available_units_count") int availableUnitsCount,
       @JsonKey(name: "images", includeToJson: false, includeFromJson: true)
       List<UnitImageModel> images,
+      @JsonKey(
+          name: unitReviewsTable, includeToJson: false, includeFromJson: true)
+      List<UnitReviewModel> reviews,
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       AgentModel? agent,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
@@ -130,6 +135,7 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
     Object? floors = null,
     Object? availableUnitsCount = null,
     Object? images = null,
+    Object? reviews = null,
     Object? agent = freezed,
     Object? agentUserModel = freezed,
   }) {
@@ -190,6 +196,10 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<UnitImageModel>,
+      reviews: null == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<UnitReviewModel>,
       agent: freezed == agent
           ? _value.agent
           : agent // ignore: cast_nullable_to_non_nullable
@@ -254,6 +264,9 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
       @JsonKey(name: "available_units_count") int availableUnitsCount,
       @JsonKey(name: "images", includeToJson: false, includeFromJson: true)
       List<UnitImageModel> images,
+      @JsonKey(
+          name: unitReviewsTable, includeToJson: false, includeFromJson: true)
+      List<UnitReviewModel> reviews,
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       AgentModel? agent,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
@@ -292,6 +305,7 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
     Object? floors = null,
     Object? availableUnitsCount = null,
     Object? images = null,
+    Object? reviews = null,
     Object? agent = freezed,
     Object? agentUserModel = freezed,
   }) {
@@ -352,6 +366,10 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
               as List<UnitImageModel>,
+      reviews: null == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<UnitReviewModel>,
       agent: freezed == agent
           ? _value.agent
           : agent // ignore: cast_nullable_to_non_nullable
@@ -366,7 +384,7 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$HouseUnitModelImpl implements _HouseUnitModel {
+class _$HouseUnitModelImpl extends _HouseUnitModel {
   const _$HouseUnitModelImpl(
       {@JsonKey(name: "unit_id", includeToJson: false) this.unitId = '',
       @JsonKey(name: "user_id") this.userId = '',
@@ -384,13 +402,18 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       @JsonKey(name: "available_units_count") this.availableUnitsCount = 1,
       @JsonKey(name: "images", includeToJson: false, includeFromJson: true)
       final List<UnitImageModel> images = const <UnitImageModel>[],
+      @JsonKey(
+          name: unitReviewsTable, includeToJson: false, includeFromJson: true)
+      final List<UnitReviewModel> reviews = const <UnitReviewModel>[],
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       this.agent = null,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
       this.agentUserModel = null})
       : _features = features,
         _floors = floors,
-        _images = images;
+        _images = images,
+        _reviews = reviews,
+        super._();
 
   factory _$HouseUnitModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HouseUnitModelImplFromJson(json);
@@ -464,6 +487,15 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
     return EqualUnmodifiableListView(_images);
   }
 
+  final List<UnitReviewModel> _reviews;
+  @override
+  @JsonKey(name: unitReviewsTable, includeToJson: false, includeFromJson: true)
+  List<UnitReviewModel> get reviews {
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_reviews);
+  }
+
   @override
   @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
   final AgentModel? agent;
@@ -473,7 +505,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
 
   @override
   String toString() {
-    return 'HouseUnitModel(unitId: $unitId, userId: $userId, agentId: $agentId, apartmentId: $apartmentId, unitType: $unitType, createdAt: $createdAt, title: $title, description: $description, price: $price, priceFrequency: $priceFrequency, features: $features, floors: $floors, availableUnitsCount: $availableUnitsCount, images: $images, agent: $agent, agentUserModel: $agentUserModel)';
+    return 'HouseUnitModel(unitId: $unitId, userId: $userId, agentId: $agentId, apartmentId: $apartmentId, unitType: $unitType, createdAt: $createdAt, title: $title, description: $description, price: $price, priceFrequency: $priceFrequency, features: $features, floors: $floors, availableUnitsCount: $availableUnitsCount, images: $images, reviews: $reviews, agent: $agent, agentUserModel: $agentUserModel)';
   }
 
   @override
@@ -501,6 +533,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
             (identical(other.availableUnitsCount, availableUnitsCount) ||
                 other.availableUnitsCount == availableUnitsCount) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             (identical(other.agent, agent) || other.agent == agent) &&
             (identical(other.agentUserModel, agentUserModel) ||
                 other.agentUserModel == agentUserModel));
@@ -524,6 +557,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
       const DeepCollectionEquality().hash(_floors),
       availableUnitsCount,
       const DeepCollectionEquality().hash(_images),
+      const DeepCollectionEquality().hash(_reviews),
       agent,
       agentUserModel);
 
@@ -544,7 +578,7 @@ class _$HouseUnitModelImpl implements _HouseUnitModel {
   }
 }
 
-abstract class _HouseUnitModel implements HouseUnitModel {
+abstract class _HouseUnitModel extends HouseUnitModel {
   const factory _HouseUnitModel(
       {@JsonKey(name: "unit_id", includeToJson: false) final String unitId,
       @JsonKey(name: "user_id") final String userId,
@@ -561,10 +595,14 @@ abstract class _HouseUnitModel implements HouseUnitModel {
       @JsonKey(name: "available_units_count") final int availableUnitsCount,
       @JsonKey(name: "images", includeToJson: false, includeFromJson: true)
       final List<UnitImageModel> images,
+      @JsonKey(
+          name: unitReviewsTable, includeToJson: false, includeFromJson: true)
+      final List<UnitReviewModel> reviews,
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       final AgentModel? agent,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
       final UserModel? agentUserModel}) = _$HouseUnitModelImpl;
+  const _HouseUnitModel._() : super._();
 
   factory _HouseUnitModel.fromJson(Map<String, dynamic> json) =
       _$HouseUnitModelImpl.fromJson;
@@ -618,6 +656,9 @@ abstract class _HouseUnitModel implements HouseUnitModel {
   @override
   @JsonKey(name: "images", includeToJson: false, includeFromJson: true)
   List<UnitImageModel> get images;
+  @override
+  @JsonKey(name: unitReviewsTable, includeToJson: false, includeFromJson: true)
+  List<UnitReviewModel> get reviews;
   @override
   @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
   AgentModel? get agent;

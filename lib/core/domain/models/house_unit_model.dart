@@ -4,6 +4,7 @@ import 'package:keja_hunt/core/domain/enum/units/unit_price_frequency_enum.dart'
 import 'package:keja_hunt/core/domain/models/agents/agent_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
+import 'package:keja_hunt/core/domain/models/units/unit_review_model.dart';
 import 'package:keja_hunt/core/features/auth/domain/models/user_model.dart';
 import 'package:keja_hunt/core/utils/supabase_constants.dart';
 
@@ -13,6 +14,9 @@ part 'house_unit_model.g.dart';
 
 @freezed
 class HouseUnitModel with _$HouseUnitModel {
+
+  const HouseUnitModel._();
+
   const factory HouseUnitModel({
 
     /// Primary Keys
@@ -37,10 +41,25 @@ class HouseUnitModel with _$HouseUnitModel {
 
     /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
     @JsonKey(name: "images", includeToJson: false, includeFromJson: true) @Default(<UnitImageModel>[]) List<UnitImageModel> images,
+    @JsonKey(name: unitReviewsTable, includeToJson: false, includeFromJson: true) @Default(<UnitReviewModel>[]) List<UnitReviewModel> reviews,
     @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true) @Default(null) AgentModel? agent,
     @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true) @Default(null) UserModel? agentUserModel,
   }) = _HouseUnitModel;
 
   factory HouseUnitModel.fromJson(Map<String, dynamic> json) =>
       _$HouseUnitModelFromJson(json);
+
+  /// 🔥 Custom derived getter
+  double? get averageRating {
+    final validRatings = reviews
+        .map((r) => r.rating)
+        .where((r) => r != null)
+        .cast<double>()
+        .toList();
+
+    if (validRatings.isEmpty) return null;
+
+    final sum = validRatings.reduce((a, b) => a + b);
+    return sum / validRatings.length;
+  }
 }
