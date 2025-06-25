@@ -6,7 +6,7 @@ import 'package:keja_hunt/core/presentation/components/avatar.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 class ReviewCard extends StatefulWidget {
-  final UnitReviewModel reviewModel;
+  final UnitReviewModel? reviewModel;
 
   const ReviewCard({super.key, required this.reviewModel});
 
@@ -19,9 +19,10 @@ class _ReviewCardState extends State<ReviewCard> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 200,
+      height: 170,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        spacing: 16,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Header
@@ -34,12 +35,14 @@ class _ReviewCardState extends State<ReviewCard> {
                   spacing: 16,
                   children: [
                     Avatar(
-                      imageUrl: widget.reviewModel.userWhoReviewed?.avatarUrl ?? '',
+                      imageUrl:
+                          widget.reviewModel?.userWhoReviewed?.avatarUrl ?? '',
                       size: Size(48, 48),
                     ),
 
                     Text(
-                      widget.reviewModel.userWhoReviewed?.username ?? 'Unknown User',
+                      widget.reviewModel?.userWhoReviewed?.username ??
+                          'Unknown User',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
@@ -78,7 +81,7 @@ class _ReviewCardState extends State<ReviewCard> {
                         ),
 
                         Text(
-                          widget.reviewModel.rating.toString(),
+                          widget.reviewModel?.rating.toString() ?? 'null',
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 fontWeight: FontWeight.w600,
@@ -100,7 +103,7 @@ class _ReviewCardState extends State<ReviewCard> {
           ),
 
           Text(
-            widget.reviewModel.reviewMessage,
+            widget.reviewModel?.reviewMessage ?? 'No message',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(
@@ -140,7 +143,9 @@ class _ReviewCardState extends State<ReviewCard> {
               ),
 
               Text(
-                DateTime.parse(widget.reviewModel.updatedAt).timeAgo(),
+                widget.reviewModel == null
+                    ? ''
+                    : DateTime.parse(widget.reviewModel!.updatedAt).timeAgo(),
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(color: grey700),
