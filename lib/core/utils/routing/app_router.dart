@@ -9,6 +9,7 @@ import 'package:keja_hunt/core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/welcome_page.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/pages/house_unit_detail_page.dart';
+import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/pages/screens/gallery_page.dart';
 import 'package:keja_hunt/core/utils/routing/agent_routes.dart';
 import 'package:keja_hunt/core/utils/routing/auth_routes.dart';
 import 'package:keja_hunt/core/utils/routing/user_routes.dart';
@@ -34,49 +35,15 @@ final GoRoute onboardingRoute = GoRoute(
 final GoRoute unitDetailRoute = GoRoute(
   path: '/unit-detail',
   name: 'unit-detail',
-  builder: (context, state) => HouseUnitDetailPage(
-    houseUnitModel: HouseUnitModel(
-      apartmentId: '1',
-      unitType: UnitTypeEnum.oneBr.name,
-      price: 32000,
-      features: [
-        UnitFeatureModel(
-          featureName: "Bed",
-          featureIconPath: "assets/images/icons/features/car_park.svg"
-        ),
-        UnitFeatureModel(
-            featureName: "Balcony",
-            featureIconPath: "assets/images/icons/features/car_park.svg"
-        ),
-        UnitFeatureModel(
-            featureName: "Balcony",
-            featureIconPath: "assets/images/icons/features/car_park.svg"
-        ),
-      ],
-      images: [
-        UnitImageModel(
-          imageUrl:
-          "https://images.unsplash.com/photo-1666282167632-c613fbeb163c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          imageTag: "Bathroom",
-        ),
-        UnitImageModel(
-          imageUrl:
-          "https://images.unsplash.com/photo-1670244208613-6da9cefb3ba1?q=80&w=770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          imageTag: "Sitting Room",
-        ),
-        UnitImageModel(
-          imageUrl:
-          "https://images.unsplash.com/photo-1670244208039-ff6275134b67?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          imageTag: "Bathroom",
-        ),
-        UnitImageModel(
-          imageUrl:
-          "https://images.unsplash.com/photo-1715985160053-d339e8b6eb94?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          imageTag: "Kitchen",
-        ),
-      ],
-    ),
-  ),
+  builder: (context, state) =>
+      HouseUnitDetailPage(houseUnitModel: state.extra as HouseUnitModel),
+);
+
+final GoRoute galleryRoute = GoRoute(
+  path: '/gallery',
+  name: 'gallery',
+  builder: (context, state) =>
+      GalleryPage(unitImages: state.extra as List<UnitImageModel>),
 );
 
 final GoRoute agentUnitUploadRoute = GoRoute(
@@ -87,7 +54,39 @@ final GoRoute agentUnitUploadRoute = GoRoute(
 
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
-  initialLocation: '/agent-unit-upload',
+  initialLocation: '/user-home',
+  // initialExtra: [
+  //   UnitImageModel(
+  //     imageUrl:
+  //     "https://images.unsplash.com/photo-1592898918831-cc7eea4ea57c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     imageTag: "Unlabelled",
+  //   ),
+  //   UnitImageModel(
+  //     imageUrl:
+  //         "https://images.unsplash.com/photo-1592898918831-cc7eea4ea57c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     imageTag: "Kitchen",
+  //   ),
+  //   UnitImageModel(
+  //     imageUrl:
+  //     "https://images.unsplash.com/photo-1664372623516-0b1540d6771e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     imageTag: "Kitchen",
+  //   ),
+  //   UnitImageModel(
+  //     imageUrl:
+  //     "https://images.unsplash.com/photo-1592898918831-cc7eea4ea57c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     imageTag: "Kitchen",
+  //   ),
+  //   UnitImageModel(
+  //     imageUrl:
+  //     "https://images.unsplash.com/photo-1592898918831-cc7eea4ea57c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     imageTag: "Bedroom",
+  //   ),
+  //   UnitImageModel(
+  //     imageUrl:
+  //     "https://images.unsplash.com/photo-1592898918831-cc7eea4ea57c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //     imageTag: "Bedroom",
+  //   ),
+  // ],
   redirect: (context, state) {
     final authState = authBloc.state;
 
@@ -116,6 +115,8 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
 
     //  House Unit Detail Page
     unitDetailRoute,
+
+    galleryRoute,
 
     /// Auth Routes
     authRoutes,

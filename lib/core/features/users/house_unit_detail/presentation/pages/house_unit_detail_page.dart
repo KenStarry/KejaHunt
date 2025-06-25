@@ -164,9 +164,7 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
                   SliverToBoxAdapter(child: SizedBox(height: 16)),
 
                   UnitDetailGallery(
-                    imageUrls: widget.houseUnitModel.images
-                        .map((image) => image.imageUrl)
-                        .toList(),
+                    images: widget.houseUnitModel.images,
                   ),
 
                   SliverToBoxAdapter(child: SizedBox(height: 200)),
