@@ -26,7 +26,7 @@ class UnitsBloc extends Bloc<UnitsEvent, UnitsState> {
         emit(UnitsSuccess(allUnits: units));
       });
     } catch (e) {
-      emit(UnitsFailed(errorMessage: "Login failed: ${e.toString()}"));
+      emit(UnitsFailed(errorMessage: "Could not fetch units: ${e.toString()}"));
     }
   }
 }

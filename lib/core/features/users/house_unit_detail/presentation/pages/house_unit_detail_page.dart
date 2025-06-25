@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_agent_card.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_carousel.dart';
@@ -9,6 +10,7 @@ import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/com
 import 'package:keja_hunt/core/presentation/components/custom_divider.dart';
 import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/utils/constants/constants.dart';
+import 'package:keja_hunt/core/utils/extensions/currency_extensions.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 
 class HouseUnitDetailPage extends StatefulWidget {
@@ -57,7 +59,9 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.pop();
+            },
             icon: Icon(Icons.arrow_back_rounded),
           ),
           title: Row(
@@ -116,7 +120,8 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: isScrolled
-                ?Brightness.dark : Brightness.light,
+                ? Brightness.dark
+                : Brightness.light,
             systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
@@ -130,7 +135,11 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
               CustomScrollView(
                 controller: _scrollController,
                 slivers: [
-                  UnitDetailCarousel(imageUrls: widget.houseUnitModel.images.map((image) => image.imageUrl).toList()),
+                  UnitDetailCarousel(
+                    imageUrls: widget.houseUnitModel.images
+                        .map((image) => image.imageUrl)
+                        .toList(),
+                  ),
 
                   SliverToBoxAdapter(child: SizedBox(height: 16)),
 
@@ -147,11 +156,18 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
 
                   SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-                  UnitDetailAgentCard(),
+                  UnitDetailAgentCard(
+                    userModel: widget.houseUnitModel.agentUserModel,
+                    agentModel: widget.houseUnitModel.agent,
+                  ),
 
                   SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-                  UnitDetailGallery(imageUrls: widget.houseUnitModel.images.map((image) => image.imageUrl).toList()),
+                  UnitDetailGallery(
+                    imageUrls: widget.houseUnitModel.images
+                        .map((image) => image.imageUrl)
+                        .toList(),
+                  ),
 
                   SliverToBoxAdapter(child: SizedBox(height: 200)),
                 ],
@@ -194,7 +210,11 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
                             TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "Ksh 315,000",
+                                  text: widget.houseUnitModel.price
+                                      .shortMoneyFormat(
+                                        context,
+                                        currency: "Ksh",
+                                      ),
                                   style: Theme.of(context).textTheme.bodyMedium
                                       ?.copyWith(
                                         color: Theme.of(
@@ -205,7 +225,8 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
                                       ),
                                 ),
                                 TextSpan(
-                                  text: " / mo",
+                                  text:
+                                      " / ${widget.houseUnitModel.priceFrequency}",
                                   style: Theme.of(
                                     context,
                                   ).textTheme.bodySmall?.copyWith(),

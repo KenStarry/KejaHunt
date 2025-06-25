@@ -1,10 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart' as slider;
 import 'package:keja_hunt/core/presentation/components/fading_carousel.dart';
+import 'package:keja_hunt/core/utils/extensions/currency_extensions.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
+
+import '../../../../domain/enum/units/unit_type_enum.dart';
 
 class HouseCardVertical extends StatefulWidget {
   final HouseUnitModel houseUnitModel;
@@ -18,6 +23,7 @@ class HouseCardVertical extends StatefulWidget {
 class _HouseCardVerticalState extends State<HouseCardVertical> {
   late final slider.CarouselSliderController _carouselController;
   int activeIndex = 0;
+  final Random random = Random();
 
   @override
   void initState() {
@@ -40,8 +46,8 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
             color: grey300.withValues(alpha: 0.5),
             offset: Offset(0, 8),
             blurRadius: 15,
-          )
-        ]
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,8 +61,16 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(32),
-                      child: CustomNetworkImage(url: widget.houseUnitModel.images[0].imageUrl)),
+                    borderRadius: BorderRadius.circular(32),
+                    child: CustomNetworkImage(
+                      url: widget
+                          .houseUnitModel
+                          .images[random.nextInt(
+                            widget.houseUnitModel.images.length,
+                          )]
+                          .imageUrl,
+                    ),
+                  ),
                 ),
 
                 //  Rating
@@ -89,9 +103,9 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                             "4.6",
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
                           ),
                         ],
                       ),
@@ -99,9 +113,9 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                   ],
                 ),
               ],
-            )
+            ),
           ),
-          
+
           Expanded(
             flex: 6,
             child: Column(
@@ -114,18 +128,18 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Luxury Apartments",
+                        widget.houseUnitModel.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyLarge
-                            ?.copyWith(
-                            fontWeight: FontWeight.w700
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       Text(
-                        "1 Bdr, Westlands",
-                        style: Theme.of(context).textTheme.bodySmall
-                            ?.copyWith(),
+                        "${unitTypeToReadableString(unitType: UnitTypeEnum.values.firstWhere((value) => value.name == widget.houseUnitModel.unitType))}, Westlands",
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodySmall?.copyWith(),
                       ),
                     ],
                   ),
@@ -140,19 +154,20 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: "Ksh 15,000",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w700),
+                                text: widget.houseUnitModel.price.shortMoneyFormat(context, currency: "Ksh"),
+                                style: Theme.of(context).textTheme.bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                               ),
                               TextSpan(
-                                text: " / mo",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(),
+                                text: " / ${widget.houseUnitModel.priceFrequency}",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.bodySmall?.copyWith(),
                               ),
                             ],
                           ),
@@ -164,7 +179,10 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                           "assets/images/icons/heart.svg",
                           width: 16,
                           height: 16,
-                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.primary,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ],
@@ -172,7 +190,7 @@ class _HouseCardVerticalState extends State<HouseCardVertical> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

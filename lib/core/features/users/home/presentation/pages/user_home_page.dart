@@ -78,7 +78,9 @@ class _UserHomePageState extends State<UserHomePage> {
 
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-          UserRecommendedHomesSection()
+          UserRecommendedHomesSection(),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 150)),
         ],
       ),
     );

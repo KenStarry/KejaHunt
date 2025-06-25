@@ -101,6 +101,7 @@ dependencies:
   flutter_image_compress: ^2.4.0
   flutter_multi_formatter: ^2.13.7
   dropdown_button2: ^2.3.9
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_test:

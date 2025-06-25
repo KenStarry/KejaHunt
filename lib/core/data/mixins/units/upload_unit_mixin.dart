@@ -62,7 +62,7 @@ mixin UploadUnitMixin {
         final updatedImageModel = imageModel.copyWith(
           imageUrl: publicUrl,
           unitId: unitId,
-          userId: userId,
+          userId: userId
         );
 
         /// Once you have gotten the url, upload the image to the images table
@@ -81,7 +81,8 @@ mixin UploadUnitMixin {
       throw Exception('No user is currently logged in');
     }
 
-    final updatedHouseModel = houseUnitModel.copyWith(userId: user.id);
+    final updatedHouseModel = houseUnitModel.copyWith(userId: user.id,
+    agentId: user.id);
 
     /// Upload the Unit
     final uploadedUnitModelResponse = await supabase

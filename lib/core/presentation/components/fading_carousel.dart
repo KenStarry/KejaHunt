@@ -10,7 +10,7 @@ class FadingCarousel extends StatefulWidget {
   const FadingCarousel({
     super.key,
     required this.imageUrls,
-    this.interval = const Duration(seconds: 3),
+    this.interval = const Duration(seconds: 4),
   });
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/features/users/home/components/house_card_vertical.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
@@ -7,6 +8,7 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../../../domain/enum/units/unit_type_enum.dart';
 import '../../../../domain/models/unit_image_model.dart';
+import '../presentation/bloc/units_bloc.dart';
 
 class UserRecommendedHomesSection extends StatefulWidget {
   const UserRecommendedHomesSection({super.key});
@@ -32,12 +34,12 @@ class _UserRecommendedHomesSectionState
         images: [
           UnitImageModel(
             imageUrl:
-            "https://plus.unsplash.com/premium_photo-1661950439212-558fa5cc82e0?q=80&w=1151&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://plus.unsplash.com/premium_photo-1661950439212-558fa5cc82e0?q=80&w=1151&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             imageTag: "Kitchen",
           ),
           UnitImageModel(
             imageUrl:
-            "https://plus.unsplash.com/premium_photo-1661963239507-7bdf41a5e66b?q=80&w=823&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://plus.unsplash.com/premium_photo-1661963239507-7bdf41a5e66b?q=80&w=823&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             imageTag: "Kitchen",
           ),
         ],
@@ -49,12 +51,12 @@ class _UserRecommendedHomesSectionState
         images: [
           UnitImageModel(
             imageUrl:
-            "https://www.themoonapartments.com/wp-content/uploads/2024/06/Furnished-Apartment-Building-The-Moon-Serenity-Furnished-Apartments-Lymack-Suites-Fourways-Junction-Estate-Northern-Bypass-Road.webp",
+                "https://www.themoonapartments.com/wp-content/uploads/2024/06/Furnished-Apartment-Building-The-Moon-Serenity-Furnished-Apartments-Lymack-Suites-Fourways-Junction-Estate-Northern-Bypass-Road.webp",
             imageTag: "Bathroom",
           ),
           UnitImageModel(
             imageUrl:
-            "https://a0.muscache.com/im/pictures/6efe0428-dbe3-4d18-955b-b327e56eafc2.jpg",
+                "https://a0.muscache.com/im/pictures/6efe0428-dbe3-4d18-955b-b327e56eafc2.jpg",
             imageTag: "Sitting Room",
           ),
         ],
@@ -66,12 +68,12 @@ class _UserRecommendedHomesSectionState
         images: [
           UnitImageModel(
             imageUrl:
-            "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?q=80&w=1567&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?q=80&w=1567&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             imageTag: "Bathroom",
           ),
           UnitImageModel(
             imageUrl:
-            "https://plus.unsplash.com/premium_photo-1682377521625-c656fc1ff3e1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://plus.unsplash.com/premium_photo-1682377521625-c656fc1ff3e1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             imageTag: "Sitting Room",
           ),
         ],
@@ -83,7 +85,7 @@ class _UserRecommendedHomesSectionState
         images: [
           UnitImageModel(
             imageUrl:
-            "https://plus.unsplash.com/premium_photo-1661883964999-c1bcb57a7357?q=80&w=1128&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://plus.unsplash.com/premium_photo-1661883964999-c1bcb57a7357?q=80&w=1128&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             imageTag: "Bathroom",
           ),
         ],
@@ -124,18 +126,27 @@ class _UserRecommendedHomesSectionState
             ),
           ),
 
-          SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) =>
-                  HouseCardVertical(houseUnitModel: _houseUnits[index]),
-              childCount: _houseUnits.length
-            ),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisExtent: 280,
-              mainAxisSpacing: 16
-            ),
+          BlocBuilder<UnitsBloc, UnitsState>(
+            builder: (context, unitsState) {
+              return SliverGrid(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => HouseCardVertical(
+                    houseUnitModel: unitsState is UnitsSuccess
+                        ? unitsState.allUnits[index]
+                        : _houseUnits[index],
+                  ),
+                  childCount: unitsState is UnitsSuccess
+                      ? unitsState.allUnits.length
+                      : _houseUnits.length,
+                ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisExtent: 280,
+                  mainAxisSpacing: 16,
+                ),
+              );
+            },
           ),
         ],
       ),

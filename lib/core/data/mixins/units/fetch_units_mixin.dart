@@ -16,7 +16,8 @@ mixin FetchUnitsMixin {
     /// Fetch all units from units table and unit images table
     final unitsResponse = await supabase
         .from(unitsTable)
-        .select('*, $unitImagesTable(*)');
+        //  select all units, images, agent metadata
+        .select('*, images:$unitImagesTable(*), $usersTable!units_user_id_fkey(*), $agentsTable!units_user_id_fkey1(*)');
 
     // return [];
     return unitsResponse

@@ -9,7 +9,7 @@ import '../../features/users/dashboard/presentation/bloc/user_bloc.dart';
 
 final userDashboardRoutes = StatefulShellRoute.indexedStack(
   builder: (context, state, navigationShell) {
-    final isHomePage = state.matchedLocation == '/user-home';
+    context.read<UserBloc>().add(FetchUserEvent());
 
     return UserDashboardPage(
       location: state.matchedLocation,
@@ -42,7 +42,7 @@ final userProfilePageRoute = StatefulShellBranch(
       name: 'user-profile',
       builder: (context, state) {
         if (state.matchedLocation == '/user-profile') {
-          context.read<UserBloc>().add(FetchUserEvent());
+          // context.read<UserBloc>().add(FetchUserEvent());
         }
 
         return const UserProfilePage();

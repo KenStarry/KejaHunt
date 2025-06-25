@@ -1,8 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keja_hunt/core/domain/enum/units/unit_price_frequency_enum.dart';
+import 'package:keja_hunt/core/domain/models/agents/agent_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
+import 'package:keja_hunt/core/features/auth/domain/models/user_model.dart';
 import 'package:keja_hunt/core/utils/supabase_constants.dart';
 
 part 'house_unit_model.freezed.dart';
@@ -16,6 +18,7 @@ class HouseUnitModel with _$HouseUnitModel {
     /// Primary Keys
     @JsonKey(name: "unit_id", includeToJson: false) @Default('') String unitId,
     @JsonKey(name: "user_id") @Default('') String userId,
+    @JsonKey(name: "agent_id") @Default('') String agentId,
     @JsonKey(name: "apartment_id") required String apartmentId,
     @JsonKey(name: "unit_type") required String unitType,
 
@@ -33,7 +36,9 @@ class HouseUnitModel with _$HouseUnitModel {
     @JsonKey(name: "available_units_count") @Default(1) int availableUnitsCount,
 
     /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
-    @JsonKey(name: unitImagesTable, includeToJson: false, includeFromJson: true) @Default(<UnitImageModel>[]) List<UnitImageModel> images,
+    @JsonKey(name: "images", includeToJson: false, includeFromJson: true) @Default(<UnitImageModel>[]) List<UnitImageModel> images,
+    @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true) @Default(null) AgentModel? agent,
+    @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true) @Default(null) UserModel? agentUserModel,
   }) = _HouseUnitModel;
 
   factory HouseUnitModel.fromJson(Map<String, dynamic> json) =>

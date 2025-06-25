@@ -10,6 +10,7 @@ _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
     _$HouseUnitModelImpl(
       unitId: json['unit_id'] as String? ?? '',
       userId: json['user_id'] as String? ?? '',
+      agentId: json['agent_id'] as String? ?? '',
       apartmentId: json['apartment_id'] as String,
       unitType: json['unit_type'] as String,
       createdAt: json['created_at'] as String? ?? '',
@@ -27,16 +28,23 @@ _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
           const [1],
       availableUnitsCount:
           (json['available_units_count'] as num?)?.toInt() ?? 1,
-      images: (json['unit_images'] as List<dynamic>?)
+      images: (json['images'] as List<dynamic>?)
               ?.map((e) => UnitImageModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <UnitImageModel>[],
+      agent: json['agents'] == null
+          ? null
+          : AgentModel.fromJson(json['agents'] as Map<String, dynamic>),
+      agentUserModel: json['users'] == null
+          ? null
+          : UserModel.fromJson(json['users'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$HouseUnitModelImplToJson(
         _$HouseUnitModelImpl instance) =>
     <String, dynamic>{
       'user_id': instance.userId,
+      'agent_id': instance.agentId,
       'apartment_id': instance.apartmentId,
       'unit_type': instance.unitType,
       'title': instance.title,

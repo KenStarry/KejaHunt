@@ -5,6 +5,8 @@ import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/com
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
+import '../../../../../domain/enum/units/unit_type_enum.dart';
+
 class UnitDetailHeader extends StatefulWidget {
   final HouseUnitModel houseUnitModel;
 
@@ -32,7 +34,7 @@ class _UnitDetailHeaderState extends State<UnitDetailHeader> {
                   spacing: 8,
                   children: [
                     Text(
-                      "1 Bedroom",
+                      widget.houseUnitModel.title,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
 
@@ -48,7 +50,7 @@ class _UnitDetailHeaderState extends State<UnitDetailHeader> {
                         ),
 
                         Text(
-                          "Dagoretti, Uthiiru",
+                          "${unitTypeToReadableString(unitType: UnitTypeEnum.values.firstWhere((value) => value.name == widget.houseUnitModel.unitType))}, Uthiiru",
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(fontWeight: FontWeight.w700,
                           color: grey700),
