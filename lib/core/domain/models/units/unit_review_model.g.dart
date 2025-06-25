@@ -14,8 +14,11 @@ _$UnitReviewModelImpl _$$UnitReviewModelImplFromJson(
       updatedAt: json['updated_at'] as String? ?? '',
       unitId: json['unit_id'] as String? ?? '',
       userId: json['user_id'] as String? ?? '',
-      rating: (json['rating'] as num?)?.toInt() ?? null,
+      rating: (json['rating'] as num?)?.toDouble() ?? null,
       reviewMessage: json['review_message'] as String? ?? '',
+      userWhoReviewed: json['reviewer'] == null
+          ? null
+          : UserModel.fromJson(json['reviewer'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UnitReviewModelImplToJson(

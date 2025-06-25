@@ -31,9 +31,11 @@ mixin _$UnitReviewModel {
   @JsonKey(name: "user_id")
   String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "rating")
-  int? get rating => throw _privateConstructorUsedError;
+  double? get rating => throw _privateConstructorUsedError;
   @JsonKey(name: "review_message")
   String get reviewMessage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'reviewer', includeToJson: false, includeFromJson: true)
+  UserModel? get userWhoReviewed => throw _privateConstructorUsedError;
 
   /// Serializes this UnitReviewModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,8 +59,12 @@ abstract class $UnitReviewModelCopyWith<$Res> {
       @JsonKey(name: "updated_at", includeToJson: false) String updatedAt,
       @JsonKey(name: "unit_id") String unitId,
       @JsonKey(name: "user_id") String userId,
-      @JsonKey(name: "rating") int? rating,
-      @JsonKey(name: "review_message") String reviewMessage});
+      @JsonKey(name: "rating") double? rating,
+      @JsonKey(name: "review_message") String reviewMessage,
+      @JsonKey(name: 'reviewer', includeToJson: false, includeFromJson: true)
+      UserModel? userWhoReviewed});
+
+  $UserModelCopyWith<$Res>? get userWhoReviewed;
 }
 
 /// @nodoc
@@ -83,6 +89,7 @@ class _$UnitReviewModelCopyWithImpl<$Res, $Val extends UnitReviewModel>
     Object? userId = null,
     Object? rating = freezed,
     Object? reviewMessage = null,
+    Object? userWhoReviewed = freezed,
   }) {
     return _then(_value.copyWith(
       imageId: null == imageId
@@ -108,12 +115,30 @@ class _$UnitReviewModelCopyWithImpl<$Res, $Val extends UnitReviewModel>
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       reviewMessage: null == reviewMessage
           ? _value.reviewMessage
           : reviewMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      userWhoReviewed: freezed == userWhoReviewed
+          ? _value.userWhoReviewed
+          : userWhoReviewed // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of UnitReviewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get userWhoReviewed {
+    if (_value.userWhoReviewed == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_value.userWhoReviewed!, (value) {
+      return _then(_value.copyWith(userWhoReviewed: value) as $Val);
+    });
   }
 }
 
@@ -131,8 +156,13 @@ abstract class _$$UnitReviewModelImplCopyWith<$Res>
       @JsonKey(name: "updated_at", includeToJson: false) String updatedAt,
       @JsonKey(name: "unit_id") String unitId,
       @JsonKey(name: "user_id") String userId,
-      @JsonKey(name: "rating") int? rating,
-      @JsonKey(name: "review_message") String reviewMessage});
+      @JsonKey(name: "rating") double? rating,
+      @JsonKey(name: "review_message") String reviewMessage,
+      @JsonKey(name: 'reviewer', includeToJson: false, includeFromJson: true)
+      UserModel? userWhoReviewed});
+
+  @override
+  $UserModelCopyWith<$Res>? get userWhoReviewed;
 }
 
 /// @nodoc
@@ -155,6 +185,7 @@ class __$$UnitReviewModelImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? rating = freezed,
     Object? reviewMessage = null,
+    Object? userWhoReviewed = freezed,
   }) {
     return _then(_$UnitReviewModelImpl(
       imageId: null == imageId
@@ -180,11 +211,15 @@ class __$$UnitReviewModelImplCopyWithImpl<$Res>
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       reviewMessage: null == reviewMessage
           ? _value.reviewMessage
           : reviewMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      userWhoReviewed: freezed == userWhoReviewed
+          ? _value.userWhoReviewed
+          : userWhoReviewed // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
     ));
   }
 }
@@ -199,7 +234,9 @@ class _$UnitReviewModelImpl implements _UnitReviewModel {
       @JsonKey(name: "unit_id") this.unitId = '',
       @JsonKey(name: "user_id") this.userId = '',
       @JsonKey(name: "rating") this.rating = null,
-      @JsonKey(name: "review_message") this.reviewMessage = ''});
+      @JsonKey(name: "review_message") this.reviewMessage = '',
+      @JsonKey(name: 'reviewer', includeToJson: false, includeFromJson: true)
+      this.userWhoReviewed = null});
 
   factory _$UnitReviewModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UnitReviewModelImplFromJson(json);
@@ -221,14 +258,17 @@ class _$UnitReviewModelImpl implements _UnitReviewModel {
   final String userId;
   @override
   @JsonKey(name: "rating")
-  final int? rating;
+  final double? rating;
   @override
   @JsonKey(name: "review_message")
   final String reviewMessage;
+  @override
+  @JsonKey(name: 'reviewer', includeToJson: false, includeFromJson: true)
+  final UserModel? userWhoReviewed;
 
   @override
   String toString() {
-    return 'UnitReviewModel(imageId: $imageId, createdAt: $createdAt, updatedAt: $updatedAt, unitId: $unitId, userId: $userId, rating: $rating, reviewMessage: $reviewMessage)';
+    return 'UnitReviewModel(imageId: $imageId, createdAt: $createdAt, updatedAt: $updatedAt, unitId: $unitId, userId: $userId, rating: $rating, reviewMessage: $reviewMessage, userWhoReviewed: $userWhoReviewed)';
   }
 
   @override
@@ -245,13 +285,15 @@ class _$UnitReviewModelImpl implements _UnitReviewModel {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.reviewMessage, reviewMessage) ||
-                other.reviewMessage == reviewMessage));
+                other.reviewMessage == reviewMessage) &&
+            (identical(other.userWhoReviewed, userWhoReviewed) ||
+                other.userWhoReviewed == userWhoReviewed));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, imageId, createdAt, updatedAt,
-      unitId, userId, rating, reviewMessage);
+      unitId, userId, rating, reviewMessage, userWhoReviewed);
 
   /// Create a copy of UnitReviewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -277,9 +319,10 @@ abstract class _UnitReviewModel implements UnitReviewModel {
       @JsonKey(name: "updated_at", includeToJson: false) final String updatedAt,
       @JsonKey(name: "unit_id") final String unitId,
       @JsonKey(name: "user_id") final String userId,
-      @JsonKey(name: "rating") final int? rating,
-      @JsonKey(name: "review_message")
-      final String reviewMessage}) = _$UnitReviewModelImpl;
+      @JsonKey(name: "rating") final double? rating,
+      @JsonKey(name: "review_message") final String reviewMessage,
+      @JsonKey(name: 'reviewer', includeToJson: false, includeFromJson: true)
+      final UserModel? userWhoReviewed}) = _$UnitReviewModelImpl;
 
   factory _UnitReviewModel.fromJson(Map<String, dynamic> json) =
       _$UnitReviewModelImpl.fromJson;
@@ -301,10 +344,13 @@ abstract class _UnitReviewModel implements UnitReviewModel {
   String get userId;
   @override
   @JsonKey(name: "rating")
-  int? get rating;
+  double? get rating;
   @override
   @JsonKey(name: "review_message")
   String get reviewMessage;
+  @override
+  @JsonKey(name: 'reviewer', includeToJson: false, includeFromJson: true)
+  UserModel? get userWhoReviewed;
 
   /// Create a copy of UnitReviewModel
   /// with the given fields replaced by the non-null parameter values.
