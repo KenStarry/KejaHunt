@@ -7,6 +7,8 @@ import 'package:keja_hunt/core/presentation/components/custom_network_image.dart
 import 'package:keja_hunt/core/utils/constants/constants.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
 import 'package:sliver_tools/sliver_tools.dart';
+import 'package:carousel_slider/carousel_slider.dart' as slider;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class UnitDetailReviews extends StatefulWidget {
   const UnitDetailReviews({super.key});
@@ -16,6 +18,9 @@ class UnitDetailReviews extends StatefulWidget {
 }
 
 class _UnitDetailReviewsState extends State<UnitDetailReviews> {
+
+  int activeIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
@@ -70,10 +75,54 @@ class _UnitDetailReviewsState extends State<UnitDetailReviews> {
           SliverToBoxAdapter(child: SizedBox(height: 24)),
 
           SliverToBoxAdapter(
-            child: Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(right: 20),
-              child: ReviewCard()
+            child: Column(
+              spacing: 16,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 200,
+                  margin: const EdgeInsets.only(right: 20),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: slider.CarouselSlider(
+                      items: List.generate(5, (index) => ReviewCard()),
+                      options: slider.CarouselOptions(
+                        height: double.infinity,
+                        viewportFraction: 1,
+                        enableInfiniteScroll: true,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            activeIndex = index;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+
+                /// Dots indicator
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: AnimatedSmoothIndicator(
+                      activeIndex: activeIndex,
+                      effect: SwapEffect(
+                        dotWidth: 8,
+                        dotHeight: 8,
+                        activeDotColor: Theme.of(context).colorScheme.primary,
+                        dotColor: grey300,
+                      ),
+                      count: 5,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

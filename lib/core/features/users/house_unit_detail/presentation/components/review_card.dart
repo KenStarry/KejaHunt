@@ -13,10 +13,12 @@ class ReviewCard extends StatefulWidget {
 class _ReviewCardState extends State<ReviewCard> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
+      height: double.infinity,
       child: Column(
-        spacing: 12,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Header
           Row(
@@ -96,6 +98,8 @@ class _ReviewCardState extends State<ReviewCard> {
 
           Text(
             "The apartment is very nice, clean and modern. I really like the interior design. Looks like I'll feel at home 😍😍",
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500
             ),

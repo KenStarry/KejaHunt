@@ -57,7 +57,7 @@ class _UnitDetailGalleryState extends State<UnitDetailGallery> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 spacing: 12,
-                children: List.generate(
+                children: widget.images.isEmpty ? [] : List.generate(
                   3,
                   (index) => Expanded(
                     child: Container(

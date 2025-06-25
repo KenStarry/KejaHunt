@@ -7,6 +7,7 @@ import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/com
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_carousel.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_gallery.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_header.dart';
+import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/unit_detail_reviews.dart';
 import 'package:keja_hunt/core/presentation/components/custom_divider.dart';
 import 'package:keja_hunt/core/presentation/components/custom_filled_button.dart';
 import 'package:keja_hunt/core/utils/constants/constants.dart';
@@ -161,11 +162,14 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
                     agentModel: widget.houseUnitModel.agent,
                   ),
 
-                  SliverToBoxAdapter(child: SizedBox(height: 16)),
+                  SliverToBoxAdapter(child: SizedBox(height: 24)),
 
                   UnitDetailGallery(
                     images: widget.houseUnitModel.images,
                   ),
+                  SliverToBoxAdapter(child: SizedBox(height: 24)),
+
+                  UnitDetailReviews(),
 
                   SliverToBoxAdapter(child: SizedBox(height: 200)),
                 ],
