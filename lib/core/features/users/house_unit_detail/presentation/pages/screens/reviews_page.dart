@@ -72,7 +72,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
             height: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
               slivers: [
                 SliverToBoxAdapter(child: SizedBox(height: 24)),
                 /// Multi Slivers

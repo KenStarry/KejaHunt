@@ -49,6 +49,8 @@ class _UnitDetailGalleryState extends State<UnitDetailGallery> {
             ),
           ),
 
+          SliverToBoxAdapter(child: SizedBox(height: 16)),
+
           SliverToBoxAdapter(
             child: Container(
               width: double.infinity,

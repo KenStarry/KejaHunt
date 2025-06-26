@@ -63,7 +63,10 @@ class _UnitDetailReviewsState extends State<UnitDetailReviews> {
                   padding: const EdgeInsets.only(right: 12.0),
                   child: TextButton(
                     onPressed: () {
-                      // context.pushNamed("gallery", extra: widget.images);
+                      context.pushNamed(
+                        "reviews",
+                        extra: widget.reviews[0].unitId,
+                      );
                     },
                     child: Text(
                       "See All",
@@ -78,7 +81,7 @@ class _UnitDetailReviewsState extends State<UnitDetailReviews> {
             ),
           ),
 
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
+          SliverToBoxAdapter(child: SizedBox(height: 16)),
 
           SliverToBoxAdapter(
             child: Column(
@@ -86,7 +89,7 @@ class _UnitDetailReviewsState extends State<UnitDetailReviews> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 200,
+                  height: 170,
                   margin: const EdgeInsets.only(right: 20),
                   child: Align(
                     alignment: Alignment.center,

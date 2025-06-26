@@ -3,13 +3,16 @@ import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/agents/features/dashboard/presentation/pages/agent_dashboard_page.dart';
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
+import 'package:keja_hunt/core/domain/models/units/unit_review_model.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/pages/agent_unit_upload_page.dart';
 import 'package:keja_hunt/core/features/auth/data/classes/gorouter_refresh_stream.dart';
 import 'package:keja_hunt/core/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:keja_hunt/core/features/onboarding/presentation/pages/welcome_page.dart';
+import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/pages/bloc/reviews_bloc.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/pages/house_unit_detail_page.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/pages/screens/gallery_page.dart';
+import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/pages/screens/reviews_page.dart';
 import 'package:keja_hunt/core/utils/routing/agent_routes.dart';
 import 'package:keja_hunt/core/utils/routing/auth_routes.dart';
 import 'package:keja_hunt/core/utils/routing/user_routes.dart';
@@ -46,6 +49,20 @@ final GoRoute galleryRoute = GoRoute(
       GalleryPage(unitImages: state.extra as List<UnitImageModel>),
 );
 
+final GoRoute reviewsRoute = GoRoute(
+  path: '/reviews',
+  name: 'reviews',
+  builder: (context, state) {
+    if (state.matchedLocation == '/reviews') {
+      context.read<ReviewsBloc>().add(
+        FetchAllUnitReviews(unitId: state.extra as String),
+      );
+    }
+
+    return ReviewsPage();
+  },
+);
+
 final GoRoute agentUnitUploadRoute = GoRoute(
   path: '/agent-unit-upload',
   name: 'agent-unit-upload',
@@ -55,6 +72,8 @@ final GoRoute agentUnitUploadRoute = GoRoute(
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
   initialLocation: '/user-home',
+  initialExtra: <UnitReviewModel>[],
+  // initialExtra: HouseUnitModel(apartmentId: "er4", unitType: UnitTypeEnum.mansion.name, price: 35000),
   // initialExtra: [
   //   UnitImageModel(
   //     imageUrl:
@@ -117,6 +136,8 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
     unitDetailRoute,
 
     galleryRoute,
+
+    reviewsRoute,
 
     /// Auth Routes
     authRoutes,
