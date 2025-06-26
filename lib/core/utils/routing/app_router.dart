@@ -53,13 +53,16 @@ final GoRoute reviewsRoute = GoRoute(
   path: '/reviews',
   name: 'reviews',
   builder: (context, state) {
+
+    final unitId = state.extra as String;
+
     if (state.matchedLocation == '/reviews') {
       context.read<ReviewsBloc>().add(
-        FetchAllUnitReviews(unitId: state.extra as String),
+        FetchAllUnitReviews(unitId: unitId),
       );
     }
 
-    return ReviewsPage();
+    return ReviewsPage(unitId: unitId);
   },
 );
 

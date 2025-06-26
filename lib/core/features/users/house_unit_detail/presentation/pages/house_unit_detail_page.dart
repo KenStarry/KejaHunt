@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,20 +31,39 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
 
   bool isScrolled = false;
 
+  Timer? _scrollTimerDebounced;
+
   @override
   void initState() {
     super.initState();
 
     _scrollController.addListener(() {
-      double scrollOffset = _scrollController.offset;
 
-      setState(() {
-        isScrolled = scrollOffset > 100;
-        _appbarBackgroundColor = scrollOffset > 100
+      _scrollTimerDebounced?.cancel();
+
+      _scrollTimerDebounced = Timer(Duration(milliseconds: 50), () {
+        double scrollOffset = _scrollController.offset;
+
+        final bool scrolled = scrollOffset > 100;
+        final Color newColor = scrolled
             ? Theme.of(context).scaffoldBackgroundColor
             : Colors.transparent;
+
+        if (scrolled != isScrolled || newColor != _appbarBackgroundColor) {
+          setState(() {
+            isScrolled = scrolled;
+            _appbarBackgroundColor = newColor;
+          });
+        }
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollTimerDebounced?.cancel();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -135,6 +156,7 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
             children: [
               CustomScrollView(
                 controller: _scrollController,
+                physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                 slivers: [
                   UnitDetailCarousel(
                     imageUrls: widget.houseUnitModel.images
@@ -172,7 +194,7 @@ class _HouseUnitDetailPageState extends State<HouseUnitDetailPage> {
                     reviews: widget.houseUnitModel.reviews,
                   ),
 
-                  SliverToBoxAdapter(child: SizedBox(height: 200)),
+                  SliverToBoxAdapter(child: SizedBox(height: 1000)),
                 ],
               ),
 

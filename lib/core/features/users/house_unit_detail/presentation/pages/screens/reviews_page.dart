@@ -6,19 +6,27 @@ import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
 import 'package:keja_hunt/core/domain/models/units/unit_review_model.dart';
 import 'package:keja_hunt/core/features/users/house_unit_detail/presentation/components/review_card.dart';
 import 'package:keja_hunt/core/presentation/components/custom_network_image.dart';
+import 'package:keja_hunt/core/utils/extensions/scroll_view_extensions.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../../../../../utils/theme/colors.dart';
 import '../bloc/reviews_bloc.dart';
 
 class ReviewsPage extends StatefulWidget {
-  const ReviewsPage({super.key});
+  final String unitId;
+
+  const ReviewsPage({super.key, required this.unitId});
 
   @override
   State<ReviewsPage> createState() => _ReviewsPageState();
 }
 
 class _ReviewsPageState extends State<ReviewsPage> {
+  final RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
+
   double? averageRating({required List<UnitReviewModel> reviews}) {
     final validRatings = reviews
         .map((r) => r.rating)
@@ -32,9 +40,24 @@ class _ReviewsPageState extends State<ReviewsPage> {
     return sum / validRatings.length;
   }
 
+  void _onRefresh() async {
+    context.read<ReviewsBloc>().add(FetchAllUnitReviews(unitId: widget.unitId));
+  }
+
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReviewsBloc, ReviewsState>(
+    return BlocConsumer<ReviewsBloc, ReviewsState>(
+      listener: (BuildContext context, ReviewsState reviewsState) {
+        if (reviewsState is ReviewsSuccess) {
+          _refreshController.refreshCompleted();
+        }
+      },
       builder: (context, reviewsState) {
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -71,27 +94,35 @@ class _ReviewsPageState extends State<ReviewsPage> {
             width: double.infinity,
             height: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-              slivers: [
-                SliverToBoxAdapter(child: SizedBox(height: 24)),
-                /// Multi Slivers
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => ReviewCard(
-                      reviewModel: reviewsState is ReviewsSuccess
-                          ? reviewsState.reviews[index]
-                          : null,
-                    ),
-                    childCount: reviewsState is ReviewsSuccess
-                        ? reviewsState.reviews.length
-                        : 10,
+            child:
+                CustomScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
                   ),
-                ),
+                  slivers: [
+                    SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-                SliverToBoxAdapter(child: SizedBox(height: 200)),
-              ],
-            ),
+                    /// Multi Slivers
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => ReviewCard(
+                          reviewModel: reviewsState is ReviewsSuccess
+                              ? reviewsState.reviews[index]
+                              : null,
+                        ),
+                        childCount: reviewsState is ReviewsSuccess
+                            ? reviewsState.reviews.length
+                            : 10,
+                      ),
+                    ),
+
+                    SliverToBoxAdapter(child: SizedBox(height: 200)),
+                  ],
+                ).refreshIndicator(
+                  context,
+                  controller: _refreshController,
+                  onRefresh: _onRefresh,
+                ),
           ),
         );
       },
