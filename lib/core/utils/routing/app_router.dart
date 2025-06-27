@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/agents/features/dashboard/presentation/pages/agent_dashboard_page.dart';
@@ -21,6 +22,8 @@ import 'package:keja_hunt/core/features/users/dashboard/presentation/pages/user_
 
 import '../../domain/enum/units/unit_type_enum.dart';
 import '../../domain/models/unit_image_model.dart';
+
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 /// Onboarding Routes
 final GoRoute welcomeRoute = GoRoute(
@@ -74,7 +77,7 @@ final GoRoute agentUnitUploadRoute = GoRoute(
 
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
-  initialLocation: '/user-home',
+  initialLocation: '/user-map',
   initialExtra: <UnitReviewModel>[],
   // initialExtra: HouseUnitModel(apartmentId: "er4", unitType: UnitTypeEnum.mansion.name, price: 35000),
   // initialExtra: [
@@ -109,6 +112,7 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   //     imageTag: "Bedroom",
   //   ),
   // ],
+  navigatorKey: rootNavigatorKey,
   redirect: (context, state) {
     final authState = authBloc.state;
 

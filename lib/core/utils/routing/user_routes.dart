@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/pages/user_dashboard_page.dart';
 import 'package:keja_hunt/core/features/users/home/presentation/bloc/units_bloc.dart';
 import 'package:keja_hunt/core/features/users/home/presentation/pages/user_home_page.dart';
+import 'package:keja_hunt/core/features/users/map/presentation/pages/user_map_page.dart';
 import 'package:keja_hunt/core/features/users/profile/presentation/pages/user_profile_page.dart';
 
 import '../../features/users/dashboard/presentation/bloc/user_bloc.dart';
@@ -16,7 +17,7 @@ final userDashboardRoutes = StatefulShellRoute.indexedStack(
       child: navigationShell,
     );
   },
-  branches: [userHomePageRoute, userProfilePageRoute],
+  branches: [userHomePageRoute, userMapPageRoute, userProfilePageRoute],
 );
 
 final userHomePageRoute = StatefulShellBranch(
@@ -46,6 +47,22 @@ final userProfilePageRoute = StatefulShellBranch(
         }
 
         return const UserProfilePage();
+      },
+    ),
+  ],
+);
+
+final userMapPageRoute = StatefulShellBranch(
+  routes: [
+    GoRoute(
+      path: '/user-map',
+      name: 'user-map',
+      builder: (context, state) {
+        if (state.matchedLocation == '/user-map') {
+          // context.read<UserBloc>().add(FetchUserEvent());
+        }
+
+        return const UserMapPage();
       },
     ),
   ],

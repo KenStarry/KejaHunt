@@ -1,0 +1,194 @@
+import 'dart:async';
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:keja_hunt/core/features/users/map/presentation/components/custom_user_marker.dart';
+
+import 'package:widget_to_marker/widget_to_marker.dart';
+
+class UserMapPage extends StatefulWidget {
+  const UserMapPage({super.key});
+
+  @override
+  State<UserMapPage> createState() => _UserMapPageState();
+}
+
+class _UserMapPageState extends State<UserMapPage> {
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+
+  static const CameraPosition museumLatLng = CameraPosition(
+    target: LatLng(-1.2727176250697454, 36.8147413638215),
+    zoom: 14,
+  );
+
+  final Set<Marker> markers = {};
+  String? mapStyle;
+
+  bool isLoaded = false;
+  double zoom = 18;
+  double tilt = 45;
+  double bearing = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await initMarkers();
+
+      await _loadMapStyles().then((style) {
+        setState(() {
+          mapStyle = style;
+        });
+      });
+    });
+  }
+
+  Future<void> initMarkers() async {
+    final imageProvider = CachedNetworkImageProvider("https://images.unsplash.com/photo-1664372623516-0b1540d6771e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+
+    final Completer<ImageInfo> completer = Completer();
+    final ImageStream stream = imageProvider.resolve(const ImageConfiguration());
+
+    stream.addListener(
+      ImageStreamListener(
+            (ImageInfo info, bool _) {
+          completer.complete(info);
+        },
+        onError: (dynamic error, StackTrace? stackTrace) {
+          completer.completeError(error, stackTrace);
+        },
+      ),
+    );
+
+    final ImageInfo imageInfo = await completer.future;
+
+    // Convert image to byte data (e.g. to use as BitmapDescriptor)
+    final byteData = await imageInfo.image.toByteData(format: ImageByteFormat.png);
+    final bytes = byteData!.buffer.asUint8List();
+
+    /// Create the Marker Icon but don't use network image for this.
+    final icon = await CustomUserMarker(bytes: bytes).toBitmapDescriptor();
+
+    // final markerIcon = BitmapDescriptor.fromBytes(bytes);
+    final markerIcon = icon;
+
+    markers.add(
+      Marker(
+        markerId: const MarkerId("1"),
+        position: museumLatLng.target,
+        icon: markerIcon,
+      ),
+    );
+
+    setState(() {});
+  }
+
+  Future<void> initMarkersAlt() async {
+    // markers.add(
+    //   Marker(
+    //     markerId: const MarkerId("1"),
+    //     position: museumLatLng.target,
+    //     icon: await const CustomUserMarker(bytes: "https://images.unsplash.com/photo-1664372623516-0b1540d6771e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D").toBitmapDescriptor(
+    //       logicalSize: const Size(100, 100),
+    //       imageSize: const Size(300, 300),
+    //     ),
+    //   ),
+    // );
+    // setState(() {});
+  }
+
+  Future<String> _loadMapStyles() async {
+    final darkMapStyle = await rootBundle.loadString(
+      'assets/json/map_styles/${'light'}_mode_style_4.json',
+    );
+
+    return darkMapStyle;
+  }
+
+  Future<BitmapDescriptor> getBitmapDescriptor({
+    required Widget customMarker,
+  }) async => await customMarker.toBitmapDescriptor(
+    waitToRender: const Duration(seconds: 5),
+    logicalSize: const Size(150, 150),
+    imageSize: const Size(150, 150),
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: GoogleMap(
+        initialCameraPosition: museumLatLng,
+        mapType: MapType.normal,
+        style: mapStyle,
+        myLocationButtonEnabled: false,
+        myLocationEnabled: false,
+        onMapCreated: (controller) => _controller.complete(controller),
+        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+          Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer()),
+        },
+        onCameraMove: (CameraPosition cameraPosition) {
+          setState(() {
+            zoom = cameraPosition.zoom;
+            tilt = cameraPosition.tilt;
+            bearing = cameraPosition.bearing;
+          });
+        },
+        markers: markers,
+      ),
+    );
+  }
+}
+
+class CountWidget extends StatelessWidget {
+  const CountWidget({super.key, required this.count});
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(child: Text('$count'));
+  }
+}
+
+class MarkerWidget extends StatelessWidget {
+  const MarkerWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Image(
+      image: AssetImage("assets/marker2.png"),
+      height: 150,
+      width: 150,
+    );
+  }
+}
+
+class TextOnImage extends StatelessWidget {
+  const TextOnImage({super.key, required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        const Image(
+          image: AssetImage("assets/marker.png"),
+          height: 150,
+          width: 150,
+        ),
+        Text(text, style: const TextStyle(color: Colors.black)),
+      ],
+    );
+  }
+}

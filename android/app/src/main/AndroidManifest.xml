@@ -3,6 +3,10 @@
         android:label="KejaHunt"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDItLKJTVYLyLN8WEd6zW2luGOSPiwE7UM"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

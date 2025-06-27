@@ -61,7 +61,7 @@ dependencies:
   printing: ^5.14.2
   permission_handler: ^12.0.0+1
   path_provider: ^2.1.5
-  google_maps_flutter: ^2.12.2
+  google_maps_flutter: ^2.12.3
   local_session_timeout: ^3.2.0
   animated_text_kit: ^4.2.3
   rename: ^3.1.0
@@ -102,6 +102,7 @@ dependencies:
   flutter_multi_formatter: ^2.13.7
   dropdown_button2: ^2.3.9
   pull_to_refresh: ^2.0.0
+  widget_to_marker: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -155,6 +156,7 @@ flutter:
     - assets/images/icons/features/
     - assets/fonts/
     - assets/lottie/
+    - assets/json/map_styles/
 
   fonts:
     - family: Urbanist

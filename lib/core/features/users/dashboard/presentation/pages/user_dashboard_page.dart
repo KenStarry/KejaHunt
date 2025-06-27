@@ -240,6 +240,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                   break;
                 case 3:
                   // Navigate to Map
+                context.goNamed("user-map");
                   break;
                 case 4:
                   context.goNamed("user-profile");
