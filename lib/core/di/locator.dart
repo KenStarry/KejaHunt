@@ -10,12 +10,12 @@ import 'firebase_di.dart';
 final locator = GetIt.instance;
 
 /// This function is used to register all the dependencies in the app.
-void setupLocator() {
+Future<void> setupLocator() async {
   setupSupabaseDI(locator);
   setupFirebaseDI(locator);
   setupAuthDI(locator);
   setupDashDI(locator);
-  setupCoreDI(locator);
+  await setupCoreDI(locator);
 
   setupAgentDI(locator);
 }

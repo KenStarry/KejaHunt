@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keja_hunt/core/data/repository/shared_prefs_repository.dart';
 import 'package:keja_hunt/core/di/locator.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/bloc/upload_unit_bloc.dart';
 import 'package:keja_hunt/core/features/auth/login/presentation/bloc/login_bloc.dart';
@@ -25,16 +26,18 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  setupLocator();
+  await setupLocator();
+
+  if (locator.get<SharedPrefsRepository>().getMapStyles()['light'] == null) {
+    await locator.get<SharedPrefsRepository>().setMapStyles();
+  }
 
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(
-          create: (context) =>
-          AuthBloc()
-            ..add(AuthCheckStatusEvent()),
+          create: (context) => AuthBloc()..add(AuthCheckStatusEvent()),
         ),
         BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => LoginBloc()),

@@ -20,7 +20,7 @@ mixin MapPrefsMixin {
     sharedPrefs.setString('dark-map', darkMapStyle);
   }
 
-  Future<Map<String, dynamic>> getMapStyles() async {
+  Map<String, dynamic> getMapStyles() {
     final lightMap = sharedPrefs.getString("light-map");
     final darkMap = sharedPrefs.getString("dark-map");
 
