@@ -27,6 +27,11 @@ class _UserMapPageState extends State<UserMapPage> {
     zoom: 14,
   );
 
+  static const CameraPosition kariokorLatLng = CameraPosition(
+    target: LatLng(-1.2754635283483071, 36.83396743804028),
+    zoom: 14,
+  );
+
   final Set<Marker> markers = {};
   String? mapStyle;
 
@@ -40,7 +45,7 @@ class _UserMapPageState extends State<UserMapPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await initMarkers();
+      await initMarkersMultiple();
 
       await _loadMapStyles().then((style) {
         setState(() {
@@ -50,15 +55,88 @@ class _UserMapPageState extends State<UserMapPage> {
     });
   }
 
+  Future<void> initMarkersMultiple() async {
+    final List<Map<String, dynamic>> markerData = [
+      {
+        'id': '1',
+        'position': LatLng(-1.2727176250697454, 36.8147413638215),
+        'imageUrl':
+            'https://images.unsplash.com/photo-1664372623516-0b1540d6771e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
+      {
+        'id': '2',
+        'position': LatLng(-1.2754635283483071, 36.83396743804028),
+        'imageUrl':
+            'https://images.unsplash.com/photo-1668438712649-ffd85f756de5?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
+      {
+        'id': '3',
+        'position': LatLng(-1.2861038744716342, 36.81903289779614),
+        'imageUrl':
+        'https://images.unsplash.com/photo-1670244208732-fcc8cbd17045?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      },
+      // Add more markers here
+    ];
+
+    // Convert each image into a marker loading Future
+    List<Future<Marker>> markerFutures = markerData.map((data) async {
+      final imageProvider = CachedNetworkImageProvider(data['imageUrl']);
+
+      final completer = Completer<ImageInfo>();
+      final stream = imageProvider.resolve(const ImageConfiguration());
+
+      stream.addListener(
+        ImageStreamListener(
+          (ImageInfo info, bool _) {
+            completer.complete(info);
+          },
+          onError: (dynamic error, StackTrace? stackTrace) {
+            completer.completeError(error, stackTrace);
+          },
+        ),
+      );
+
+      final imageInfo = await completer.future;
+
+      final byteData = await imageInfo.image.toByteData(
+        format: ImageByteFormat.png,
+      );
+      final bytes = byteData!.buffer.asUint8List();
+
+      /// Create the Marker Icon but don't use network image for this.
+      final icon = await CustomUserMarker(bytes: bytes).toBitmapDescriptor();
+
+      // final markerIcon = BitmapDescriptor.fromBytes(bytes);
+      final markerIcon = icon;
+
+      return Marker(
+        markerId: MarkerId(data['id']),
+        position: data['position'],
+        icon: markerIcon,
+      );
+    }).toList();
+
+    // Wait for all marker futures to resolve
+    final loadedMarkers = await Future.wait(markerFutures);
+
+    markers.addAll(loadedMarkers);
+
+    setState(() {});
+  }
+
   Future<void> initMarkers() async {
-    final imageProvider = CachedNetworkImageProvider("https://images.unsplash.com/photo-1664372623516-0b1540d6771e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    final imageProvider = CachedNetworkImageProvider(
+      "https://images.unsplash.com/photo-1664372623516-0b1540d6771e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    );
 
     final Completer<ImageInfo> completer = Completer();
-    final ImageStream stream = imageProvider.resolve(const ImageConfiguration());
+    final ImageStream stream = imageProvider.resolve(
+      const ImageConfiguration(),
+    );
 
     stream.addListener(
       ImageStreamListener(
-            (ImageInfo info, bool _) {
+        (ImageInfo info, bool _) {
           completer.complete(info);
         },
         onError: (dynamic error, StackTrace? stackTrace) {
@@ -70,7 +148,9 @@ class _UserMapPageState extends State<UserMapPage> {
     final ImageInfo imageInfo = await completer.future;
 
     // Convert image to byte data (e.g. to use as BitmapDescriptor)
-    final byteData = await imageInfo.image.toByteData(format: ImageByteFormat.png);
+    final byteData = await imageInfo.image.toByteData(
+      format: ImageByteFormat.png,
+    );
     final bytes = byteData!.buffer.asUint8List();
 
     /// Create the Marker Icon but don't use network image for this.
@@ -88,20 +168,6 @@ class _UserMapPageState extends State<UserMapPage> {
     );
 
     setState(() {});
-  }
-
-  Future<void> initMarkersAlt() async {
-    // markers.add(
-    //   Marker(
-    //     markerId: const MarkerId("1"),
-    //     position: museumLatLng.target,
-    //     icon: await const CustomUserMarker(bytes: "https://images.unsplash.com/photo-1664372623516-0b1540d6771e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D").toBitmapDescriptor(
-    //       logicalSize: const Size(100, 100),
-    //       imageSize: const Size(300, 300),
-    //     ),
-    //   ),
-    // );
-    // setState(() {});
   }
 
   Future<String> _loadMapStyles() async {
@@ -144,51 +210,6 @@ class _UserMapPageState extends State<UserMapPage> {
         },
         markers: markers,
       ),
-    );
-  }
-}
-
-class CountWidget extends StatelessWidget {
-  const CountWidget({super.key, required this.count});
-
-  final int count;
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(child: Text('$count'));
-  }
-}
-
-class MarkerWidget extends StatelessWidget {
-  const MarkerWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Image(
-      image: AssetImage("assets/marker2.png"),
-      height: 150,
-      width: 150,
-    );
-  }
-}
-
-class TextOnImage extends StatelessWidget {
-  const TextOnImage({super.key, required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        const Image(
-          image: AssetImage("assets/marker.png"),
-          height: 150,
-          width: 150,
-        ),
-        Text(text, style: const TextStyle(color: Colors.black)),
-      ],
     );
   }
 }
