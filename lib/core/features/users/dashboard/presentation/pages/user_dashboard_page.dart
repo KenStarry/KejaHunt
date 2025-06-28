@@ -69,124 +69,154 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
       builder: (context, userState) {
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: AppBar(
-            surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            actionsPadding: EdgeInsets.only(right: 20, left: 20),
-            automaticallyImplyLeading: false,
-            leadingWidth: 0,
-            title: widget.location != '/user-home' ? Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 16,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Profile',
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+          extendBodyBehindAppBar: widget.location == '/user-map',
+          extendBody: widget.location == '/user-map',
+          appBar: widget.location == '/user-map'
+              ? null
+              : AppBar(
+                  surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  actionsPadding: EdgeInsets.only(right: 20, left: 20),
+                  automaticallyImplyLeading: false,
+                  leadingWidth: 0,
+                  title: widget.location != '/user-home'
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          spacing: 16,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Profile',
+                                style: Theme.of(context).textTheme.titleSmall!
+                                    .copyWith(fontWeight: FontWeight.w700),
+                              ),
+                            ),
 
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Theme.of(context).colorScheme.onPrimary
-                    ),
-                    child: Row(
-                      children: [
-                        Text("Agent Mode", style: Theme.of(context).textTheme.bodyMedium),
-                        Icon(Icons.arrow_drop_down_rounded)
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ) : Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 16,
-              children: [
-                Avatar(
-                  imageUrl: userState is UserSuccess && userState.user != null
-                      ? userState.user!.avatarUrl!
-                      : '',
-                  size: Size(48, 48),
-                  onTap: () {
-                    context.read<AuthBloc>().add(AuthSignOutEvent());
-                  },
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Good Morning 👋",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium?.color!.withValues(alpha: 0.6),
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Agent Mode",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                    Icon(Icons.arrow_drop_down_rounded),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          spacing: 16,
+                          children: [
+                            Avatar(
+                              imageUrl:
+                                  userState is UserSuccess &&
+                                      userState.user != null
+                                  ? userState.user!.avatarUrl!
+                                  : '',
+                              size: Size(48, 48),
+                              onTap: () {
+                                context.read<AuthBloc>().add(
+                                  AuthSignOutEvent(),
+                                );
+                              },
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Good Morning 👋",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.color!
+                                              .withValues(alpha: 0.6),
+                                        ),
+                                  ),
+                                  Text(
+                                    userState is UserSuccess &&
+                                            userState.user != null
+                                        ? (userState.user!.username!.isEmpty
+                                              ? 'Anonymous'
+                                              : userState.user!.username!)
+                                        : 'Hunter',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 48,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).scaffoldBackgroundColor,
+                                shape: BoxShape.circle,
+                                border: Border.all(color: grey200, width: 1.5),
+                              ),
+                              child: UnconstrainedBox(
+                                child: SvgPicture.asset(
+                                  'assets/images/icons/notification_outlined.svg',
+                                  width: 24,
+                                  height: 24,
+                                  colorFilter: ColorFilter.mode(
+                                    Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.color!,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Text(
-                        userState is UserSuccess && userState.user != null
-                            ? (userState.user!.username!.isEmpty
-                                  ? 'Anonymous'
-                                  : userState.user!.username!)
-                            : 'Hunter',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
+                  actions: [
+                    // if (widget.location == '/user-profile')
+                    //   ToggleSwitch(
+                    //     initialLabelIndex: 0,
+                    //     totalSwitches: 2,
+                    //     cornerRadius: 100,
+                    //     labels: ["Dark", "Light"],
+                    //     inactiveBgColor: grey200,
+                    //     activeFgColor: Theme.of(context).colorScheme.primary,
+                    //     onToggle: (index) {
+                    //       if (index == 0) {
+                    //         context.read<ThemeCubit>().toggleTheme(true);
+                    //       } else {
+                    //         context.read<ThemeCubit>().toggleTheme(false);
+                    //       }
+                    //     },
+                    //   )
+                  ],
                 ),
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: grey200, width: 1.5),
-                  ),
-                  child: UnconstrainedBox(
-                    child: SvgPicture.asset(
-                      'assets/images/icons/notification_outlined.svg',
-                      width: 24,
-                      height: 24,
-                      colorFilter: ColorFilter.mode(
-                        Theme.of(context).textTheme.bodyMedium!.color!,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            actions: [
-              // if (widget.location == '/user-profile')
-              //   ToggleSwitch(
-              //     initialLabelIndex: 0,
-              //     totalSwitches: 2,
-              //     cornerRadius: 100,
-              //     labels: ["Dark", "Light"],
-              //     inactiveBgColor: grey200,
-              //     activeFgColor: Theme.of(context).colorScheme.primary,
-              //     onToggle: (index) {
-              //       if (index == 0) {
-              //         context.read<ThemeCubit>().toggleTheme(true);
-              //       } else {
-              //         context.read<ThemeCubit>().toggleTheme(false);
-              //       }
-              //     },
-              //   )
-            ],
-          ),
           bottomNavigationBar: ConvexAppBar(
             style: TabStyle.react,
             key: bottomNavigationKey,
@@ -240,7 +270,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                   break;
                 case 3:
                   // Navigate to Map
-                context.goNamed("user-map");
+                  context.goNamed("user-map");
                   break;
                 case 4:
                   context.goNamed("user-profile");
@@ -248,122 +278,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               }
             },
           ),
-          // bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          //   itemCount: bottomNavigationItems.length,
-          //   tabBuilder: (index, isActive) => Container(
-          //     width: double.infinity,
-          //     height: double.infinity,
-          //     margin: const EdgeInsets.only(top: 8),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         UnconstrainedBox(
-          //           child: SvgPicture.asset(
-          //             bottomNavigationItems[index][isActive ? 'icon_filled' : 'icon'],
-          //             width: 24,
-          //             height: 24,
-          //             colorFilter: ColorFilter.mode(isActive ? Theme.of(context).colorScheme.primary : grey500, BlendMode.srcIn),
-          //           ),
-          //         ),
-          //         Text(
-          //           bottomNavigationItems[index]['label'],
-          //           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          //             fontWeight: FontWeight.w700,
-          //             color: isActive ? Theme.of(context).colorScheme.primary : grey500,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          //   activeIndex: activeIndex,
-          //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          //   elevation: 8,
-          //   gapLocation: GapLocation.center,
-          //   notchSmoothness: NotchSmoothness.softEdge,
-          //   scaleFactor: 0.4,
-          //   onTap: (index) {
-          //     setState(() {
-          //       activeIndex = index;
-          //     });
-          //   },
-          // ),
-          // bottomNavigationBar: Container(
-          //   width: double.infinity,
-          //   height: 70,
-          //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          //   decoration: BoxDecoration(
-          //     color: Theme.of(context).colorScheme.onPrimary,
-          //     borderRadius: BorderRadius.circular(16),
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Theme.of(
-          //           context,
-          //         ).colorScheme.shadow.withValues(alpha: 0.1),
-          //         blurRadius: 10,
-          //         offset: const Offset(0, 2),
-          //       ),
-          //     ],
-          //   ),
-          //   child: Row(
-          //     children: bottomNavigationItems
-          //         .map(
-          //           (item) => Expanded(
-          //             child: Container(
-          //               width: double.infinity,
-          //               height: double.infinity,
-          //               decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(16),
-          //               ),
-          //               child: Column(
-          //                 mainAxisAlignment: MainAxisAlignment.center,
-          //                 crossAxisAlignment: CrossAxisAlignment.center,
-          //                 spacing: 4,
-          //                 children: [
-          //                   SvgPicture.asset(
-          //                     item['icon'],
-          //                     width: 24,
-          //                     height: 24,
-          //                     colorFilter: ColorFilter.mode(
-          //                       Theme.of(context).textTheme.bodyMedium!.color!
-          //                           .withValues(alpha: 0.7),
-          //                       BlendMode.srcIn,
-          //                     ),
-          //                   ),
-          //                   Text(
-          //                     item['label'],
-          //                     style: TextStyle(
-          //                       fontSize: Theme.of(
-          //                         context,
-          //                       ).textTheme.bodySmall!.fontSize,
-          //                       color: Theme.of(
-          //                         context,
-          //                       ).textTheme.bodyMedium!.color,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         )
-          //         .toList(),
-          //   ),
-          // ),
-          // bottomNavigationBar: CurvedNavigationBar(
-          //   key: bottomNavigationKey,
-          //   backgroundColor: Colors.transparent,
-          //   height: 75,
-          //   animationDuration: Duration(milliseconds: 300),
-          //   items: <Widget>[
-          //     Icon(Icons.add, size: 30),
-          //     Icon(Icons.list, size: 30),
-          //     Icon(Icons.compare_arrows, size: 30),
-          //     Icon(Icons.compare_arrows, size: 30),
-          //   ],
-          //   onTap: (index) {
-          //
-          //   },
-          // ),
           body: widget.child,
         );
       },
