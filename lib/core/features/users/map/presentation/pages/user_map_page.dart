@@ -48,11 +48,11 @@ class _UserMapPageState extends State<UserMapPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await initMarkersMultiple();
+      await initMarkers();
     });
   }
 
-  Future<void> initMarkersMultiple() async {
+  Future<void> initMarkers() async {
     final List<Map<String, dynamic>> markerData = [
       {
         'id': '1',
@@ -120,14 +120,6 @@ class _UserMapPageState extends State<UserMapPage> {
 
     setState(() {});
   }
-
-  Future<BitmapDescriptor> getBitmapDescriptor({
-    required Widget customMarker,
-  }) async => await customMarker.toBitmapDescriptor(
-    waitToRender: const Duration(seconds: 5),
-    logicalSize: const Size(150, 150),
-    imageSize: const Size(150, 150),
-  );
 
   @override
   Widget build(BuildContext context) {
