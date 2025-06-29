@@ -15,14 +15,14 @@ import '../../../../../di/locator.dart';
 import 'custom_user_marker.dart';
 
 class GoogleMapComponent extends StatefulWidget {
-  final Completer<GoogleMapController> controller;
   final List<MarkerData> markerData;
+  final bool enableScroll;
   final CameraPosition initialPosition;
 
   const GoogleMapComponent({
     super.key,
-    required this.controller,
     required this.markerData,
+    this.enableScroll = true,
     required this.initialPosition,
   });
 
@@ -31,6 +31,9 @@ class GoogleMapComponent extends StatefulWidget {
 }
 
 class _GoogleMapComponentState extends State<GoogleMapComponent> {
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+
   final Set<Marker> _markers = {};
   double zoom = 18;
   double tilt = 45;
@@ -89,23 +92,6 @@ class _GoogleMapComponentState extends State<GoogleMapComponent> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await initMarkers(markerData: widget.markerData);
-      // await initMarkers(
-      //   markerData: unitsState.allUnits
-      //       .map(
-      //         (unit) =>
-      //     {
-      //       'id': unit.unitId,
-      //       'position': LatLng(
-      //         -1.2727176250697454,
-      //         36.8147413638215,
-      //       ),
-      //       'imageUrl':
-      //       unit.images[random.nextInt(unit.images.length)]
-      //           .imageUrl,
-      //     },
-      //   )
-      //       .toList(),
-      // );
     });
   }
 
@@ -120,7 +106,13 @@ class _GoogleMapComponentState extends State<GoogleMapComponent> {
         style: locator.get<SharedPrefsRepository>().getMapStyles()['light-map'],
         myLocationButtonEnabled: false,
         myLocationEnabled: false,
-        onMapCreated: (controller) => widget.controller.complete(controller),
+        zoomGesturesEnabled: true,
+        zoomControlsEnabled: true,
+        compassEnabled: true,
+        scrollGesturesEnabled: widget.enableScroll,
+        rotateGesturesEnabled: true,
+        tiltGesturesEnabled: true,
+        onMapCreated: (controller) => _controller.complete(controller),
         gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
           Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer()),
         },

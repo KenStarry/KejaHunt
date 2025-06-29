@@ -106,7 +106,7 @@ class _HouseCardFeaturedState extends State<HouseCardFeatured> {
                               height: 16,
                             ),
                             Text(
-                              "4.6",
+                              '${widget.houseUnitModel.averageRating ?? ''} ',
                               style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(
                                     color: Theme.of(

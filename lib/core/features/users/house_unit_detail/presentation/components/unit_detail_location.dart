@@ -27,8 +27,6 @@ class UnitDetailLocation extends StatefulWidget {
 }
 
 class _UnitDetailLocationState extends State<UnitDetailLocation> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
 
   final random = Random();
 
@@ -84,7 +82,6 @@ class _UnitDetailLocationState extends State<UnitDetailLocation> {
                   child: BlocBuilder<UnitsBloc, UnitsState>(
                     builder: (context, unitsState) {
                       return GoogleMapComponent(
-                        controller: _controller,
                         initialPosition: CameraPosition(
                           target: LatLng(
                             widget.houseUnitModel.apartment?.latitude ?? 0,
@@ -92,6 +89,7 @@ class _UnitDetailLocationState extends State<UnitDetailLocation> {
                           ),
                           zoom: 14,
                         ),
+                        enableScroll: false,
                         markerData: [
                           MarkerData(
                             markerId: widget.houseUnitModel.unitId,
