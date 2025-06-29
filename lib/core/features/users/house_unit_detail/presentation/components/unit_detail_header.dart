@@ -46,14 +46,19 @@ class _UnitDetailHeaderState extends State<UnitDetailHeader> {
                           "assets/images/icons/location_outlined.svg",
                           width: 16,
                           height: 16,
-                          colorFilter: ColorFilter.mode(grey700, BlendMode.srcIn),
+                          colorFilter: ColorFilter.mode(
+                            grey700,
+                            BlendMode.srcIn,
+                          ),
                         ),
 
                         Text(
                           "${unitTypeToReadableString(unitType: UnitTypeEnum.values.firstWhere((value) => value.name == widget.houseUnitModel.unitType))}, Uthiiru",
                           style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.w700,
-                          color: grey700),
+                              ?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: grey700,
+                              ),
                         ),
                       ],
                     ),
@@ -96,7 +101,7 @@ class _UnitDetailHeaderState extends State<UnitDetailHeader> {
                         ),
 
                         Text(
-                          "4.8 (150 reviews)",
+                          "${widget.houseUnitModel.averageRating} (${widget.houseUnitModel.reviews.length} review${widget.houseUnitModel.reviews.length == 1 ? '' : 's'})",
                           style: Theme.of(context).textTheme.bodyLarge
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
