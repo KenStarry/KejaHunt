@@ -18,7 +18,7 @@ class ApartmentModel with _$ApartmentModel {
   const factory ApartmentModel({
 
     /// Primary Keys
-    @JsonKey(name: "apartment_id") required String apartmentId,
+    @JsonKey(name: "apartment_id", includeToJson: false) required String apartmentId,
     @JsonKey(name: "user_id") @Default('') String userId,
 
     @JsonKey(name: "created_at", includeToJson: false) @Default('') String createdAt,
@@ -30,7 +30,9 @@ class ApartmentModel with _$ApartmentModel {
     @JsonKey(name: "description") @Default(null) String? description,
     @JsonKey(name: "latitude") @Default(null) double? latitude,
     @JsonKey(name: "longitude") @Default(null) double? longitude,
-    @JsonKey(name: "cover_image_url") @Default(null) String? coverImageUrl,
+    @JsonKey(name: "cover_image_url", includeToJson: false) @Default(null) String? coverImageUrl,
+
+    @JsonKey(name: "coverImage", includeToJson: false, includeFromJson: false) @Default(null) XFile? coverImage,
   }) = _ApartmentModel;
 
   factory ApartmentModel.fromJson(Map<String, dynamic> json) =>

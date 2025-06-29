@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:keja_hunt/core/di/locator.dart';
+import 'package:keja_hunt/core/domain/models/apartment/apartment_model.dart';
 import 'package:keja_hunt/core/utils/supabase_constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -10,27 +11,28 @@ import '../../../domain/models/house_unit_model.dart';
 import '../../../domain/models/unit_image_model.dart';
 import '../../../utils/functions/file_compression.dart';
 
-mixin UploadUnitMixin {
+mixin UploadApartmentMixin {
   final supabase = locator.get<SupabaseClient>();
 
   /// Upload Images to Supabase
-  Future<void> uploadImagesToSupabaseStorage({
-    required List<UnitImageModel> imageModels,
+  Future<void> uploadApartmentImagesToSupabaseStorage({
+    required List<XFile> images,
     required String userId,
-    required String unitId,
+    required String apartmentName,
+    required String apartmentId,
   }) async {
     final List<String> uploadedUrls = [];
 
     await Future.wait(
-      imageModels.map((imageModel) async {
-        final fileExtension = imageModel.imageFile!.path.split('.').last;
+      images.map((image) async {
+        final fileExtension = image.path.split('.').last;
         final uniqueStorageName =
-            'unit_$unitId/${imageModel.imageTag.isEmpty ? 'Unlabelled' : imageModel.imageTag}/${DateTime.now().millisecondsSinceEpoch}_${imageModels.indexOf(imageModel)}.$fileExtension';
+            '${apartmentName}_$apartmentId/${DateTime.now().millisecondsSinceEpoch}.$fileExtension';
 
         final storagePath = uniqueStorageName;
 
         // final fileBytes = await imageModel.imageFile!.readAsBytes();
-        final fileBytes = await compressFile(File(imageModel.imageFile!.path));
+        final fileBytes = await compressFile(File(image.path));
 
         if (fileBytes == null) {
           throw Exception('Image compression failed');
@@ -48,56 +50,50 @@ mixin UploadUnitMixin {
 
         uploadedUrls.add(publicUrl);
 
-        final updatedImageModel = imageModel.copyWith(
-          imageUrl: publicUrl,
-          unitId: unitId,
-          userId: userId
-        );
-
         /// Once you have gotten the url, upload the image to the images table
         await supabase
-            .from(unitImagesTable)
-            .upsert(updatedImageModel.toJson(), onConflict: 'image_url');
+            .from(apartmentsTable)
+            .update({"cover_image_url": publicUrl})
+            .eq("apartment_id", apartmentId);
       }),
     );
 
     // return uploadedUrls;
   }
 
-  Future<void> uploadHouseUnit({required HouseUnitModel houseUnitModel}) async {
+  Future<void> uploadApartment({required ApartmentModel apartmentModel}) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw Exception('No user is currently logged in');
     }
 
-    final updatedHouseModel = houseUnitModel.copyWith(userId: user.id,
-    agentId: user.id);
+    final updatedApartmentModel = apartmentModel.copyWith(userId: user.id);
 
-    /// Upload the Unit
-    final uploadedUnitModelResponse = await supabase
-        .from(unitsTable)
+    /// Upload the Apartment
+    final uploadedApartmentResponse = await supabase
+        .from(apartmentsTable)
         .upsert(
-          updatedHouseModel.toJson(),
-          onConflict: 'user_id,apartment_id,unit_type,price,price_frequency',
+          updatedApartmentModel.toJson(),
+          onConflict: 'user_id,apartment_id',
           ignoreDuplicates: false,
         )
         .select()
         .maybeSingle();
 
-    /// Get The Unit that has been uploaded with the ID
-    if (uploadedUnitModelResponse == null) {
+    /// Get The Apartment that has been uploaded with the ID
+    if (uploadedApartmentResponse == null) {
       throw Exception('Upsert failed: no row returned');
     }
 
-    final unitId = uploadedUnitModelResponse['unit_id'] as String;
+    final apartmentId = uploadedApartmentResponse['apartment_id'] as String;
+    final apartmentName = uploadedApartmentResponse['name'] as String;
 
     /// Upload to the Images Table the new images
-    await uploadImagesToSupabaseStorage(
-      imageModels: houseUnitModel.images,
+    await uploadApartmentImagesToSupabaseStorage(
+      images: [apartmentModel.coverImage!],
       userId: user.id,
-      unitId: unitId,
+      apartmentId: apartmentId,
+      apartmentName: apartmentName,
     );
-    // await supabase.from(imagesTable)
-    // .upsert(houseUnitModel.)
   }
 }

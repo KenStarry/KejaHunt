@@ -25,7 +25,6 @@ _$ApartmentModelImpl _$$ApartmentModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ApartmentModelImplToJson(
         _$ApartmentModelImpl instance) =>
     <String, dynamic>{
-      'apartment_id': instance.apartmentId,
       'user_id': instance.userId,
       'name': instance.name,
       'location': instance.location,
@@ -35,5 +34,4 @@ Map<String, dynamic> _$$ApartmentModelImplToJson(
       'description': instance.description,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
-      'cover_image_url': instance.coverImageUrl,
     };
