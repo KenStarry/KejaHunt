@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:keja_hunt/core/features/agents/agent_apartment_upload/presentation/components/apartment_details_section.dart';
 
 import '../../../../../presentation/components/stepper/stepper_model.dart';
 import '../../../agent_unit_upload/presentation/components/stepper_screen.dart';
@@ -62,7 +63,7 @@ class _AgentApartmentUploadPageState extends State<AgentApartmentUploadPage> {
                   activeIcon: "assets/images/icons/edit_alt_filled.svg",
                   inactiveIcon: "assets/images/icons/edit_alt_outlined.svg",
                   title: "Apartment Details",
-                  stepperScreen: Text("Hello")
+                  stepperScreen: ApartmentDetailsSection(onNext: (){})
                 ),
                 StepperModel(
                   activeIcon: "assets/images/icons/show_filled.svg",

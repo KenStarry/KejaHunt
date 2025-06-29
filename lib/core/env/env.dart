@@ -9,4 +9,7 @@ class Env {
 
   @EnviedField(varName: 'SUPABASE_ANON_KEY', defaultValue: '', obfuscate: true)
   static String supabaseAnonKey = _Env.supabaseAnonKey;
+
+  @EnviedField(varName: 'GOOGLE_API_KEY', defaultValue: '', obfuscate: true)
+  static String googleApiKey = _Env.googleApiKey;
 }

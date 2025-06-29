@@ -103,6 +103,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   pull_to_refresh: ^2.0.0
   widget_to_marker: ^1.0.6
+  google_places_flutter: ^2.1.0
 
 dev_dependencies:
   flutter_test:
