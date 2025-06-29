@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keja_hunt/core/domain/enum/units/unit_price_frequency_enum.dart';
 import 'package:keja_hunt/core/domain/models/agents/agent_model.dart';
+import 'package:keja_hunt/core/domain/models/apartment/apartment_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_image_model.dart';
 import 'package:keja_hunt/core/domain/models/units/unit_review_model.dart';
@@ -42,6 +43,7 @@ class HouseUnitModel with _$HouseUnitModel {
     /// Unit Images - Copy from the response from the images table - Get it From the SQL Join
     @JsonKey(name: "images", includeToJson: false, includeFromJson: true) @Default(<UnitImageModel>[]) List<UnitImageModel> images,
     @JsonKey(name: unitReviewsTable, includeToJson: false, includeFromJson: true) @Default(<UnitReviewModel>[]) List<UnitReviewModel> reviews,
+    @JsonKey(name: apartmentsTable, includeToJson: false, includeFromJson: true) @Default(null) ApartmentModel? apartment,
     @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true) @Default(null) AgentModel? agent,
     @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true) @Default(null) UserModel? agentUserModel,
   }) = _HouseUnitModel;

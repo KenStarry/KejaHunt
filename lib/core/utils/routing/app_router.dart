@@ -84,7 +84,7 @@ final GoRoute agentApartmentUploadRoute = GoRoute(
 
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
-  initialLocation: '/agent-apartment-upload',
+  initialLocation: '/user-home',
   // initialExtra: HouseUnitModel(apartmentId: "er4", unitType: UnitTypeEnum.mansion.name, price: 35000),
   // initialExtra: [
   //   UnitImageModel(

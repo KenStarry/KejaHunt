@@ -18,18 +18,18 @@ class ApartmentModel with _$ApartmentModel {
   const factory ApartmentModel({
 
     /// Primary Keys
-    @JsonKey(name: "apartment_id", includeToJson: false) required String apartmentId,
+    @JsonKey(name: "apartment_id", includeToJson: false) @Default('') String apartmentId,
     @JsonKey(name: "user_id") @Default('') String userId,
 
     @JsonKey(name: "created_at", includeToJson: false) @Default('') String createdAt,
-    @JsonKey(name: "name") @Default(null) String? name,
-    @JsonKey(name: "location") @Default(null) String? location,
-    @JsonKey(name: "county") @Default(null) String? county,
-    @JsonKey(name: "sub_county") @Default(null) String? subCounty,
-    @JsonKey(name: "ward") @Default(null) String? ward,
-    @JsonKey(name: "description") @Default(null) String? description,
-    @JsonKey(name: "latitude") @Default(null) double? latitude,
-    @JsonKey(name: "longitude") @Default(null) double? longitude,
+    @JsonKey(name: "name") @Default('') String name,
+    @JsonKey(name: "location") @Default('') String location,
+    @JsonKey(name: "county") @Default('') String county,
+    @JsonKey(name: "sub_county") @Default('') String subCounty,
+    @JsonKey(name: "ward") @Default('') String ward,
+    @JsonKey(name: "description") @Default('') String description,
+    @JsonKey(name: "latitude") @Default(0) double? latitude,
+    @JsonKey(name: "longitude") @Default(0) double? longitude,
     @JsonKey(name: "cover_image_url", includeToJson: false) @Default(null) String? coverImageUrl,
 
     @JsonKey(name: "coverImage", includeToJson: false, includeFromJson: false) @Default(null) XFile? coverImage,

@@ -57,6 +57,8 @@ mixin _$HouseUnitModel {
   List<UnitImageModel> get images => throw _privateConstructorUsedError;
   @JsonKey(name: unitReviewsTable, includeToJson: false, includeFromJson: true)
   List<UnitReviewModel> get reviews => throw _privateConstructorUsedError;
+  @JsonKey(name: apartmentsTable, includeToJson: false, includeFromJson: true)
+  ApartmentModel? get apartment => throw _privateConstructorUsedError;
   @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
   AgentModel? get agent => throw _privateConstructorUsedError;
   @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
@@ -97,11 +99,15 @@ abstract class $HouseUnitModelCopyWith<$Res> {
       @JsonKey(
           name: unitReviewsTable, includeToJson: false, includeFromJson: true)
       List<UnitReviewModel> reviews,
+      @JsonKey(
+          name: apartmentsTable, includeToJson: false, includeFromJson: true)
+      ApartmentModel? apartment,
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       AgentModel? agent,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
       UserModel? agentUserModel});
 
+  $ApartmentModelCopyWith<$Res>? get apartment;
   $AgentModelCopyWith<$Res>? get agent;
   $UserModelCopyWith<$Res>? get agentUserModel;
 }
@@ -136,6 +142,7 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
     Object? availableUnitsCount = null,
     Object? images = null,
     Object? reviews = null,
+    Object? apartment = freezed,
     Object? agent = freezed,
     Object? agentUserModel = freezed,
   }) {
@@ -200,6 +207,10 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<UnitReviewModel>,
+      apartment: freezed == apartment
+          ? _value.apartment
+          : apartment // ignore: cast_nullable_to_non_nullable
+              as ApartmentModel?,
       agent: freezed == agent
           ? _value.agent
           : agent // ignore: cast_nullable_to_non_nullable
@@ -209,6 +220,20 @@ class _$HouseUnitModelCopyWithImpl<$Res, $Val extends HouseUnitModel>
           : agentUserModel // ignore: cast_nullable_to_non_nullable
               as UserModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of HouseUnitModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ApartmentModelCopyWith<$Res>? get apartment {
+    if (_value.apartment == null) {
+      return null;
+    }
+
+    return $ApartmentModelCopyWith<$Res>(_value.apartment!, (value) {
+      return _then(_value.copyWith(apartment: value) as $Val);
+    });
   }
 
   /// Create a copy of HouseUnitModel
@@ -267,11 +292,16 @@ abstract class _$$HouseUnitModelImplCopyWith<$Res>
       @JsonKey(
           name: unitReviewsTable, includeToJson: false, includeFromJson: true)
       List<UnitReviewModel> reviews,
+      @JsonKey(
+          name: apartmentsTable, includeToJson: false, includeFromJson: true)
+      ApartmentModel? apartment,
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       AgentModel? agent,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
       UserModel? agentUserModel});
 
+  @override
+  $ApartmentModelCopyWith<$Res>? get apartment;
   @override
   $AgentModelCopyWith<$Res>? get agent;
   @override
@@ -306,6 +336,7 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
     Object? availableUnitsCount = null,
     Object? images = null,
     Object? reviews = null,
+    Object? apartment = freezed,
     Object? agent = freezed,
     Object? agentUserModel = freezed,
   }) {
@@ -370,6 +401,10 @@ class __$$HouseUnitModelImplCopyWithImpl<$Res>
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<UnitReviewModel>,
+      apartment: freezed == apartment
+          ? _value.apartment
+          : apartment // ignore: cast_nullable_to_non_nullable
+              as ApartmentModel?,
       agent: freezed == agent
           ? _value.agent
           : agent // ignore: cast_nullable_to_non_nullable
@@ -405,6 +440,9 @@ class _$HouseUnitModelImpl extends _HouseUnitModel {
       @JsonKey(
           name: unitReviewsTable, includeToJson: false, includeFromJson: true)
       final List<UnitReviewModel> reviews = const <UnitReviewModel>[],
+      @JsonKey(
+          name: apartmentsTable, includeToJson: false, includeFromJson: true)
+      this.apartment = null,
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       this.agent = null,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
@@ -497,6 +535,9 @@ class _$HouseUnitModelImpl extends _HouseUnitModel {
   }
 
   @override
+  @JsonKey(name: apartmentsTable, includeToJson: false, includeFromJson: true)
+  final ApartmentModel? apartment;
+  @override
   @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
   final AgentModel? agent;
   @override
@@ -505,7 +546,7 @@ class _$HouseUnitModelImpl extends _HouseUnitModel {
 
   @override
   String toString() {
-    return 'HouseUnitModel(unitId: $unitId, userId: $userId, agentId: $agentId, apartmentId: $apartmentId, unitType: $unitType, createdAt: $createdAt, title: $title, description: $description, price: $price, priceFrequency: $priceFrequency, features: $features, floors: $floors, availableUnitsCount: $availableUnitsCount, images: $images, reviews: $reviews, agent: $agent, agentUserModel: $agentUserModel)';
+    return 'HouseUnitModel(unitId: $unitId, userId: $userId, agentId: $agentId, apartmentId: $apartmentId, unitType: $unitType, createdAt: $createdAt, title: $title, description: $description, price: $price, priceFrequency: $priceFrequency, features: $features, floors: $floors, availableUnitsCount: $availableUnitsCount, images: $images, reviews: $reviews, apartment: $apartment, agent: $agent, agentUserModel: $agentUserModel)';
   }
 
   @override
@@ -534,6 +575,8 @@ class _$HouseUnitModelImpl extends _HouseUnitModel {
                 other.availableUnitsCount == availableUnitsCount) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
+            (identical(other.apartment, apartment) ||
+                other.apartment == apartment) &&
             (identical(other.agent, agent) || other.agent == agent) &&
             (identical(other.agentUserModel, agentUserModel) ||
                 other.agentUserModel == agentUserModel));
@@ -558,6 +601,7 @@ class _$HouseUnitModelImpl extends _HouseUnitModel {
       availableUnitsCount,
       const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(_reviews),
+      apartment,
       agent,
       agentUserModel);
 
@@ -598,6 +642,9 @@ abstract class _HouseUnitModel extends HouseUnitModel {
       @JsonKey(
           name: unitReviewsTable, includeToJson: false, includeFromJson: true)
       final List<UnitReviewModel> reviews,
+      @JsonKey(
+          name: apartmentsTable, includeToJson: false, includeFromJson: true)
+      final ApartmentModel? apartment,
       @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
       final AgentModel? agent,
       @JsonKey(name: usersTable, includeToJson: false, includeFromJson: true)
@@ -659,6 +706,9 @@ abstract class _HouseUnitModel extends HouseUnitModel {
   @override
   @JsonKey(name: unitReviewsTable, includeToJson: false, includeFromJson: true)
   List<UnitReviewModel> get reviews;
+  @override
+  @JsonKey(name: apartmentsTable, includeToJson: false, includeFromJson: true)
+  ApartmentModel? get apartment;
   @override
   @JsonKey(name: agentsTable, includeToJson: false, includeFromJson: true)
   AgentModel? get agent;

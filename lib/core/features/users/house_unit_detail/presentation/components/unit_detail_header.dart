@@ -77,7 +77,7 @@ class _UnitDetailHeaderState extends State<UnitDetailHeader> {
                         ).colorScheme.primary.withValues(alpha: 0.08),
                       ),
                       child: Text(
-                        "Luxury Homes",
+                        widget.houseUnitModel.apartment?.name ?? 'Unknown',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.w700,

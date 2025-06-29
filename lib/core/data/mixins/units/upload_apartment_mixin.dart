@@ -39,13 +39,13 @@ mixin UploadApartmentMixin {
         }
 
         final response = await supabase.storage
-            .from(unitImagesBucket)
+            .from(apartmentImagesBucket)
             .uploadBinary(storagePath, fileBytes);
 
         if (response.isEmpty) throw Exception('Upload Failed for $storagePath');
 
         final publicUrl = supabase.storage
-            .from(unitImagesBucket)
+            .from(apartmentImagesBucket)
             .getPublicUrl(storagePath);
 
         uploadedUrls.add(publicUrl);
@@ -74,7 +74,7 @@ mixin UploadApartmentMixin {
         .from(apartmentsTable)
         .upsert(
           updatedApartmentModel.toJson(),
-          onConflict: 'user_id,apartment_id',
+          onConflict: 'apartment_id',
           ignoreDuplicates: false,
         )
         .select()

@@ -10,4 +10,5 @@ const String unitImagesTable = 'unit_images';
 const String unitReviewsTable = 'unit_reviews';
 
 /// Storage
+const String apartmentImagesBucket = 'apartment-images';
 const String unitImagesBucket = 'unit-images';

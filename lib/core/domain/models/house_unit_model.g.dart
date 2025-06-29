@@ -36,6 +36,9 @@ _$HouseUnitModelImpl _$$HouseUnitModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => UnitReviewModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <UnitReviewModel>[],
+      apartment: json['apartments'] == null
+          ? null
+          : ApartmentModel.fromJson(json['apartments'] as Map<String, dynamic>),
       agent: json['agents'] == null
           ? null
           : AgentModel.fromJson(json['agents'] as Map<String, dynamic>),

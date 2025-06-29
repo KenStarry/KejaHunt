@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keja_hunt/agents/features/apartment_upload/presentation/bloc/upload_apartment_bloc.dart';
 import 'package:keja_hunt/core/data/repository/shared_prefs_repository.dart';
 import 'package:keja_hunt/core/di/locator.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/bloc/upload_unit_bloc.dart';
@@ -45,6 +46,7 @@ Future<void> main() async {
 
         /// Agent
         BlocProvider(create: (context) => UploadUnitBloc()),
+        BlocProvider(create: (context) => UploadApartmentBloc()),
 
         /// User
         BlocProvider(create: (context) => UnitsBloc()),

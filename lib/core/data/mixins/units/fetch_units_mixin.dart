@@ -18,9 +18,10 @@ mixin FetchUnitsMixin {
         .from(unitsTable)
         //  select all units, images, agent metadata
         .select(
-          '*, images:$unitImagesTable(*), '
-          '$usersTable!units_user_id_fkey(*), '
-          '$agentsTable!units_user_id_fkey1(*), '
+          '*, images:$unitImagesTable(*),'
+          '$apartmentsTable!units_apartment_id_fkey(*),'
+          '$usersTable!units_user_id_fkey(*),'
+          '$agentsTable!units_user_id_fkey1(*),'
           '$unitReviewsTable(*, reviewer:$usersTable!unit_reviews_user_id_fkey(*))',
         );
 

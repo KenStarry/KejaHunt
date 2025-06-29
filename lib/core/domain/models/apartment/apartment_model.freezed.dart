@@ -28,17 +28,17 @@ mixin _$ApartmentModel {
   @JsonKey(name: "created_at", includeToJson: false)
   String get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: "name")
-  String? get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(name: "location")
-  String? get location => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
   @JsonKey(name: "county")
-  String? get county => throw _privateConstructorUsedError;
+  String get county => throw _privateConstructorUsedError;
   @JsonKey(name: "sub_county")
-  String? get subCounty => throw _privateConstructorUsedError;
+  String get subCounty => throw _privateConstructorUsedError;
   @JsonKey(name: "ward")
-  String? get ward => throw _privateConstructorUsedError;
+  String get ward => throw _privateConstructorUsedError;
   @JsonKey(name: "description")
-  String? get description => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   @JsonKey(name: "latitude")
   double? get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: "longitude")
@@ -68,12 +68,12 @@ abstract class $ApartmentModelCopyWith<$Res> {
       {@JsonKey(name: "apartment_id", includeToJson: false) String apartmentId,
       @JsonKey(name: "user_id") String userId,
       @JsonKey(name: "created_at", includeToJson: false) String createdAt,
-      @JsonKey(name: "name") String? name,
-      @JsonKey(name: "location") String? location,
-      @JsonKey(name: "county") String? county,
-      @JsonKey(name: "sub_county") String? subCounty,
-      @JsonKey(name: "ward") String? ward,
-      @JsonKey(name: "description") String? description,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "location") String location,
+      @JsonKey(name: "county") String county,
+      @JsonKey(name: "sub_county") String subCounty,
+      @JsonKey(name: "ward") String ward,
+      @JsonKey(name: "description") String description,
       @JsonKey(name: "latitude") double? latitude,
       @JsonKey(name: "longitude") double? longitude,
       @JsonKey(name: "cover_image_url", includeToJson: false)
@@ -100,12 +100,12 @@ class _$ApartmentModelCopyWithImpl<$Res, $Val extends ApartmentModel>
     Object? apartmentId = null,
     Object? userId = null,
     Object? createdAt = null,
-    Object? name = freezed,
-    Object? location = freezed,
-    Object? county = freezed,
-    Object? subCounty = freezed,
-    Object? ward = freezed,
-    Object? description = freezed,
+    Object? name = null,
+    Object? location = null,
+    Object? county = null,
+    Object? subCounty = null,
+    Object? ward = null,
+    Object? description = null,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? coverImageUrl = freezed,
@@ -124,30 +124,30 @@ class _$ApartmentModelCopyWithImpl<$Res, $Val extends ApartmentModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
+              as String,
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
-      county: freezed == county
+              as String,
+      county: null == county
           ? _value.county
           : county // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subCounty: freezed == subCounty
+              as String,
+      subCounty: null == subCounty
           ? _value.subCounty
           : subCounty // ignore: cast_nullable_to_non_nullable
-              as String?,
-      ward: freezed == ward
+              as String,
+      ward: null == ward
           ? _value.ward
           : ward // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
+              as String,
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -180,12 +180,12 @@ abstract class _$$ApartmentModelImplCopyWith<$Res>
       {@JsonKey(name: "apartment_id", includeToJson: false) String apartmentId,
       @JsonKey(name: "user_id") String userId,
       @JsonKey(name: "created_at", includeToJson: false) String createdAt,
-      @JsonKey(name: "name") String? name,
-      @JsonKey(name: "location") String? location,
-      @JsonKey(name: "county") String? county,
-      @JsonKey(name: "sub_county") String? subCounty,
-      @JsonKey(name: "ward") String? ward,
-      @JsonKey(name: "description") String? description,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "location") String location,
+      @JsonKey(name: "county") String county,
+      @JsonKey(name: "sub_county") String subCounty,
+      @JsonKey(name: "ward") String ward,
+      @JsonKey(name: "description") String description,
       @JsonKey(name: "latitude") double? latitude,
       @JsonKey(name: "longitude") double? longitude,
       @JsonKey(name: "cover_image_url", includeToJson: false)
@@ -210,12 +210,12 @@ class __$$ApartmentModelImplCopyWithImpl<$Res>
     Object? apartmentId = null,
     Object? userId = null,
     Object? createdAt = null,
-    Object? name = freezed,
-    Object? location = freezed,
-    Object? county = freezed,
-    Object? subCounty = freezed,
-    Object? ward = freezed,
-    Object? description = freezed,
+    Object? name = null,
+    Object? location = null,
+    Object? county = null,
+    Object? subCounty = null,
+    Object? ward = null,
+    Object? description = null,
     Object? latitude = freezed,
     Object? longitude = freezed,
     Object? coverImageUrl = freezed,
@@ -234,30 +234,30 @@ class __$$ApartmentModelImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
+              as String,
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
-      county: freezed == county
+              as String,
+      county: null == county
           ? _value.county
           : county // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subCounty: freezed == subCounty
+              as String,
+      subCounty: null == subCounty
           ? _value.subCounty
           : subCounty // ignore: cast_nullable_to_non_nullable
-              as String?,
-      ward: freezed == ward
+              as String,
+      ward: null == ward
           ? _value.ward
           : ward // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
+              as String,
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -283,17 +283,17 @@ class __$$ApartmentModelImplCopyWithImpl<$Res>
 class _$ApartmentModelImpl implements _ApartmentModel {
   const _$ApartmentModelImpl(
       {@JsonKey(name: "apartment_id", includeToJson: false)
-      required this.apartmentId,
+      this.apartmentId = '',
       @JsonKey(name: "user_id") this.userId = '',
       @JsonKey(name: "created_at", includeToJson: false) this.createdAt = '',
-      @JsonKey(name: "name") this.name = null,
-      @JsonKey(name: "location") this.location = null,
-      @JsonKey(name: "county") this.county = null,
-      @JsonKey(name: "sub_county") this.subCounty = null,
-      @JsonKey(name: "ward") this.ward = null,
-      @JsonKey(name: "description") this.description = null,
-      @JsonKey(name: "latitude") this.latitude = null,
-      @JsonKey(name: "longitude") this.longitude = null,
+      @JsonKey(name: "name") this.name = '',
+      @JsonKey(name: "location") this.location = '',
+      @JsonKey(name: "county") this.county = '',
+      @JsonKey(name: "sub_county") this.subCounty = '',
+      @JsonKey(name: "ward") this.ward = '',
+      @JsonKey(name: "description") this.description = '',
+      @JsonKey(name: "latitude") this.latitude = 0,
+      @JsonKey(name: "longitude") this.longitude = 0,
       @JsonKey(name: "cover_image_url", includeToJson: false)
       this.coverImageUrl = null,
       @JsonKey(name: "coverImage", includeToJson: false, includeFromJson: false)
@@ -314,22 +314,22 @@ class _$ApartmentModelImpl implements _ApartmentModel {
   final String createdAt;
   @override
   @JsonKey(name: "name")
-  final String? name;
+  final String name;
   @override
   @JsonKey(name: "location")
-  final String? location;
+  final String location;
   @override
   @JsonKey(name: "county")
-  final String? county;
+  final String county;
   @override
   @JsonKey(name: "sub_county")
-  final String? subCounty;
+  final String subCounty;
   @override
   @JsonKey(name: "ward")
-  final String? ward;
+  final String ward;
   @override
   @JsonKey(name: "description")
-  final String? description;
+  final String description;
   @override
   @JsonKey(name: "latitude")
   final double? latitude;
@@ -415,15 +415,15 @@ class _$ApartmentModelImpl implements _ApartmentModel {
 abstract class _ApartmentModel implements ApartmentModel {
   const factory _ApartmentModel(
       {@JsonKey(name: "apartment_id", includeToJson: false)
-      required final String apartmentId,
+      final String apartmentId,
       @JsonKey(name: "user_id") final String userId,
       @JsonKey(name: "created_at", includeToJson: false) final String createdAt,
-      @JsonKey(name: "name") final String? name,
-      @JsonKey(name: "location") final String? location,
-      @JsonKey(name: "county") final String? county,
-      @JsonKey(name: "sub_county") final String? subCounty,
-      @JsonKey(name: "ward") final String? ward,
-      @JsonKey(name: "description") final String? description,
+      @JsonKey(name: "name") final String name,
+      @JsonKey(name: "location") final String location,
+      @JsonKey(name: "county") final String county,
+      @JsonKey(name: "sub_county") final String subCounty,
+      @JsonKey(name: "ward") final String ward,
+      @JsonKey(name: "description") final String description,
       @JsonKey(name: "latitude") final double? latitude,
       @JsonKey(name: "longitude") final double? longitude,
       @JsonKey(name: "cover_image_url", includeToJson: false)
@@ -446,22 +446,22 @@ abstract class _ApartmentModel implements ApartmentModel {
   String get createdAt;
   @override
   @JsonKey(name: "name")
-  String? get name;
+  String get name;
   @override
   @JsonKey(name: "location")
-  String? get location;
+  String get location;
   @override
   @JsonKey(name: "county")
-  String? get county;
+  String get county;
   @override
   @JsonKey(name: "sub_county")
-  String? get subCounty;
+  String get subCounty;
   @override
   @JsonKey(name: "ward")
-  String? get ward;
+  String get ward;
   @override
   @JsonKey(name: "description")
-  String? get description;
+  String get description;
   @override
   @JsonKey(name: "latitude")
   double? get latitude;

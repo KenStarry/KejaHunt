@@ -322,6 +322,7 @@ class _ApartmentDetailsSectionState extends State<ApartmentDetailsSection>
                     ApartmentUploadDetailsModel(
                       name: nameController.text,
                       description: descriptionController.text,
+                      location: locationController.text,
                       lat: lat,
                       lng: lng,
                       coverImage: pickedCoverImage!,

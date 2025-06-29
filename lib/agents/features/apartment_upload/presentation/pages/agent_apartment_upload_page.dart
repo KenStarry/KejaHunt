@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:keja_hunt/agents/features/apartment_upload/presentation/bloc/upload_apartment_bloc.dart';
 import 'package:keja_hunt/agents/features/apartment_upload/presentation/components/apartment_preview_section.dart';
+import 'package:keja_hunt/core/domain/models/apartment/apartment_model.dart';
 
 import '../../../../../core/presentation/components/stepper/stepper_model.dart';
 import '../../../../../core/features/agents/agent_unit_upload/presentation/components/stepper_screen.dart';
@@ -70,6 +73,12 @@ class _AgentApartmentUploadPageState extends State<AgentApartmentUploadPage> {
                       setState(() {
                         _apartmentDetails = details;
                       });
+
+                      _pageController.animateToPage(
+                        1,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
                     },
                   ),
                 ),
@@ -80,7 +89,18 @@ class _AgentApartmentUploadPageState extends State<AgentApartmentUploadPage> {
                   stepperScreen: ApartmentPreviewSection(
                     apartmentUploadDetailsModel: _apartmentDetails,
                     onSave: () {
-
+                      context.read<UploadApartmentBloc>().add(
+                        ApartmentUploadEvent(
+                          apartmentModel: ApartmentModel(
+                            name: _apartmentDetails?.name ?? '',
+                            location: _apartmentDetails?.location ?? '',
+                            description: _apartmentDetails?.description ?? '',
+                            latitude: _apartmentDetails?.lat,
+                            longitude: _apartmentDetails?.lng,
+                            coverImage: _apartmentDetails?.coverImage
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
