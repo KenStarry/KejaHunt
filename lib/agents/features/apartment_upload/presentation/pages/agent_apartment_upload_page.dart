@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:keja_hunt/core/features/agents/agent_apartment_upload/presentation/components/apartment_details_section.dart';
+import 'package:keja_hunt/agents/features/apartment_upload/presentation/components/apartment_preview_section.dart';
 
-import '../../../../../presentation/components/stepper/stepper_model.dart';
-import '../../../agent_unit_upload/presentation/components/stepper_screen.dart';
+import '../../../../../core/presentation/components/stepper/stepper_model.dart';
+import '../../../../../core/features/agents/agent_unit_upload/presentation/components/stepper_screen.dart';
+import '../components/apartment_details_section.dart';
+import '../model/apartment_upload_details_model.dart';
 
 class AgentApartmentUploadPage extends StatefulWidget {
   const AgentApartmentUploadPage({super.key});
 
   @override
-  State<AgentApartmentUploadPage> createState() => _AgentApartmentUploadPageState();
+  State<AgentApartmentUploadPage> createState() =>
+      _AgentApartmentUploadPageState();
 }
 
 class _AgentApartmentUploadPageState extends State<AgentApartmentUploadPage> {
-
   late final PageController _pageController;
+  ApartmentUploadDetailsModel? _apartmentDetails;
   int activeIndex = 0;
 
   @override
@@ -29,7 +32,6 @@ class _AgentApartmentUploadPageState extends State<AgentApartmentUploadPage> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +65,24 @@ class _AgentApartmentUploadPageState extends State<AgentApartmentUploadPage> {
                   activeIcon: "assets/images/icons/edit_alt_filled.svg",
                   inactiveIcon: "assets/images/icons/edit_alt_outlined.svg",
                   title: "Apartment Details",
-                  stepperScreen: ApartmentDetailsSection(onNext: (){})
+                  stepperScreen: ApartmentDetailsSection(
+                    onNext: (details) {
+                      setState(() {
+                        _apartmentDetails = details;
+                      });
+                    },
+                  ),
                 ),
                 StepperModel(
                   activeIcon: "assets/images/icons/show_filled.svg",
                   inactiveIcon: "assets/images/icons/show_outlined.svg",
                   title: "Preview",
-                  stepperScreen: Text("Preview")
+                  stepperScreen: ApartmentPreviewSection(
+                    apartmentUploadDetailsModel: _apartmentDetails,
+                    onSave: () {
+
+                    },
+                  ),
                 ),
               ],
             ),

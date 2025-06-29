@@ -5,6 +5,7 @@ import 'package:keja_hunt/agents/features/dashboard/presentation/pages/agent_das
 import 'package:keja_hunt/core/domain/models/house_unit_model.dart';
 import 'package:keja_hunt/core/domain/models/unit_feature_model.dart';
 import 'package:keja_hunt/core/domain/models/units/unit_review_model.dart';
+import 'package:keja_hunt/agents/features/apartment_upload/presentation/pages/agent_apartment_upload_page.dart';
 import 'package:keja_hunt/core/features/agents/agent_unit_upload/presentation/pages/agent_unit_upload_page.dart';
 import 'package:keja_hunt/core/features/auth/data/classes/gorouter_refresh_stream.dart';
 import 'package:keja_hunt/core/features/auth/presentation/bloc/auth_bloc.dart';
@@ -75,10 +76,15 @@ final GoRoute agentUnitUploadRoute = GoRoute(
   builder: (context, state) => AgentUnitUploadPage(),
 );
 
+final GoRoute agentApartmentUploadRoute = GoRoute(
+  path: '/agent-apartment-upload',
+  name: 'agent-apartment-upload',
+  builder: (context, state) => AgentApartmentUploadPage(),
+);
+
 GoRouter appRouter(AuthBloc authBloc) => GoRouter(
   refreshListenable: GorouterRefreshStream(authBloc.stream),
-  initialLocation: '/user-map',
-  initialExtra: <UnitReviewModel>[],
+  initialLocation: '/agent-apartment-upload',
   // initialExtra: HouseUnitModel(apartmentId: "er4", unitType: UnitTypeEnum.mansion.name, price: 35000),
   // initialExtra: [
   //   UnitImageModel(
@@ -152,6 +158,7 @@ GoRouter appRouter(AuthBloc authBloc) => GoRouter(
     /// Agent Routes
     agentDashboardRoute,
     agentUnitUploadRoute,
+    agentApartmentUploadRoute,
 
     /// User Routes
     userDashboardRoutes,

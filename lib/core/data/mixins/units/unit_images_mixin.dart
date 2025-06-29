@@ -17,4 +17,11 @@ mixin UnitImagesMixin {
 
     return images;
   }
+
+  /// Pick Single Image
+  Future<XFile?> pickSingleImage() async {
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
+
+    return image;
+  }
 }
