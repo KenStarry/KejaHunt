@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:keja_hunt/agents/features/agent_profile/presentation/bloc/agent_apartments_bloc.dart';
 import 'package:keja_hunt/agents/features/agent_profile/presentation/components/agent_profile_apartments.dart';
 import 'package:keja_hunt/agents/features/agent_profile/presentation/components/agent_profile_header.dart';
+import 'package:keja_hunt/agents/features/agent_profile/presentation/components/agent_profile_tabs.dart';
 import 'package:keja_hunt/core/features/users/dashboard/presentation/bloc/user_bloc.dart';
 import 'package:keja_hunt/core/presentation/components/avatar.dart';
 import 'package:keja_hunt/core/utils/theme/colors.dart';
@@ -65,7 +66,11 @@ class _AgentProfilePageState extends State<AgentProfilePage> {
               spacing: 24,
               children: [
                 AgentProfileHeader(),
-                Expanded(child: AgentProfileApartments())
+                Expanded(child: SizedBox(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: AgentProfileTabs(),
+                ))
               ],
             ),
           );

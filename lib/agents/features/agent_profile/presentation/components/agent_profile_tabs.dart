@@ -7,6 +7,7 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../../../../core/features/users/dashboard/presentation/bloc/user_bloc.dart';
 import '../../../../../core/presentation/components/avatar.dart';
+import 'agent_profile_apartments.dart';
 
 class AgentProfileTabs extends StatefulWidget {
   const AgentProfileTabs({super.key});
@@ -15,29 +16,51 @@ class AgentProfileTabs extends StatefulWidget {
   State<AgentProfileTabs> createState() => _AgentProfileTabsState();
 }
 
-class _AgentProfileTabsState extends State<AgentProfileTabs> {
+class _AgentProfileTabsState extends State<AgentProfileTabs> with SingleTickerProviderStateMixin {
+  int activeTabIndex = 0;
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(length: 10, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 50,
-      margin: const EdgeInsets.only(left: 20),
-      child: ListView.builder(
-        physics: const AlwaysScrollableScrollPhysics(
-          parent: BouncingScrollPhysics(),
-        ),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          final isActive = index == 0;
+    return Column(
+      spacing: 16,
+      children: [
+        TabBar(
+            controller: _tabController,
+            isScrollable: true,
+            indicatorColor: Colors.transparent,
+            indicatorWeight: 1,
+            padding: EdgeInsets.zero,
+            dividerHeight: 0,
+            tabAlignment: TabAlignment.start,
+            indicatorSize: TabBarIndicatorSize.label,
+            onTap: (index) {
+              setState(() {
+                activeTabIndex = index;
+              });
+            },
+            physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+            tabs: List.generate(10, (index) {
+          final isActive = index == activeTabIndex;
 
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 0,
+              vertical: 8,
+            ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               color: Colors.transparent,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -63,8 +86,10 @@ class _AgentProfileTabsState extends State<AgentProfileTabs> {
               ],
             ),
           );
-        },
-      ),
+        })),
+
+        Expanded(child: AgentProfileApartments()),
+      ],
     );
   }
 }
