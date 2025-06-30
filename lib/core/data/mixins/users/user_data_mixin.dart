@@ -7,7 +7,7 @@ import '../../../utils/supabase_constants.dart';
 mixin UserDataMixin {
   final supabase = locator.get<SupabaseClient>();
 
-  Future<UserModel?> fetchUserById() async {
+  Future<UserModel?> fetchUserById({required String? userId}) async {
     final user = supabase.auth.currentUser;
     if (user == null) {
       throw Exception('No user is currently logged in');
@@ -16,14 +16,14 @@ mixin UserDataMixin {
     final userResponse = await supabase
         .from(usersTable)
         .select()
-        .eq('user_id', user.id)
+        .eq('user_id', (userId ?? user.id))
         .maybeSingle();
 
     /// Check if the user is an agent
     final agentData = await supabase
         .from('agents')
         .select()
-        .eq('user_id', user.id)
+        .eq('user_id', (userId ?? user.id))
         .maybeSingle();
 
     final userModel = userResponse == null

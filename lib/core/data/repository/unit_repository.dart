@@ -1,3 +1,4 @@
+import 'package:keja_hunt/core/data/mixins/units/fetch_apartments_mixin.dart';
 import 'package:keja_hunt/core/data/mixins/units/fetch_units_mixin.dart';
 import 'package:keja_hunt/core/data/mixins/units/unit_images_mixin.dart';
 import 'package:keja_hunt/core/data/mixins/units/unit_reviews_mixin.dart';
@@ -12,4 +13,5 @@ class UnitRepository
         FetchUnitsMixin,
         UnitReviewsMixin,
         /// Apartments
+        FetchApartmentsMixin,
         UploadApartmentMixin {}

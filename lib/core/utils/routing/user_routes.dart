@@ -60,6 +60,7 @@ final userMapPageRoute = StatefulShellBranch(
       builder: (context, state) {
         if (state.matchedLocation == '/user-map') {
           // context.read<UserBloc>().add(FetchUserEvent());
+          context.read<UnitsBloc>().add(FetchAllUnitsEvent());
         }
 
         return const UserMapPage();
